@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../extension.schema.json",
+  "$id": "my-extension",
+  "$version": "1.0.0",
+  "$vendor": "Your name or company name",
+  "$name": "plugin1",
+  "$description": "demo plugin",
+  "$license": "MIT",
+
+  "routes": [
+    {
+      "id": "my.extension.route",
+      "path": "ext/my/route",
+      "component": "my-extension.main.component"
+    }
+  ],
+
+  "features": {
+    "navbar": [
+      {
+        "id": "my.extension.nav",
+        "items": [
+          {
+            "id": "my.extension.main",
+            "icon": "extension",
+            "title": "My Extension",
+            "route": "my.extension.route"
+          }
+        ]
+      }
+    ]
+  }
+}

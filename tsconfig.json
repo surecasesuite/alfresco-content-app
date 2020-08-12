@@ -30,6 +30,12 @@
     },
     {
       "path": "./projects/adf-office-services-ext/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/my-extension/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/my-extension/tsconfig.spec.json"
     }
   ]
 }
