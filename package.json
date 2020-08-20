@@ -30,7 +30,8 @@
     "e2e:docker": "./start.sh && npm run e2e && ./start.sh -d",
     "spellcheck": "cspell '{src,e2e,projects}/**/*.ts'",
     "inspect.bundle": "ng build app --prod --stats-json && npx webpack-bundle-analyzer dist/app/stats.json",
-    "validate-config": "ajv validate -s ./node_modules/@alfresco/adf-core/app.config.schema.json -d ./src/app.config.json --errors=text --verbose"
+    "validate-config": "ajv validate -s ./node_modules/@alfresco/adf-core/app.config.schema.json -d ./src/app.config.json --errors=text --verbose",
+    "copy-extensions": "rm -rf ./node_modules/@alfresco/adf-extensions && mkdir -p ./node_modules/@alfresco/adf-extensions && cp -R ../alfresco-ng2-components/lib/dist/extensions/* ./node_modules/@alfresco/adf-extensions"
   },
   "private": true,
   "dependencies": {

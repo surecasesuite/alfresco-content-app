@@ -240,6 +240,11 @@
     ],
     "toolbar": [
       {
+        "id": "web.components.hello-world",
+        "type": "custom",
+        "component": "wc:hello-world"
+      },
+      {
         "id": "app.toolbar.searchFilter",
         "order": 50,
         "title": "APP.BROWSE.SEARCH.TOGGLE_SEARCH_FILTER",
