@@ -2,8 +2,7 @@
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
 const path = require('path');
-const {SpecReporter} = require('jasmine-spec-reporter');
-const fs = require('fs');
+const { SpecReporter } = require('jasmine-spec-reporter');
 const resolve = require('path').resolve;
 const logger = require('./tools/helpers/logger');
 const retry = require('protractor-retry-angular-cli').retry;
@@ -50,7 +49,7 @@ exports.config = {
     }
   },
 
-  specs: [
+ specs: [
     './e2e/suites/actions/**/**/*test.ts',
     './e2e/suites/actions-available/**/**/*test.ts',
     './e2e/suites/application/**/*test.ts',
