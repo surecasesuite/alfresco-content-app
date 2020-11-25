@@ -92,14 +92,6 @@ export const APP_ROUTES: Routes = [
               defaultNodeId: '-my-'
             }
           },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'personal-files'
-            }
-          },
           {
             path: 'view/:nodeId',
             outlet: 'viewer',
@@ -152,22 +144,6 @@ export const APP_ROUTES: Routes = [
               }
             ]
           },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'personal-files'
-            }
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: ':folderId/preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'personal-files'
-            }
-          },
           {
             path: 'view/:nodeId',
             outlet: 'viewer',
@@ -205,14 +181,6 @@ export const APP_ROUTES: Routes = [
             data: {
               title: 'APP.BROWSE.LIBRARIES.MENU.MY_LIBRARIES.TITLE',
               sortingPreferenceKey: 'libraries-files'
-            }
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'libraries'
             }
           },
           {
@@ -287,16 +255,6 @@ export const APP_ROUTES: Routes = [
               title: 'APP.BROWSE.FAVORITES.TITLE',
               sortingPreferenceKey: 'favorites'
             }
-            // loadChildren:
-            //   './components/favorites/favorites.module#AppFavoritesModule'
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'favorites'
-            }
           },
           {
             path: 'view/:nodeId',
@@ -338,16 +296,6 @@ export const APP_ROUTES: Routes = [
             data: {
               title: 'APP.BROWSE.RECENT.TITLE'
             }
-            // loadChildren:
-            //   './components/recent-files/recent-files.module#AppRecentFilesModule'
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'recent-files'
-            }
           },
           {
             path: 'view/:nodeId',
@@ -387,16 +335,6 @@ export const APP_ROUTES: Routes = [
               sortingPreferenceKey: 'shared-files'
             },
             component: SharedFilesComponent
-            // loadChildren:
-            //   './components/shared-files/shared-files.module#AppSharedFilesModule'
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'shared'
-            }
           },
           {
             path: 'view/:nodeId',
@@ -440,14 +378,6 @@ export const APP_ROUTES: Routes = [
             component: SearchResultsComponent,
             data: {
               title: 'APP.BROWSE.SEARCH.TITLE'
-            }
-          },
-          // deprecated, backwards compatibility with ACA 1.8
-          {
-            path: 'preview/:nodeId',
-            loadChildren: () => import('./components/preview/preview.module').then((m) => m.PreviewModule),
-            data: {
-              navigateSource: 'search'
             }
           },
           {
