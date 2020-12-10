@@ -24,7 +24,7 @@
  */
 import { ContentActionRef } from '@alfresco/adf-extensions';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { SetInfoDrawerStateAction, ToggleInfoDrawerAction } from '@alfresco/aca-shared/store';
 import { of, Subject } from 'rxjs';
@@ -91,68 +91,80 @@ describe('InfoDrawerComponent', () => {
     expect(storeMock.dispatch).toHaveBeenCalledWith(new SetInfoDrawerStateAction(false));
   });
 
-  it('should set displayNode when node is library', async(() => {
-    spyOn(contentApiService, 'getNodeInfo');
-    const nodeMock: any = {
-      entry: { id: 'nodeId' },
-      isLibrary: true
-    };
-    component.node = nodeMock;
+  it(
+    'should set displayNode when node is library',
+    waitForAsync(() => {
+      spyOn(contentApiService, 'getNodeInfo');
+      const nodeMock: any = {
+        entry: { id: 'nodeId' },
+        isLibrary: true
+      };
+      component.node = nodeMock;
 
-    fixture.detectChanges();
-    component.ngOnChanges();
+      fixture.detectChanges();
+      component.ngOnChanges();
 
-    expect(component.displayNode).toBe(nodeMock);
-    expect(contentApiService.getNodeInfo).not.toHaveBeenCalled();
-  }));
+      expect(component.displayNode).toBe(nodeMock);
+      expect(contentApiService.getNodeInfo).not.toHaveBeenCalled();
+    })
+  );
 
-  it('should call getNodeInfo() when node is a shared file', async(() => {
-    const response: any = { entry: { id: 'nodeId' } };
-    spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
-    const nodeMock: any = { entry: { nodeId: 'nodeId' }, isLibrary: false };
-    component.node = nodeMock;
+  it(
+    'should call getNodeInfo() when node is a shared file',
+    waitForAsync(() => {
+      const response: any = { entry: { id: 'nodeId' } };
+      spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
+      const nodeMock: any = { entry: { nodeId: 'nodeId' }, isLibrary: false };
+      component.node = nodeMock;
 
-    fixture.detectChanges();
-    component.ngOnChanges();
+      fixture.detectChanges();
+      component.ngOnChanges();
 
-    expect(component.displayNode).toBe(response);
-    expect(contentApiService.getNodeInfo).toHaveBeenCalled();
-  }));
+      expect(component.displayNode).toBe(response);
+      expect(contentApiService.getNodeInfo).toHaveBeenCalled();
+    })
+  );
 
-  it('should call getNodeInfo() when node is a favorite file', async(() => {
-    const response: any = { entry: { id: 'nodeId' } };
-    spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
-    const nodeMock: any = {
-      entry: { id: 'nodeId', guid: 'guidId' },
-      isLibrary: false
-    };
-    component.node = nodeMock;
+  it(
+    'should call getNodeInfo() when node is a favorite file',
+    waitForAsync(() => {
+      const response: any = { entry: { id: 'nodeId' } };
+      spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
+      const nodeMock: any = {
+        entry: { id: 'nodeId', guid: 'guidId' },
+        isLibrary: false
+      };
+      component.node = nodeMock;
 
-    fixture.detectChanges();
-    component.ngOnChanges();
+      fixture.detectChanges();
+      component.ngOnChanges();
 
-    expect(component.displayNode).toBe(response);
-    expect(contentApiService.getNodeInfo).toHaveBeenCalled();
-  }));
+      expect(component.displayNode).toBe(response);
+      expect(contentApiService.getNodeInfo).toHaveBeenCalled();
+    })
+  );
 
-  it('should call getNodeInfo() when node is a recent file', async(() => {
-    const response: any = { entry: { id: 'nodeId' } };
-    spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
-    const nodeMock: any = {
-      entry: {
-        id: 'nodeId',
-        content: { mimeType: 'image/jpeg' }
-      },
-      isLibrary: false
-    };
-    component.node = nodeMock;
+  it(
+    'should call getNodeInfo() when node is a recent file',
+    waitForAsync(() => {
+      const response: any = { entry: { id: 'nodeId' } };
+      spyOn(contentApiService, 'getNodeInfo').and.returnValue(of(response));
+      const nodeMock: any = {
+        entry: {
+          id: 'nodeId',
+          content: { mimeType: 'image/jpeg' }
+        },
+        isLibrary: false
+      };
+      component.node = nodeMock;
 
-    fixture.detectChanges();
-    component.ngOnChanges();
+      fixture.detectChanges();
+      component.ngOnChanges();
 
-    expect(component.displayNode).toBe(response);
-    expect(contentApiService.getNodeInfo).toHaveBeenCalled();
-  }));
+      expect(component.displayNode).toBe(response);
+      expect(contentApiService.getNodeInfo).toHaveBeenCalled();
+    })
+  );
 
   it('should dispatch close panel on Esc keyboard event', () => {
     const event = new KeyboardEvent('keydown', {

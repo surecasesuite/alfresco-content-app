@@ -24,7 +24,7 @@
  */
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { SidenavComponent } from './sidenav.component';
 import { AppTestingModule } from '../../testing/app-testing.module';
 import { AppExtensionService } from '@alfresco/aca-shared';
@@ -43,36 +43,41 @@ describe('SidenavComponent', () => {
     }
   ];
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [AppTestingModule],
-      providers: [AppExtensionService],
-      declarations: [SidenavComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [AppTestingModule],
+        providers: [AppExtensionService],
+        declarations: [SidenavComponent],
+        schemas: [NO_ERRORS_SCHEMA]
+      })
+        .compileComponents()
+        .then(() => {
+          fixture = TestBed.createComponent(SidenavComponent);
+          component = fixture.componentInstance;
+          extensionService = TestBed.inject(AppExtensionService);
+
+          extensionService.navbar = navbarMock;
+
+          fixture.detectChanges();
+        });
     })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(SidenavComponent);
-        component = fixture.componentInstance;
-        extensionService = TestBed.inject(AppExtensionService);
-
-        extensionService.navbar = navbarMock;
-
-        fixture.detectChanges();
-      });
-  }));
+  );
 
   // TODO: fix with ADF 4.1
-  it('should set the sidenav data', async(() => {
-    expect(component.groups).toEqual([
-      {
-        items: [
-          {
-            route: 'route',
-            url: '/route'
-          }
-        ]
-      } as any
-    ]);
-  }));
+  it(
+    'should set the sidenav data',
+    waitForAsync(() => {
+      expect(component.groups).toEqual([
+        {
+          items: [
+            {
+              route: 'route',
+              url: '/route'
+            }
+          ]
+        } as any
+      ]);
+    })
+  );
 });

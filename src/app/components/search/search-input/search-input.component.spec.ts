@@ -24,7 +24,7 @@
  */
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, async, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { SearchInputComponent } from './search-input.component';
 import { AppTestingModule } from '../../../testing/app-testing.module';
 import { Actions, ofType } from '@ngrx/effects';
@@ -40,22 +40,24 @@ describe('SearchInputComponent', () => {
   let actions$: Actions;
   let content: ContentManagementService;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [AppTestingModule],
-      declarations: [SearchInputComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-      providers: [SearchQueryBuilderService, SearchLibrariesQueryBuilderService]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [AppTestingModule],
+        declarations: [SearchInputComponent],
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [SearchQueryBuilderService, SearchLibrariesQueryBuilderService]
+      })
+        .compileComponents()
+        .then(() => {
+          actions$ = TestBed.inject(Actions);
+          fixture = TestBed.createComponent(SearchInputComponent);
+          content = TestBed.inject(ContentManagementService);
+          component = fixture.componentInstance;
+          fixture.detectChanges();
+        });
     })
-      .compileComponents()
-      .then(() => {
-        actions$ = TestBed.inject(Actions);
-        fixture = TestBed.createComponent(SearchInputComponent);
-        content = TestBed.inject(ContentManagementService);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-      });
-  }));
+  );
 
   it('should change flag on library400Error event', () => {
     expect(component.has400LibraryError).toBe(false);

@@ -26,7 +26,7 @@
 import { AppHeaderComponent } from './header.component';
 import { AppState } from '@alfresco/aca-shared/store';
 import { of } from 'rxjs';
-import { async } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { ContentActionRef } from '@alfresco/adf-extensions';
 
 describe('AppHeaderComponent', () => {
@@ -59,11 +59,14 @@ describe('AppHeaderComponent', () => {
     component = new AppHeaderComponent(store, appExtensionService);
   });
 
-  it('should set header color, name and logo', async(() => {
-    component.appName$.subscribe((val) => expect(val).toBe(app.appName));
-    component.logo$.subscribe((val) => expect(val).toBe(app.logoPath));
-    component.headerColor$.subscribe((val) => expect(val).toBe(app.headerColor));
-  }));
+  it(
+    'should set header color, name and logo',
+    waitForAsync(() => {
+      component.appName$.subscribe((val) => expect(val).toBe(app.appName));
+      component.logo$.subscribe((val) => expect(val).toBe(app.logoPath));
+      component.headerColor$.subscribe((val) => expect(val).toBe(app.headerColor));
+    })
+  );
 
   it('should get header actions', () => {
     component.ngOnInit();

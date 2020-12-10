@@ -23,7 +23,7 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { of, throwError, Subject, Observable } from 'rxjs';
 import { AlfrescoApiService, TranslationService } from '@alfresco/adf-core';
@@ -116,147 +116,171 @@ describe('NodeActionsService', () => {
   });
 
   describe('ContentNodeSelector configuration', () => {
-    it('should validate selection when allowableOperation has `create`', async(() => {
-      spyOn(dialog, 'open');
-      const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
-      const subject = new Subject<MinimalNodeEntryEntity[]>();
+    it(
+      'should validate selection when allowableOperation has `create`',
+      waitForAsync(() => {
+        spyOn(dialog, 'open');
+        const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
+        const subject = new Subject<MinimalNodeEntryEntity[]>();
 
-      service.getContentNodeSelection('', contentEntities as NodeEntry[]);
-      subject.next([new TestNode().entry]);
+        service.getContentNodeSelection('', contentEntities as NodeEntry[]);
+        subject.next([new TestNode().entry]);
 
-      const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
-        name: 'some-folder-template',
-        isFile: false,
-        isFolder: true,
-        path: { elements: [{}, {}] },
-        allowableOperations: ['create']
-      });
+        const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
+          name: 'some-folder-template',
+          isFile: false,
+          isFolder: true,
+          path: { elements: [{}, {}] },
+          allowableOperations: ['create']
+        });
 
-      expect(isSelectionValid).toBe(true);
-    }));
+        expect(isSelectionValid).toBe(true);
+      })
+    );
 
-    it('should invalidate selection when allowableOperation does not have `create`', async(() => {
-      spyOn(dialog, 'open');
-      const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
-      const subject = new Subject<MinimalNodeEntryEntity[]>();
+    it(
+      'should invalidate selection when allowableOperation does not have `create`',
+      waitForAsync(() => {
+        spyOn(dialog, 'open');
+        const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
+        const subject = new Subject<MinimalNodeEntryEntity[]>();
 
-      service.getContentNodeSelection('', contentEntities as NodeEntry[]);
-      subject.next([new TestNode().entry]);
+        service.getContentNodeSelection('', contentEntities as NodeEntry[]);
+        subject.next([new TestNode().entry]);
 
-      const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
-        name: 'some-folder-template',
-        isFile: false,
-        isFolder: true,
-        path: { elements: [{}, {}] },
-        allowableOperations: ['any']
-      });
+        const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
+          name: 'some-folder-template',
+          isFile: false,
+          isFolder: true,
+          path: { elements: [{}, {}] },
+          allowableOperations: ['any']
+        });
 
-      expect(isSelectionValid).toBe(false);
-    }));
+        expect(isSelectionValid).toBe(false);
+      })
+    );
 
-    it('should invalidate selection if isSite', async(() => {
-      spyOn(dialog, 'open');
-      const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
-      const subject = new Subject<MinimalNodeEntryEntity[]>();
+    it(
+      'should invalidate selection if isSite',
+      waitForAsync(() => {
+        spyOn(dialog, 'open');
+        const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
+        const subject = new Subject<MinimalNodeEntryEntity[]>();
 
-      service.getContentNodeSelection('', contentEntities as NodeEntry[]);
-      subject.next([new TestNode().entry]);
+        service.getContentNodeSelection('', contentEntities as NodeEntry[]);
+        subject.next([new TestNode().entry]);
 
-      const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
-        name: 'some-folder-template',
-        isFile: false,
-        isFolder: true,
-        path: { elements: [{}, {}] },
-        nodeType: 'st:site',
-        allowableOperations: ['create']
-      });
+        const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
+          name: 'some-folder-template',
+          isFile: false,
+          isFolder: true,
+          path: { elements: [{}, {}] },
+          nodeType: 'st:site',
+          allowableOperations: ['create']
+        });
 
-      expect(isSelectionValid).toBe(false);
-    }));
+        expect(isSelectionValid).toBe(false);
+      })
+    );
 
-    it('should validate selection if not a Site', async(() => {
-      spyOn(dialog, 'open');
-      const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
-      const subject = new Subject<MinimalNodeEntryEntity[]>();
+    it(
+      'should validate selection if not a Site',
+      waitForAsync(() => {
+        spyOn(dialog, 'open');
+        const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
+        const subject = new Subject<MinimalNodeEntryEntity[]>();
 
-      service.getContentNodeSelection('', contentEntities as NodeEntry[]);
-      subject.next([new TestNode().entry]);
+        service.getContentNodeSelection('', contentEntities as NodeEntry[]);
+        subject.next([new TestNode().entry]);
 
-      const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
-        name: 'some-folder-template',
-        isFile: false,
-        isFolder: true,
-        path: { elements: [{}, {}] },
-        nodeType: 'cm:folder',
-        allowableOperations: ['create']
-      });
+        const isSelectionValid = dialog.open['calls'].argsFor(0)[1].data.isSelectionValid({
+          name: 'some-folder-template',
+          isFile: false,
+          isFolder: true,
+          path: { elements: [{}, {}] },
+          nodeType: 'cm:folder',
+          allowableOperations: ['create']
+        });
 
-      expect(isSelectionValid).toBe(true);
-    }));
+        expect(isSelectionValid).toBe(true);
+      })
+    );
   });
 
   describe('doBatchOperation', () => {
-    it("should throw error if 'contentEntities' required parameter is missing", async(() => {
-      const contentEntities = undefined;
-      const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
+    it(
+      "should throw error if 'contentEntities' required parameter is missing",
+      waitForAsync(() => {
+        const contentEntities = undefined;
+        const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
 
-      doCopyBatchOperation
-        .toPromise()
-        .then(
-          () => spyOnSuccess(),
-          (error) => spyOnError(error)
-        )
-        .then(() => {
-          expect(spyOnSuccess).not.toHaveBeenCalled();
-          expect(spyOnError).toHaveBeenCalled();
-        });
-    }));
+        doCopyBatchOperation
+          .toPromise()
+          .then(
+            () => spyOnSuccess(),
+            (error) => spyOnError(error)
+          )
+          .then(() => {
+            expect(spyOnSuccess).not.toHaveBeenCalled();
+            expect(spyOnError).toHaveBeenCalled();
+          });
+      })
+    );
 
-    it("should throw error if 'contentEntities' is not an array of entry entities", async(() => {
-      const contentEntities = [new TestNode(), {}];
-      const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
+    it(
+      "should throw error if 'contentEntities' is not an array of entry entities",
+      waitForAsync(() => {
+        const contentEntities = [new TestNode(), {}];
+        const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
 
-      doCopyBatchOperation
-        .toPromise()
-        .then(
-          () => spyOnSuccess(),
-          (error) => spyOnError(error)
-        )
-        .then(() => {
-          expect(spyOnSuccess).not.toHaveBeenCalled();
-          expect(spyOnError).toHaveBeenCalledWith(badRequestError);
-        });
-    }));
+        doCopyBatchOperation
+          .toPromise()
+          .then(
+            () => spyOnSuccess(),
+            (error) => spyOnError(error)
+          )
+          .then(() => {
+            expect(spyOnSuccess).not.toHaveBeenCalled();
+            expect(spyOnError).toHaveBeenCalledWith(badRequestError);
+          });
+      })
+    );
 
-    it("should throw error if an entry in 'contentEntities' does not have id nor nodeId property", async(() => {
-      const contentEntities = [new TestNode(), { entry: {} }];
-      const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
+    it(
+      "should throw error if an entry in 'contentEntities' does not have id nor nodeId property",
+      waitForAsync(() => {
+        const contentEntities = [new TestNode(), { entry: {} }];
+        const doCopyBatchOperation = service.copyNodes(contentEntities).asObservable();
 
-      doCopyBatchOperation
-        .toPromise()
-        .then(
-          () => spyOnSuccess(),
-          (error) => spyOnError(error)
-        )
-        .then(() => {
-          expect(spyOnSuccess).not.toHaveBeenCalled();
-          expect(spyOnError).toHaveBeenCalledWith(badRequestError);
-        });
-    }));
+        doCopyBatchOperation
+          .toPromise()
+          .then(
+            () => spyOnSuccess(),
+            (error) => spyOnError(error)
+          )
+          .then(() => {
+            expect(spyOnSuccess).not.toHaveBeenCalled();
+            expect(spyOnError).toHaveBeenCalledWith(badRequestError);
+          });
+      })
+    );
 
-    it("should not throw error if entry in 'contentEntities' does not have id, but has nodeId property", async(() => {
-      const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
-      const subject = new Subject<MinimalNodeEntryEntity[]>();
+    it(
+      "should not throw error if entry in 'contentEntities' does not have id, but has nodeId property",
+      waitForAsync(() => {
+        const contentEntities = [new TestNode(), { entry: { nodeId: '1234' } }];
+        const subject = new Subject<MinimalNodeEntryEntity[]>();
 
-      spyOn(service, 'getContentNodeSelection').and.returnValue(subject);
-      spyOn(service, 'copyNodeAction').and.returnValue(of({}));
+        spyOn(service, 'getContentNodeSelection').and.returnValue(subject);
+        spyOn(service, 'copyNodeAction').and.returnValue(of({}));
 
-      service.copyNodes(contentEntities).subscribe(spyOnSuccess, spyOnError);
-      subject.next([new TestNode().entry]);
+        service.copyNodes(contentEntities).subscribe(spyOnSuccess, spyOnError);
+        subject.next([new TestNode().entry]);
 
-      expect(spyOnSuccess).toHaveBeenCalled();
-      expect(spyOnError).not.toHaveBeenCalledWith(badRequestError);
-    }));
+        expect(spyOnSuccess).toHaveBeenCalled();
+        expect(spyOnError).not.toHaveBeenCalledWith(badRequestError);
+      })
+    );
   });
 
   describe('getEntryParentId', () => {
@@ -465,93 +489,102 @@ describe('NodeActionsService', () => {
       });
     });
 
-    it('should fail to copy folder node if action is forbidden', async(() => {
-      spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(actionIsForbidden));
+    it(
+      'should fail to copy folder node if action is forbidden',
+      waitForAsync(() => {
+        spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(actionIsForbidden));
 
-      const folderToCopy = new TestNode();
-      const folderDestination = new TestNode(folderDestinationId);
+        const folderToCopy = new TestNode();
+        const folderDestination = new TestNode(folderDestinationId);
 
-      const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
-      const spyFolderAction = spyOn(service, 'copyFolderAction').and.callThrough();
-      const copyObservable = service.copyNodeAction(folderToCopy.entry, folderDestination.entry.id);
+        const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
+        const spyFolderAction = spyOn(service, 'copyFolderAction').and.callThrough();
+        const copyObservable = service.copyNodeAction(folderToCopy.entry, folderDestination.entry.id);
 
-      copyObservable
-        .toPromise()
-        .then(
-          (response) => spyOnSuccess(response),
-          () => {
-            spyOnError();
+        copyObservable
+          .toPromise()
+          .then(
+            (response) => spyOnSuccess(response),
+            () => {
+              spyOnError();
 
-            expect(spyContentAction.calls.count()).toEqual(0);
-            expect(spyFolderAction.calls.count()).toEqual(1);
-            expect(nodesApi.copyNode).toHaveBeenCalledWith(folderToCopy.entry.id, {
+              expect(spyContentAction.calls.count()).toEqual(0);
+              expect(spyFolderAction.calls.count()).toEqual(1);
+              expect(nodesApi.copyNode).toHaveBeenCalledWith(folderToCopy.entry.id, {
+                targetParentId: folderDestination.entry.id,
+                name: undefined
+              });
+            }
+          )
+          .then(() => {
+            expect(spyOnSuccess.calls.count()).toEqual(1);
+            expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
+            expect(spyOnError.calls.count()).toEqual(0);
+          });
+      })
+    );
+
+    it(
+      'should fail to copy file node if action is forbidden',
+      waitForAsync(() => {
+        spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(actionIsForbidden));
+
+        const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
+        const spyFolderAction = spyOn(service, 'copyFolderAction').and.callThrough();
+
+        const fileToCopy = new TestNode(fileId, isFile, 'test-name');
+        const folderDestination = new TestNode(folderDestinationId);
+        const copyObservable = service.copyNodeAction(fileToCopy.entry, folderDestination.entry.id);
+
+        copyObservable
+          .toPromise()
+          .then(
+            (response) => spyOnSuccess(response),
+            () => spyOnError()
+          )
+          .then(() => {
+            expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
+            expect(spyOnError).not.toHaveBeenCalled();
+
+            expect(spyContentAction).toHaveBeenCalled();
+            expect(spyFolderAction).not.toHaveBeenCalled();
+            expect(nodesApi.copyNode).toHaveBeenCalledWith(fileToCopy.entry.id, {
               targetParentId: folderDestination.entry.id,
-              name: undefined
+              name: 'test-name'
             });
-          }
-        )
-        .then(() => {
-          expect(spyOnSuccess.calls.count()).toEqual(1);
-          expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
-          expect(spyOnError.calls.count()).toEqual(0);
-        });
-    }));
-
-    it('should fail to copy file node if action is forbidden', async(() => {
-      spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(actionIsForbidden));
-
-      const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
-      const spyFolderAction = spyOn(service, 'copyFolderAction').and.callThrough();
-
-      const fileToCopy = new TestNode(fileId, isFile, 'test-name');
-      const folderDestination = new TestNode(folderDestinationId);
-      const copyObservable = service.copyNodeAction(fileToCopy.entry, folderDestination.entry.id);
-
-      copyObservable
-        .toPromise()
-        .then(
-          (response) => spyOnSuccess(response),
-          () => spyOnError()
-        )
-        .then(() => {
-          expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
-          expect(spyOnError).not.toHaveBeenCalled();
-
-          expect(spyContentAction).toHaveBeenCalled();
-          expect(spyFolderAction).not.toHaveBeenCalled();
-          expect(nodesApi.copyNode).toHaveBeenCalledWith(fileToCopy.entry.id, {
-            targetParentId: folderDestination.entry.id,
-            name: 'test-name'
           });
-        });
-    }));
+      })
+    );
 
-    it('should copy one file node to same destination and autoRename it', async(() => {
-      spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(!actionIsForbidden, 'file-name'));
+    it(
+      'should copy one file node to same destination and autoRename it',
+      waitForAsync(() => {
+        spyOn(nodesApi, 'copyNode').and.callFake(helper.fakeCopyNode(!actionIsForbidden, 'file-name'));
 
-      const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
+        const spyContentAction = spyOn(service, 'copyContentAction').and.callThrough();
 
-      const fileToCopy = new TestNode(fileId, isFile, 'file-name');
-      const folderDestination = new TestNode(folderDestinationId);
-      const copyObservable = service.copyNodeAction(fileToCopy.entry, folderDestination.entry.id);
+        const fileToCopy = new TestNode(fileId, isFile, 'file-name');
+        const folderDestination = new TestNode(folderDestinationId);
+        const copyObservable = service.copyNodeAction(fileToCopy.entry, folderDestination.entry.id);
 
-      copyObservable
-        .toPromise()
-        .then(
-          () => spyOnSuccess(),
-          () => spyOnError()
-        )
-        .then(() => {
-          expect(spyOnSuccess).toHaveBeenCalled();
-          expect(spyOnError).not.toHaveBeenCalled();
+        copyObservable
+          .toPromise()
+          .then(
+            () => spyOnSuccess(),
+            () => spyOnError()
+          )
+          .then(() => {
+            expect(spyOnSuccess).toHaveBeenCalled();
+            expect(spyOnError).not.toHaveBeenCalled();
 
-          expect(spyContentAction.calls.count()).toEqual(2);
-          expect(nodesApi.copyNode).toHaveBeenCalledWith(fileToCopy.entry.id, {
-            targetParentId: folderDestination.entry.id,
-            name: 'file-name-1'
+            expect(spyContentAction.calls.count()).toEqual(2);
+            expect(nodesApi.copyNode).toHaveBeenCalledWith(fileToCopy.entry.id, {
+              targetParentId: folderDestination.entry.id,
+              name: 'file-name-1'
+            });
           });
-        });
-    }));
+      })
+    );
 
     describe('should copy content of folder-to-copy to folder with same name from destination folder', () => {
       let folderToCopy: TestNode;
@@ -582,136 +615,145 @@ describe('NodeActionsService', () => {
 
       afterEach(() => subject.complete());
 
-      it('when folder to copy has a file as content', async(() => {
-        const testFamilyNodes = [
-          {
-            parentNodeId: folderToCopy.entry.id,
-            nodeChildren: [fileChildOfFolderToCopy]
-          },
-          {
-            parentNodeId: folderParentAndDestination.entry.id,
-            nodeChildren: [existingFolder]
-          }
-        ];
-        spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
-        spyOn(service, 'getChildByName').and.returnValue(of(existingFolder) as any);
+      it(
+        'when folder to copy has a file as content',
+        waitForAsync(() => {
+          const testFamilyNodes = [
+            {
+              parentNodeId: folderToCopy.entry.id,
+              nodeChildren: [fileChildOfFolderToCopy]
+            },
+            {
+              parentNodeId: folderParentAndDestination.entry.id,
+              nodeChildren: [existingFolder]
+            }
+          ];
+          spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
+          spyOn(service, 'getChildByName').and.returnValue(of(existingFolder) as any);
 
-        copyObservable
-          .toPromise()
-          .then(
-            () => spyOnSuccess(),
-            () => spyOnError()
-          )
-          .then(() => {
-            expect(spyOnSuccess).toHaveBeenCalled();
-            expect(spyOnError).not.toHaveBeenCalled();
+          copyObservable
+            .toPromise()
+            .then(
+              () => spyOnSuccess(),
+              () => spyOnError()
+            )
+            .then(() => {
+              expect(spyOnSuccess).toHaveBeenCalled();
+              expect(spyOnError).not.toHaveBeenCalled();
 
-            expect(spyOnContentAction).toHaveBeenCalled();
-            expect(spyOnFolderAction).toHaveBeenCalled();
-            expect(spy.calls.allArgs()).toEqual([
-              [
-                folderToCopy.entry.id,
-                {
-                  targetParentId: folderParentAndDestination.entry.id,
-                  name: 'conflicting-name'
-                }
-              ],
-              [
-                fileChildOfFolderToCopy.entry.id,
-                {
-                  targetParentId: existingFolder.entry.id,
-                  name: 'file-name'
-                }
-              ]
-            ]);
-          });
-      }));
+              expect(spyOnContentAction).toHaveBeenCalled();
+              expect(spyOnFolderAction).toHaveBeenCalled();
+              expect(spy.calls.allArgs()).toEqual([
+                [
+                  folderToCopy.entry.id,
+                  {
+                    targetParentId: folderParentAndDestination.entry.id,
+                    name: 'conflicting-name'
+                  }
+                ],
+                [
+                  fileChildOfFolderToCopy.entry.id,
+                  {
+                    targetParentId: existingFolder.entry.id,
+                    name: 'file-name'
+                  }
+                ]
+              ]);
+            });
+        })
+      );
 
-      it('when folder to copy is empty', async(() => {
-        const testFamilyNodes = [
-          {
-            parentNodeId: folderToCopy.entry.id,
-            nodeChildren: []
-          },
-          {
-            parentNodeId: folderParentAndDestination.entry.id,
-            nodeChildren: [existingFolder]
-          }
-        ];
-        spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
-        spyOn(service, 'getChildByName').and.returnValue(subject);
+      it(
+        'when folder to copy is empty',
+        waitForAsync(() => {
+          const testFamilyNodes = [
+            {
+              parentNodeId: folderToCopy.entry.id,
+              nodeChildren: []
+            },
+            {
+              parentNodeId: folderParentAndDestination.entry.id,
+              nodeChildren: [existingFolder]
+            }
+          ];
+          spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
+          spyOn(service, 'getChildByName').and.returnValue(subject);
 
-        copyObservable
-          .toPromise()
-          .then(
-            () => spyOnSuccess(),
-            () => spyOnError()
-          )
-          .then(() => {
-            expect(spyOnSuccess).toHaveBeenCalled();
-            expect(spyOnError).not.toHaveBeenCalled();
+          copyObservable
+            .toPromise()
+            .then(
+              () => spyOnSuccess(),
+              () => spyOnError()
+            )
+            .then(() => {
+              expect(spyOnSuccess).toHaveBeenCalled();
+              expect(spyOnError).not.toHaveBeenCalled();
 
-            expect(spyOnContentAction).not.toHaveBeenCalled();
-            expect(spyOnFolderAction).toHaveBeenCalled();
-            expect(spy.calls.allArgs()).toEqual([
-              [
-                folderToCopy.entry.id,
-                {
-                  targetParentId: folderParentAndDestination.entry.id,
-                  name: 'conflicting-name'
-                }
-              ]
-            ]);
-          });
+              expect(spyOnContentAction).not.toHaveBeenCalled();
+              expect(spyOnFolderAction).toHaveBeenCalled();
+              expect(spy.calls.allArgs()).toEqual([
+                [
+                  folderToCopy.entry.id,
+                  {
+                    targetParentId: folderParentAndDestination.entry.id,
+                    name: 'conflicting-name'
+                  }
+                ]
+              ]);
+            });
 
-        subject.next(existingFolder);
-      }));
+          subject.next(existingFolder);
+        })
+      );
 
-      it('when folder to copy has another folder as child', async(() => {
-        const folderChild = new TestNode('folder-child-id');
-        const testFamilyNodes = [
-          {
-            parentNodeId: folderToCopy.entry.id,
-            nodeChildren: [folderChild]
-          },
-          {
-            parentNodeId: folderParentAndDestination.entry.id,
-            nodeChildren: [existingFolder]
-          }
-        ];
-        spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
-        spyOn(service, 'getChildByName').and.returnValue(of(existingFolder) as any);
+      it(
+        'when folder to copy has another folder as child',
+        waitForAsync(() => {
+          const folderChild = new TestNode('folder-child-id');
+          const testFamilyNodes = [
+            {
+              parentNodeId: folderToCopy.entry.id,
+              nodeChildren: [folderChild]
+            },
+            {
+              parentNodeId: folderParentAndDestination.entry.id,
+              nodeChildren: [existingFolder]
+            }
+          ];
+          spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
+          spyOn(service, 'getChildByName').and.returnValue(of(existingFolder) as any);
 
-        copyObservable
-          .toPromise()
-          .then(
-            () => spyOnSuccess(),
-            () => spyOnError()
-          )
-          .then(() => {
-            expect(spyOnSuccess).toHaveBeenCalled();
-            expect(spyOnError).not.toHaveBeenCalled();
+          copyObservable
+            .toPromise()
+            .then(
+              () => spyOnSuccess(),
+              () => spyOnError()
+            )
+            .then(() => {
+              expect(spyOnSuccess).toHaveBeenCalled();
+              expect(spyOnError).not.toHaveBeenCalled();
 
-            expect(spyOnContentAction).not.toHaveBeenCalled();
-            expect(spyOnFolderAction.calls.count()).toEqual(2);
-            expect(spy.calls.allArgs()).toEqual([
-              [
-                folderToCopy.entry.id,
-                {
-                  targetParentId: folderParentAndDestination.entry.id,
-                  name: 'conflicting-name'
-                }
-              ],
-              [
-                folderChild.entry.id,
-                {
-                  targetParentId: existingFolder.entry.id,
-                  name: undefined
-                }
-              ]
-            ]);
-          });
-      }));
+              expect(spyOnContentAction).not.toHaveBeenCalled();
+              expect(spyOnFolderAction.calls.count()).toEqual(2);
+              expect(spy.calls.allArgs()).toEqual([
+                [
+                  folderToCopy.entry.id,
+                  {
+                    targetParentId: folderParentAndDestination.entry.id,
+                    name: 'conflicting-name'
+                  }
+                ],
+                [
+                  folderChild.entry.id,
+                  {
+                    targetParentId: existingFolder.entry.id,
+                    name: undefined
+                  }
+                ]
+              ]);
+            });
+        })
+      );
     });
   });
 
@@ -776,125 +818,143 @@ describe('NodeActionsService', () => {
     });
 
     describe('moveContentAction', () => {
-      it('should not throw error on conflict, to be able to show message in case of partial move of files', async(() => {
-        const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(conflictError));
+      it(
+        'should not throw error on conflict, to be able to show message in case of partial move of files',
+        waitForAsync(() => {
+          const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(conflictError));
 
-        const moveContentActionObservable = service.moveContentAction(fileToMove.entry, folderDestinationId);
-        moveContentActionObservable
-          .toPromise()
-          .then(
-            (value) => spyOnSuccess(value),
-            (error) => spyOnError(error)
-          )
-          .then(() => {
-            expect(moveNodeSpy).toHaveBeenCalled();
+          const moveContentActionObservable = service.moveContentAction(fileToMove.entry, folderDestinationId);
+          moveContentActionObservable
+            .toPromise()
+            .then(
+              (value) => spyOnSuccess(value),
+              (error) => spyOnError(error)
+            )
+            .then(() => {
+              expect(moveNodeSpy).toHaveBeenCalled();
 
-            expect(spyOnSuccess).toHaveBeenCalledWith(conflictError);
-            expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
-          });
-      }));
-
-      it('should not throw permission error, to be able to show message in case of partial move of files', async(() => {
-        const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(permissionError));
-
-        const moveContentActionObservable = service.moveContentAction(fileToMove.entry, folderDestinationId);
-        moveContentActionObservable
-          .toPromise()
-          .then(
-            (value) => spyOnSuccess(value),
-            (error) => spyOnError(error)
-          )
-          .then(() => {
-            expect(moveNodeSpy).toHaveBeenCalled();
-
-            expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
-            expect(spyOnError).not.toHaveBeenCalledWith(permissionError);
-          });
-      }));
-
-      it('in case of success, should return also the initial parent id of the moved node', async(() => {
-        const parentID = 'parent-id';
-        fileToMove.entry['parentId'] = parentID;
-        fileToMove.entry['allowableOperations'] = [permissionToMove];
-        const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(of(fileToMove));
-
-        service
-          .moveContentAction(fileToMove.entry, folderDestinationId)
-          .toPromise()
-          .then(
-            (value) => spyOnSuccess(value),
-            (error) => spyOnError(error)
-          )
-          .then(() => {
-            expect(moveNodeSpy).toHaveBeenCalled();
-
-            expect(spyOnSuccess).toHaveBeenCalledWith({
-              itemMoved: fileToMove,
-              initialParentId: parentID
+              expect(spyOnSuccess).toHaveBeenCalledWith(conflictError);
+              expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
             });
-            expect(spyOnError).not.toHaveBeenCalledWith(permissionError);
-          });
-      }));
+        })
+      );
+
+      it(
+        'should not throw permission error, to be able to show message in case of partial move of files',
+        waitForAsync(() => {
+          const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(permissionError));
+
+          const moveContentActionObservable = service.moveContentAction(fileToMove.entry, folderDestinationId);
+          moveContentActionObservable
+            .toPromise()
+            .then(
+              (value) => spyOnSuccess(value),
+              (error) => spyOnError(error)
+            )
+            .then(() => {
+              expect(moveNodeSpy).toHaveBeenCalled();
+
+              expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
+              expect(spyOnError).not.toHaveBeenCalledWith(permissionError);
+            });
+        })
+      );
+
+      it(
+        'in case of success, should return also the initial parent id of the moved node',
+        waitForAsync(() => {
+          const parentID = 'parent-id';
+          fileToMove.entry['parentId'] = parentID;
+          fileToMove.entry['allowableOperations'] = [permissionToMove];
+          const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(of(fileToMove));
+
+          service
+            .moveContentAction(fileToMove.entry, folderDestinationId)
+            .toPromise()
+            .then(
+              (value) => spyOnSuccess(value),
+              (error) => spyOnError(error)
+            )
+            .then(() => {
+              expect(moveNodeSpy).toHaveBeenCalled();
+
+              expect(spyOnSuccess).toHaveBeenCalledWith({
+                itemMoved: fileToMove,
+                initialParentId: parentID
+              });
+              expect(spyOnError).not.toHaveBeenCalledWith(permissionError);
+            });
+        })
+      );
     });
 
     describe('moveFolderAction', () => {
-      it('should not throw permission error in case it occurs on folder move', async(() => {
-        const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(permissionError));
+      it(
+        'should not throw permission error in case it occurs on folder move',
+        waitForAsync(() => {
+          const moveNodeSpy = spyOn(documentListService, 'moveNode').and.returnValue(throwError(permissionError));
 
-        service
-          .moveFolderAction(folderToMove.entry, folderDestinationId)
-          .toPromise()
-          .then(
-            (value) => spyOnSuccess(value),
-            (error) => spyOnError(error)
-          )
-          .then(() => {
-            expect(moveNodeSpy).toHaveBeenCalled();
+          service
+            .moveFolderAction(folderToMove.entry, folderDestinationId)
+            .toPromise()
+            .then(
+              (value) => spyOnSuccess(value),
+              (error) => spyOnError(error)
+            )
+            .then(() => {
+              expect(moveNodeSpy).toHaveBeenCalled();
 
-            expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
-            expect(spyOnError).not.toHaveBeenCalled();
+              expect(spyOnSuccess).toHaveBeenCalledWith(permissionError);
+              expect(spyOnError).not.toHaveBeenCalled();
+            });
+        })
+      );
+
+      it(
+        'should not throw error on conflict in case it occurs on folder move',
+        waitForAsync(() => {
+          const newDestination = new TestNode('new-destination', !isFile, folderToMove.entry.name) as NodeChildAssociationEntry;
+          spyOn(documentListService, 'moveNode').and.returnValue(throwError(conflictError));
+
+          const subject$ = new Subject<NodeChildAssociationEntry>();
+          spyOn(service, 'getChildByName').and.returnValue(subject$);
+          spyOn(service, 'getNodeChildren').and.returnValue(of(emptyChildrenList));
+
+          service.moveFolderAction(folderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
+
+          subject$.next(newDestination);
+
+          expect(spyOnSuccess).toHaveBeenCalled();
+          expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
+        })
+      );
+
+      it(
+        'should try to move children nodes of a folder to already existing folder with same name',
+        waitForAsync(() => {
+          const parentFolderToMove = new TestNode('parent-folder', !isFile, 'conflicting-name');
+          const moveNodeSpy = spyOn(documentListService, 'moveNode').and.callFake((nodeId: string, _targetParentId: string) => {
+            if (nodeId === parentFolderToMove.entry.id) {
+              return throwError(conflictError);
+            }
+            return of({} as NodeEntry);
           });
-      }));
+          spyOn(service, 'moveContentAction').and.returnValue(of({}));
 
-      it('should not throw error on conflict in case it occurs on folder move', async(() => {
-        const newDestination = new TestNode('new-destination', !isFile, folderToMove.entry.name) as NodeChildAssociationEntry;
-        spyOn(documentListService, 'moveNode').and.returnValue(throwError(conflictError));
+          const newDestination = new TestNode('new-destination', !isFile, 'conflicting-name') as NodeChildAssociationEntry;
+          const subject$ = new Subject<NodeChildAssociationEntry>();
+          spyOn(service, 'getChildByName').and.returnValue(subject$);
+          const childrenNodes = [fileToMove, folderToMove];
+          spyOn(service, 'getNodeChildren').and.returnValue(of({ list: { entries: childrenNodes } }));
 
-        const subject$ = new Subject<NodeChildAssociationEntry>();
-        spyOn(service, 'getChildByName').and.returnValue(subject$);
-        spyOn(service, 'getNodeChildren').and.returnValue(of(emptyChildrenList));
+          service.moveFolderAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
+          subject$.next(newDestination);
 
-        service.moveFolderAction(folderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
-
-        subject$.next(newDestination);
-
-        expect(spyOnSuccess).toHaveBeenCalled();
-        expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
-      }));
-
-      it('should try to move children nodes of a folder to already existing folder with same name', async(() => {
-        const parentFolderToMove = new TestNode('parent-folder', !isFile, 'conflicting-name');
-        const moveNodeSpy = spyOn(documentListService, 'moveNode').and.callFake((nodeId: string, _targetParentId: string) => {
-          if (nodeId === parentFolderToMove.entry.id) {
-            return throwError(conflictError);
-          }
-          return of({} as NodeEntry);
-        });
-        spyOn(service, 'moveContentAction').and.returnValue(of({}));
-
-        const newDestination = new TestNode('new-destination', !isFile, 'conflicting-name') as NodeChildAssociationEntry;
-        const subject$ = new Subject<NodeChildAssociationEntry>();
-        spyOn(service, 'getChildByName').and.returnValue(subject$);
-        const childrenNodes = [fileToMove, folderToMove];
-        spyOn(service, 'getNodeChildren').and.returnValue(of({ list: { entries: childrenNodes } }));
-
-        service.moveFolderAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
-        subject$.next(newDestination);
-
-        expect(moveNodeSpy).toHaveBeenCalled();
-        expect(spyOnSuccess).toHaveBeenCalled();
-        expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
-      }));
+          expect(moveNodeSpy).toHaveBeenCalled();
+          expect(spyOnSuccess).toHaveBeenCalled();
+          expect(spyOnError).not.toHaveBeenCalledWith(conflictError);
+        })
+      );
     });
 
     describe('moveNodeAction', () => {
@@ -909,23 +969,26 @@ describe('NodeActionsService', () => {
           spyOnDelete = spyOn(contentApi, 'deleteNode').and.returnValue(of(null));
         });
 
-        it('should take no extra delete action, if folder was moved to the same location', async(() => {
-          spyOn(service, 'moveFolderAction').and.returnValue(of(null));
+        it(
+          'should take no extra delete action, if folder was moved to the same location',
+          waitForAsync(() => {
+            spyOn(service, 'moveFolderAction').and.returnValue(of(null));
 
-          parentFolderToMove.entry.parentId = folderDestinationId;
-          const moveNodeActionPromise = service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).toPromise();
-          moveNodeActionPromise
-            .then(
-              () => spyOnSuccess(),
-              (error) => spyOnError(error)
-            )
-            .then(() => {
-              expect(spyOnDelete).not.toHaveBeenCalled();
+            parentFolderToMove.entry.parentId = folderDestinationId;
+            const moveNodeActionPromise = service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).toPromise();
+            moveNodeActionPromise
+              .then(
+                () => spyOnSuccess(),
+                (error) => spyOnError(error)
+              )
+              .then(() => {
+                expect(spyOnDelete).not.toHaveBeenCalled();
 
-              expect(spyOnSuccess).toHaveBeenCalled();
-              expect(spyOnError).not.toHaveBeenCalled();
-            });
-        }));
+                expect(spyOnSuccess).toHaveBeenCalled();
+                expect(spyOnError).not.toHaveBeenCalled();
+              });
+          })
+        );
 
         it('should take no extra delete action, if its children were partially moved', (done) => {
           const movedChildrenNodes = [fileToMove, folderToMove];
@@ -952,46 +1015,52 @@ describe('NodeActionsService', () => {
             });
         });
 
-        it('should take extra delete action, if children successfully moved and folder is still on location', async(() => {
-          const movedChildrenNodes = [fileToMove, folderToMove];
-          spyOn(service, 'moveFolderAction').and.returnValue(of(movedChildrenNodes));
-          spyOn(service, 'processResponse').and.returnValue({
-            succeeded: [movedChildrenNodes],
-            failed: [],
-            partiallySucceeded: []
-          });
-          const folderOnLocation = parentFolderToMove;
-          spyOn(service, 'getChildByName').and.returnValue(subject$);
+        it(
+          'should take extra delete action, if children successfully moved and folder is still on location',
+          waitForAsync(() => {
+            const movedChildrenNodes = [fileToMove, folderToMove];
+            spyOn(service, 'moveFolderAction').and.returnValue(of(movedChildrenNodes));
+            spyOn(service, 'processResponse').and.returnValue({
+              succeeded: [movedChildrenNodes],
+              failed: [],
+              partiallySucceeded: []
+            });
+            const folderOnLocation = parentFolderToMove;
+            spyOn(service, 'getChildByName').and.returnValue(subject$);
 
-          parentFolderToMove.entry.parentId = `not-${folderDestinationId}`;
-          service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
-          subject$.next(folderOnLocation);
+            parentFolderToMove.entry.parentId = `not-${folderDestinationId}`;
+            service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
+            subject$.next(folderOnLocation);
 
-          expect(spyOnDelete).toHaveBeenCalled();
+            expect(spyOnDelete).toHaveBeenCalled();
 
-          expect(spyOnSuccess).toHaveBeenCalled();
-          expect(spyOnError).not.toHaveBeenCalled();
-        }));
+            expect(spyOnSuccess).toHaveBeenCalled();
+            expect(spyOnError).not.toHaveBeenCalled();
+          })
+        );
 
-        it('should take no extra delete action, if folder is no longer on location', async(() => {
-          const movedChildrenNodes = [fileToMove, folderToMove];
+        it(
+          'should take no extra delete action, if folder is no longer on location',
+          waitForAsync(() => {
+            const movedChildrenNodes = [fileToMove, folderToMove];
 
-          spyOn(service, 'moveFolderAction').and.returnValue(of(movedChildrenNodes));
-          spyOn(service, 'processResponse').and.returnValue({
-            succeeded: [movedChildrenNodes],
-            failed: [],
-            partiallySucceeded: []
-          });
-          spyOn(service, 'getChildByName').and.returnValue(subject$);
+            spyOn(service, 'moveFolderAction').and.returnValue(of(movedChildrenNodes));
+            spyOn(service, 'processResponse').and.returnValue({
+              succeeded: [movedChildrenNodes],
+              failed: [],
+              partiallySucceeded: []
+            });
+            spyOn(service, 'getChildByName').and.returnValue(subject$);
 
-          parentFolderToMove.entry.parentId = `not-${folderDestinationId}`;
-          service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
-          subject$.next(null);
+            parentFolderToMove.entry.parentId = `not-${folderDestinationId}`;
+            service.moveNodeAction(parentFolderToMove.entry, folderDestinationId).subscribe(spyOnSuccess, spyOnError);
+            subject$.next(null);
 
-          expect(spyOnDelete).not.toHaveBeenCalled();
-          expect(spyOnSuccess).toHaveBeenCalled();
-          expect(spyOnError).not.toHaveBeenCalled();
-        }));
+            expect(spyOnDelete).not.toHaveBeenCalled();
+            expect(spyOnSuccess).toHaveBeenCalled();
+            expect(spyOnError).not.toHaveBeenCalled();
+          })
+        );
       });
     });
   });
@@ -1026,21 +1095,27 @@ describe('NodeActionsService', () => {
       });
     });
 
-    it('emits null value when child with specified name is not found in folder', async(() => {
-      spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
+    it(
+      'emits null value when child with specified name is not found in folder',
+      waitForAsync(() => {
+        spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes));
 
-      service.getChildByName(testFamilyNodes[0].parentNodeId, notChildNode.entry.name).subscribe((value) => {
-        expect(value).toEqual(null);
-      });
-    }));
+        service.getChildByName(testFamilyNodes[0].parentNodeId, notChildNode.entry.name).subscribe((value) => {
+          expect(value).toEqual(null);
+        });
+      })
+    );
 
-    it('emits error when permission error occurs', async(() => {
-      spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes, actionIsForbidden));
+    it(
+      'emits error when permission error occurs',
+      waitForAsync(() => {
+        spyOn(nodesApi, 'getNodeChildren').and.callFake(helper.fakeGetNodeChildren(testFamilyNodes, actionIsForbidden));
 
-      service.getChildByName(testFamilyNodes[0].parentNodeId, notChildNode.entry.name).subscribe((value) => {
-        expect(value).toEqual(null);
-      });
-    }));
+        service.getChildByName(testFamilyNodes[0].parentNodeId, notChildNode.entry.name).subscribe((value) => {
+          expect(value).toEqual(null);
+        });
+      })
+    );
   });
 
   describe('getNewNameFrom', () => {

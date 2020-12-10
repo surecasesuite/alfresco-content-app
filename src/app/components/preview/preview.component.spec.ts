@@ -24,7 +24,7 @@
  */
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { TestBed, ComponentFixture, async, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { UserPreferencesService, UploadService, AlfrescoApiService } from '@alfresco/adf-core';
 import { ClosePreviewAction } from '@alfresco/aca-shared/store';
 import { PreviewComponent } from './preview.component';
@@ -615,21 +615,27 @@ describe('PreviewComponent', () => {
     expect(ids).toEqual(['node2', 'node1']);
   });
 
-  it('should return to parent folder on nodesDeleted event', async(() => {
-    spyOn(component, 'navigateToFileLocation');
-    fixture.detectChanges();
-    contentManagementService.nodesDeleted.next();
+  it(
+    'should return to parent folder on nodesDeleted event',
+    waitForAsync(() => {
+      spyOn(component, 'navigateToFileLocation');
+      fixture.detectChanges();
+      contentManagementService.nodesDeleted.next();
 
-    expect(component.navigateToFileLocation).toHaveBeenCalled();
-  }));
+      expect(component.navigateToFileLocation).toHaveBeenCalled();
+    })
+  );
 
-  it('should return to parent folder on fileUploadDeleted event', async(() => {
-    spyOn(component, 'navigateToFileLocation');
-    fixture.detectChanges();
-    uploadService.fileUploadDeleted.next();
+  it(
+    'should return to parent folder on fileUploadDeleted event',
+    waitForAsync(() => {
+      spyOn(component, 'navigateToFileLocation');
+      fixture.detectChanges();
+      uploadService.fileUploadDeleted.next();
 
-    expect(component.navigateToFileLocation).toHaveBeenCalled();
-  }));
+      expect(component.navigateToFileLocation).toHaveBeenCalled();
+    })
+  );
 
   it('should emit nodeUpdated event on fileUploadComplete event', fakeAsync(() => {
     spyOn(alfrescoApiService.nodeUpdated, 'next');
@@ -640,12 +646,15 @@ describe('PreviewComponent', () => {
     expect(alfrescoApiService.nodeUpdated.next).toHaveBeenCalled();
   }));
 
-  it('should return to parent folder when event emitted from extension', async(() => {
-    spyOn(component, 'navigateToFileLocation');
-    fixture.detectChanges();
-    store.dispatch(new ClosePreviewAction());
-    expect(component.navigateToFileLocation).toHaveBeenCalled();
-  }));
+  it(
+    'should return to parent folder when event emitted from extension',
+    waitForAsync(() => {
+      spyOn(component, 'navigateToFileLocation');
+      fixture.detectChanges();
+      store.dispatch(new ClosePreviewAction());
+      expect(component.navigateToFileLocation).toHaveBeenCalled();
+    })
+  );
 
   describe('Keyboard navigation', () => {
     beforeEach(() => {
