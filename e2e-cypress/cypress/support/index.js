@@ -18,3 +18,11 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+//Take a screenshot of the entire Test Runner
+// By default, cy.screenshot() only captures your application under test. You may want it to capture the entire Test Runner for debugging purposes.
+// When runner, the entire browser viewport, including the Cypress Command Log, is captured.
+// Cypress.Screenshot.defaults({
+//     capture: 'viewport'
+//   })
+
