@@ -30,8 +30,7 @@ import { Component, OnInit, Output, ViewEncapsulation, EventEmitter } from '@ang
 @Component({
   selector: 'aca-search-action-menu',
   templateUrl: './search-action-menu.component.html',
-  encapsulation: ViewEncapsulation.None,
-  host: { class: 'aca-search-input' }
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchActionMenuComponent implements OnInit {
   @Output()

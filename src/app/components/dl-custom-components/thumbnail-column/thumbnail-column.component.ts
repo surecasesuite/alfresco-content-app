@@ -23,30 +23,26 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { APP_BOOTSTRAP_LISTENER, InjectionToken, Inject, Type } from '@angular/core';
-import { EffectSources } from '@ngrx/effects';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { TranslationService } from '@alfresco/adf-core';
 
-export const BOOTSTRAP_EFFECTS = new InjectionToken('Bootstrap Effects');
+@Component({
+  selector: 'aca-custom-thumbnail-column',
+  templateUrl: './thumbnail-column.component.html',
+  encapsulation: ViewEncapsulation.None
+})
+export class ThumbnailColumnComponent {
+  @Input()
+  context: any;
 
-export function bootstrapEffects(effects: Type<any>[], sources: EffectSources) {
-  return () => {
-    effects.forEach((effect) => sources.addEffects(effect));
-  };
-}
+  constructor(private translation: TranslationService) {}
 
-export function createInstances(...instances: any[]) {
-  return instances;
-}
+  getThumbnail({ data, row, col }): string {
+    return data.getValue(row, col);
+  }
 
-export function provideBootstrapEffects(effects: Type<any>[]) {
-  return [
-    effects,
-    { provide: BOOTSTRAP_EFFECTS, deps: effects, useFactory: createInstances },
-    {
-      provide: APP_BOOTSTRAP_LISTENER,
-      multi: true,
-      useFactory: bootstrapEffects,
-      deps: [[new Inject(BOOTSTRAP_EFFECTS)], EffectSources]
-    }
-  ];
+  getToolTip({ row }): string {
+    const user = row.node?.entry?.properties && row.node.entry.properties['cm:lockOwner'] && row.node.entry.properties['cm:lockOwner'].displayName;
+    return user ? `${this.translation.instant('APP.LOCKED_BY')} ${user}` : '';
+  }
 }
