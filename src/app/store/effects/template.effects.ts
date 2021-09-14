@@ -38,25 +38,19 @@ import {
   SnackbarErrorAction
 } from '@alfresco/aca-shared/store';
 import { NodeTemplateService, TemplateDialogConfig } from '../../services/node-template.service';
-import { AlfrescoApiService } from '@alfresco/adf-core';
+import { ContentService } from '@alfresco/adf-core';
 import { AppHookService } from '@alfresco/aca-shared';
 import { from, Observable, of } from 'rxjs';
-import { NodeEntry, NodeBodyUpdate, Node, NodesApi } from '@alfresco/js-api';
+import { NodeEntry, NodeBodyUpdate, Node } from '@alfresco/js-api';
 import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class TemplateEffects {
-  _nodesApi: NodesApi;
-  get nodesApi(): NodesApi {
-    this._nodesApi = this._nodesApi ?? new NodesApi(this.apiService.getInstance());
-    return this._nodesApi;
-  }
-
   constructor(
     private matDialog: MatDialog,
     private appHookService: AppHookService,
     private store: Store<AppStore>,
-    private apiService: AlfrescoApiService,
+    private contentService: ContentService,
     private actions$: Actions,
     private nodeTemplateService: NodeTemplateService
   ) {}
@@ -121,7 +115,7 @@ export class TemplateEffects {
 
   private copyNode(source: Node, parentId: string): Observable<NodeEntry> {
     return from(
-      this.nodesApi.copyNode(source.id, {
+      this.contentService.copyNode(source.id, {
         targetParentId: parentId,
         name: source.name
       })
@@ -141,7 +135,7 @@ export class TemplateEffects {
   }
 
   private updateNode(node: NodeEntry, update: NodeBodyUpdate): Observable<NodeEntry> {
-    return from(this.nodesApi.updateNode(node.entry.id, update)).pipe(catchError(() => of(node)));
+    return from(this.contentService.updateNode(node.entry.id, update)).pipe(catchError(() => of(node)));
   }
 
   private handleError(error: Error): Observable<null> {

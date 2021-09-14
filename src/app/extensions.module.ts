@@ -28,8 +28,10 @@ import { AosExtensionModule } from '@alfresco/adf-office-services-ext';
 import { AcaAboutModule } from '@alfresco/aca-about';
 import { AcaSettingsModule } from '@alfresco/aca-settings';
 import { environment } from '../environments/environment';
+import { registerContentServiceProvider, AcsContentService } from '@alfresco/adf-core';
 
 @NgModule({
-  imports: [AosExtensionModule, ...(environment.devTools ? [AcaAboutModule, AcaSettingsModule] : [])]
+  imports: [AosExtensionModule, ...(environment.devTools ? [AcaAboutModule, AcaSettingsModule] : [])],
+  providers: [registerContentServiceProvider(AcsContentService, true)]
 })
 export class AppExtensionsModule {}
