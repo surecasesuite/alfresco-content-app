@@ -73,14 +73,14 @@
         "UPLOAD_FILES_NOT_ALLOWED": "Dateien können nicht hochgeladen werden, während die aktuellen Elemente angezeigt werden",
         "UPLOAD_FOLDERS": "Ordner zum Hochladen auswählen",
         "UPLOAD_FOLDERS_NOT_ALLOWED": "Ordner können nicht hochgeladen werden, während die aktuellen Elemente angezeigt werden",
-        "CREATE_LIBRARY": "Neue Dateibibliothek erstellen"
+        "CREATE_LIBRARY": "Neuer Bibliothek erstellen"
       }
     },
     "BROWSE": {
       "PERSONAL": {
-        "TITLE": "Persönliche Dateien",
+        "TITLE": "Personal Files",
         "SIDENAV_LINK": {
-          "LABEL": "Persönliche Dateien",
+          "LABEL": "Personal Files",
           "TOOLTIP": "Ihre persönlichen Dateien anzeigen"
         }
       },
@@ -168,6 +168,8 @@
       },
       "SEARCH": {
         "DEFAULT_SEARCH": "Standard",
+        "DUBLIN_CORE": "Dublin Core",
+        "EFFECTIVITY": "Effektivität",
         "TITLE": "Ergebnisse durchsuchen",
         "FOUND_RESULTS": "{{ number }} Ergebnisse gefunden",
         "FOUND_ONE_RESULT": "{{ number }} Ergebnisse gefunden",
@@ -485,6 +487,9 @@
       "HINT": "Die Sucheingabe muss mindestens zwei alphanumerische Zeichen umfassen."
     },
     "SORT": {
+      "SORTING_OPTION": "Sortieren nach",
+      "ASCENDING": "Aufsteigend",
+      "DESCENDING": "Absteigend",
       "RELEVANCE": "Relevanz",
       "FILENAME": "Dateiname",
       "TITLE": "Titel",
@@ -509,7 +514,9 @@
         "LARGE": "Groß",
         "HUGE": "Riesig"
       },
-      "CREATED_DATE": "Datum der Erstellung"
+      "CREATED_DATE": "Datum der Erstellung",
+      "EFFECTIVITY_FROM": "Effektiv ab",
+      "EFFECTIVITY_TO": "Effektiv bis"
     },
     "FACET_QUERIES": {
       "TODAY": "Heute",

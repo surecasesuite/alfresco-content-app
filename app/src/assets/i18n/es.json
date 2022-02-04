@@ -1,6 +1,6 @@
 {
   "APP": {
-    "COPYRIGHT": "© 2017 - 2020 Alfresco Software, Inc. Todos los derechos reservados.",
+    "COPYRIGHT": "© 2017 - 2021 Alfresco Software, Inc. Todos los derechos reservados.",
     "ABOUT": {
       "VERSION": "Versión:",
       "PLUGINS": {
@@ -44,12 +44,12 @@
       "REPOSITORY-SETTINGS": "Configuración del repositorio",
       "INVALID-VALUE-FORMAT": "Formato de valor no válido",
       "REQUIRED-FIELD": "Este campo es obligatorio",
-      "RESET": "Reiniciar",
+      "RESET": "Reset",
       "APPLY": "Aplicar"
     },
     "LOCKED_BY": "Bloqueado por: ",
     "PREVIEW": {
-      "TITLE": "Vista previa"
+      "TITLE": "Preview"
     },
     "DETAILS": {
       "TITLE": "Detalles"
@@ -167,7 +167,9 @@
         "TITLE": "Acerca de"
       },
       "SEARCH": {
-        "DEFAULT_SEARCH": "Predeterminada",
+        "DEFAULT_SEARCH": "Default",
+        "DUBLIN_CORE": "Dublin core",
+        "EFFECTIVITY": "Efectividad",
         "TITLE": "Resultados de la búsqueda",
         "FOUND_RESULTS": "{{ number }} resultados encontrados",
         "FOUND_ONE_RESULT": "{{ number }} resultado encontrado",
@@ -196,7 +198,7 @@
       "VIEW": "Ver",
       "EDIT": "Editar",
       "DOWNLOAD": "Descargar",
-      "COPY": "Copiar",
+      "COPY": "Copy",
       "MOVE": "Mover",
       "DELETE": "Eliminar",
       "DELETE_PERMANENT": "Eliminar permanentemente",
@@ -230,7 +232,7 @@
         "TITLE": "¿Eliminar de la papelera?",
         "MESSAGE": "Esto eliminará permanentemente los elementos seleccionados.",
         "YES_LABEL": "Eliminar",
-        "NO_LABEL": "Guardar"
+        "NO_LABEL": "Keep"
       },
       "CONFIRM_LEAVE": {
         "TITLE": "¿Desea abandonar esta biblioteca?",
@@ -485,6 +487,9 @@
       "HINT": "La cadena de búsqueda debe contener al menos 2 caracteres alfanuméricos"
     },
     "SORT": {
+      "SORTING_OPTION": "Clasificar por",
+      "ASCENDING": "Ascendente",
+      "DESCENDING": "Descendente",
       "RELEVANCE": "Relevancia",
       "FILENAME": "Nombre de fichero",
       "TITLE": "Título",
@@ -509,7 +514,9 @@
         "LARGE": "Grande",
         "HUGE": "Enorme"
       },
-      "CREATED_DATE": "Fecha de creación"
+      "CREATED_DATE": "Fecha de creación",
+      "EFFECTIVITY_FROM": "Válido desde",
+      "EFFECTIVITY_TO": "Válido hasta"
     },
     "FACET_QUERIES": {
       "TODAY": "Hoy",

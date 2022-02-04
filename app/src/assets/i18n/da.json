@@ -168,6 +168,8 @@
       },
       "SEARCH": {
         "DEFAULT_SEARCH": "Standard",
+        "DUBLIN_CORE": "Dublin-kerne",
+        "EFFECTIVITY": "Gældende periode",
         "TITLE": "Søgeresultater",
         "FOUND_RESULTS": "{{ number }} resultater fundet",
         "FOUND_ONE_RESULT": "{{ number }} resultat fundet",
@@ -485,6 +487,9 @@
       "HINT": "Din søgetekst skal være på mindst 2 tal/bogstaver."
     },
     "SORT": {
+      "SORTING_OPTION": "Sortér efter",
+      "ASCENDING": "Stigende rækkefølge",
+      "DESCENDING": "Faldende rækkefølge",
       "RELEVANCE": "Relevans",
       "FILENAME": "Filnavn",
       "TITLE": "Titel",
@@ -509,7 +514,9 @@
         "LARGE": "Stor",
         "HUGE": "Meget stor"
       },
-      "CREATED_DATE": "Oprettelsesdato"
+      "CREATED_DATE": "Oprettelsesdato",
+      "EFFECTIVITY_FROM": "Gældende periode fra",
+      "EFFECTIVITY_TO": "Gældende periode til"
     },
     "FACET_QUERIES": {
       "TODAY": "I dag",
