@@ -127,6 +127,10 @@
       "key": "ar",
       "label": "العربية",
       "direction": "rtl"
+    },
+    {
+      "key": "is",
+      "label": "Íslenska"
     }
   ],
   "content-metadata": {
