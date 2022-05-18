@@ -129,6 +129,10 @@
       {
         "id": "adf:move_file",
         "value": "./assets/images/adf-move-file-24px.svg"
+      },
+      {
+        "id": "adf:security_mark",
+        "value": "./assets/images/security-marks.svg"
       }
     ],
     "create": [
