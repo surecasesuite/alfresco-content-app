@@ -209,8 +209,12 @@ export class AppExtensionService implements RuleContext {
   }
 
   protected getDocumentListPreset(config: ExtensionConfig, key: string): DocumentListPresetRef[] {
+    console.log('llllllllllllllllllllllllllllllllllllllll')
+    console.log(this.loader
+      .getElements<DocumentListPresetRef>(config, `features.documentList.${key}`))
     return this.loader
       .getElements<DocumentListPresetRef>(config, `features.documentList.${key}`)
+
       .filter((entry) => !entry.disabled)
       .sort(sortByOrder);
   }
