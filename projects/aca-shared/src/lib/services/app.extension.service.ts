@@ -214,7 +214,7 @@ export class AppExtensionService implements RuleContext {
       .getElements<DocumentListPresetRef>(config, `features.documentList.${key}`))
     return this.loader
       .getElements<DocumentListPresetRef>(config, `features.documentList.${key}`)
-
+      .filter((group) => this.filterVisible(group))
       .filter((entry) => !entry.disabled)
       .sort(sortByOrder);
   }
@@ -480,7 +480,7 @@ export class AppExtensionService implements RuleContext {
     };
   }
 
-  filterVisible(action: ContentActionRef | SettingsGroupRef | SidebarTabRef): boolean {
+  filterVisible(action: ContentActionRef | SettingsGroupRef | SidebarTabRef | DocumentListPresetRef): boolean {
     if (action && action.rules && action.rules.visible) {
       return this.extensions.evaluateRule(action.rules.visible, this);
     }
