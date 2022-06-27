@@ -56,6 +56,10 @@ export const APP_ROUTES: Routes = [
     loadChildren: () => import('./components/shared-link-view/shared-link-view.module').then((m) => m.AppSharedLinkViewModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./components/view-profile/view-profile.module').then((m) => m.ViewProfileModule)
+  },
+  {
     path: 'view',
     component: AppLayoutComponent,
     children: [
