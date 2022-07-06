@@ -26,7 +26,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'adf-view-profile',
     templateUrl: './view-profile.component.html',
     styleUrls: ['./view-profile.component.scss'],
     encapsulation: ViewEncapsulation.None
