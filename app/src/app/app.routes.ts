@@ -38,8 +38,13 @@ import { RecentFilesComponent } from './components/recent-files/recent-files.com
 import { SharedFilesComponent } from './components/shared-files/shared-files.component';
 import { DetailsComponent } from './components/details/details.component';
 import { HomeComponent } from './components/home/home.component';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 export const APP_ROUTES: Routes = [
+  {
+    path: 'profile',
+    component: ViewProfileComponent
+  },
   {
     path: 'blank',
     component: BlankPageComponent
