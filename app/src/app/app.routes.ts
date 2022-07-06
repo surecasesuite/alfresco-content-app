@@ -41,6 +41,10 @@ import { HomeComponent } from './components/home/home.component';
 
 export const APP_ROUTES: Routes = [
   {
+    path: 'profile',
+    loadChildren: () => import('./components/trashcan/trashcan.module').then((m) => m.AppTrashcanModule)
+  },
+  {
     path: 'blank',
     component: BlankPageComponent
   },
