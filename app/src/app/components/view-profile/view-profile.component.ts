@@ -22,9 +22,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
-import { IdentityUserService } from '@alfresco/adf-core';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { of } from 'rxjs';
+
 
 @Component({
     selector: 'adf-view-profile',
@@ -33,13 +32,43 @@ import { of } from 'rxjs';
     encapsulation: ViewEncapsulation.None
 })
 export class ViewProfileComponent implements OnInit, OnDestroy{
-    ngOnInit() {
-      console.log(of(this.identityUserService.getCurrentUserInfo()));
-    }
+  profile_data=[
+    {
+      "FirstName" : "Darell",
+      "LastName" : "Steward",
+      "JobTitle" : "Administrator",
+      "Location" : "02084536334",
+      "Telephone" : "02084536334",
+      "Mobile"   : "07984566738",
+      "username" : "Darell Steward",
+      "email"     : "dsteward@gmail.com",
+      "company_email": "dsteward@alfrisco.com",
+      "password"  : "********",
+      "postcode"  : "KT1 2BW",
+      "address"   : "14 Angus close, Surrey, London"
+     }
+  ];
+  dropdown:boolean=false;
+  dropdown_icon:boolean=true
+  login_toggle:boolean=false;
+  login_password:boolean=true;
+  contact_toggle:boolean=false;
+  contact_details:boolean=true;
 
-    constructor(private identityUserService: IdentityUserService) {
+ngOnInit() {
 }
-
-    ngOnDestroy(): void {
-    }
+generalDetails(){
+    this.dropdown= !this.dropdown;
+    this.dropdown_icon= !this.dropdown_icon
+  }
+  loginDetails(){
+    this.login_toggle = !this.login_toggle;
+    this.login_password = !this.login_password
+  }
+  companyDetails(){
+    this.contact_details = !this.contact_details;
+    this.contact_toggle = !this.contact_toggle;
+  }
+ngOnDestroy(): void {
+}
 }

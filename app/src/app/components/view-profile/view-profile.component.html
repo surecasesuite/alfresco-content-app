@@ -1,0 +1,155 @@
+<div class="profile_container">
+  <div class="profile_row">
+    <div class="profile_title">
+      <mat-icon class="profile_icon">arrow_back</mat-icon>
+      <h3 class="profile">My Profile</h3>
+    </div>
+    <mat-divider class="mat_divider"></mat-divider>
+  </div>
+  <div class="profile_row">
+    <div class="profile_general" [ngClass]="{'profile_general_bottom_radius':dropdown===true}">
+      <div class="profile_general_div">
+        <mat-icon *ngIf="dropdown_icon">chevron_right</mat-icon>
+        <mat-icon *ngIf="dropdown">expand_more</mat-icon>
+        <h4 class="general_title">General</h4>
+      </div>
+      <div class="general_edit_btn" *ngIf="dropdown_icon">
+        <button mat-raised-button (click)="generalDetails()" class="general_edit">Edit</button>
+      </div>
+      <div class="general_edit_btn" *ngIf="dropdown">
+        <button mat-raised-button class="general_edit" (click)="generalDetails()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="generalDetails()">Save</button>
+      </div>
+    </div>
+    <div class="profile_general_dropdown" *ngIf="dropdown">
+      <div class="general_dropdown" *ngFor="let  general of profile_data">
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">First name </h4>
+          <p class="profile_general_dropdown_details">{{general.FirstName}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Last name</h4>
+          <p class="profile_general_dropdown_details">{{general.LastName}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Job title</h4>
+          <p class="profile_general_dropdown_details">{{general.JobTitle}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Location</h4>
+          <p class="profile_general_dropdown_details">{{general.Location}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Telephone</h4>
+          <p class="profile_general_dropdown_details">{{general.Telephone}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Mobile</h4>
+          <p class="profile_general_dropdown_details">{{general.Mobile}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile_login_row">
+    <div class="profile_login">
+      <div class="profile_general_div">
+        <mat-icon *ngIf="login_password">chevron_right</mat-icon>
+        <mat-icon *ngIf="login_toggle">expand_more</mat-icon>
+        <h4 class="general_title">Login</h4>
+      </div>
+      <div class="general_edit_btn" *ngIf="login_password">
+        <button mat-raised-button (click)="loginDetails()" class="general_edit">Edit</button>
+      </div>
+      <div class="general_edit_btn" *ngIf="login_toggle">
+        <button mat-raised-button class="general_edit" (click)="loginDetails()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="loginDetails()">Save</button>
+      </div>
+    </div>
+    <div class="profile_login_dropdown" [ngClass]="{'profile_general_bottom_radius':login_toggle===true}">
+      <div class="general_dropdown" *ngFor="let login of profile_data">
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Username</h4>
+          <p class="profile_general_dropdown_details">{{login.username}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Email</h4>
+          <p class="profile_general_dropdown_details">{{login.email}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider" *ngIf="login_password"></mat-divider>
+        <div class="general_dropdown_details" *ngIf="login_password">
+          <h4 class="profile_general_dropdown_heading">Password</h4>
+          <p class="profile_general_dropdown_details">{{login.password}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider" *ngIf="login_toggle"></mat-divider>
+        <div class="general_dropdown_details" *ngIf="login_toggle">
+          <h4 class="profile_general_dropdown_heading">Old Password</h4>
+          <input class="profile_login_dropdown_details">
+          <h4 class="profile_login_dropdown_heading_forgot">Forgot Password</h4>
+        </div>
+        <mat-divider class="general_dropdown_divider" *ngIf="login_toggle"></mat-divider>
+        <div class="general_dropdown_details" *ngIf="login_toggle">
+          <h4 class="profile_general_dropdown_heading">New Password</h4>
+          <input class="profile_login_dropdown_details">
+        </div>
+        <mat-divider class="general_dropdown_divider" *ngIf="login_toggle"></mat-divider>
+        <div class="general_dropdown_details" *ngIf="login_toggle">
+          <h4 class="profile_general_dropdown_heading">Verify Password</h4>
+          <input class="profile_login_dropdown_details">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile_company_row">
+    <div class="profile_general"
+    [ngClass]="{'profile_general_bottom_radius': contact_toggle === true}" >
+      <div class="profile_general_div">
+        <mat-icon *ngIf="contact_details">chevron_right</mat-icon>
+        <mat-icon *ngIf="contact_toggle">expand_more</mat-icon>
+        <h4 class="general_title">CompanyDetails</h4>
+      </div>
+      <div class="general_edit_btn" *ngIf="contact_details">
+        <button mat-raised-button (click)="companyDetails()" class="general_edit">Edit</button>
+      </div>
+      <div class="general_edit_btn" *ngIf="contact_toggle">
+        <button mat-raised-button class="general_edit" (click)="companyDetails()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="companyDetails()">Save</button>
+      </div>
+    </div>
+    <div class="profile_general_dropdown" *ngIf="contact_toggle">
+      <div class="general_dropdown" *ngFor="let login of profile_data">
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Name</h4>
+          <p class="profile_general_dropdown_details">{{login.username}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider"></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Address</h4>
+          <p class="profile_general_dropdown_details">{{login.address}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider" ></mat-divider>
+        <div class="general_dropdown_details" >
+          <h4 class="profile_general_dropdown_heading">Post code</h4>
+          <p class="profile_general_dropdown_details">{{login.postcode}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider" ></mat-divider>
+        <div class="general_dropdown_details" >
+          <h4 class="profile_general_dropdown_heading">Telephone</h4>
+          <p class="profile_general_dropdown_details">{{login.Telephone}}</p>
+        </div>
+        <mat-divider class="general_dropdown_divider" ></mat-divider>
+        <div class="general_dropdown_details">
+          <h4 class="profile_general_dropdown_heading">Email</h4>
+          <p class="profile_general_dropdown_details">{{login.company_email}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
