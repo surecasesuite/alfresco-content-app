@@ -22,7 +22,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
+import { IdentityUserService } from '@alfresco/adf-core';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { of } from 'rxjs';
 
 @Component({
     selector: 'adf-view-profile',
@@ -32,7 +34,11 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class ViewProfileComponent implements OnInit, OnDestroy{
     ngOnInit() {
+      console.log(of(this.identityUserService.getCurrentUserInfo()));
     }
+
+    constructor(private identityUserService: IdentityUserService) {
+}
 
     ngOnDestroy(): void {
     }
