@@ -1,82 +1,95 @@
-.contact_title{
-  margin-left: 1rem ;
-  margin-top: 1rem;
-  background-color: #eee;
-}
-.contact_label{
-  padding-top: 0.6rem;
-  margin-bottom: 0.6rem;
-  padding-left: 0.5rem;
-  color:#4e4c4c;
-  font-weight: 600;
-}
-.mat_divider{
-  color:#4e4c4c;
-}
-.contact_container{
-  width: 80%;
-  margin: 3rem auto;
-}
-.contact_details{
+.profile_container{
   margin-top: 1rem;
 }
-.contact_row{
-  text-align: center;
+.profile_row{
+  width: 100%;
 }
-.contact_details_label{
-  font-weight: 600;
-  color:#4e4c4c;
-}
-.contact_input_details{
+.profile_title{
+  display: flex;
   margin-left: 2rem;
-  color:#4e4c4c;
-  height: 23px;
-    width: 40%;
-    border: 2px solid #d7d2d2;
+
 }
-.company_title{
-  margin-left: 1rem ;
-  margin-top: 1rem;
-  background-color: #eee;
+.profile_icon{
+  margin-right: 1rem;
 }
-.mandatory_field{
-  color:#4e4c4c;
-  font-size: 19px;
-  font-weight: 500;
-  margin-left: 0.3rem;
-  margin-top: 0.3rem;
-}
-.company_label{
-  padding-top: 0.6rem;
-  margin-bottom: 0.6rem;
-  padding-left: 0.5rem;
-  color:#4e4c4c;
-  font-weight: 600;
-}
-.company_container{
+.profile_general{
   width: 80%;
-  margin: 3rem auto;
-}
-.company_row{
-  text-align: center;
-}
-.company_details{
-  margin-top: 1rem;
-  margin-left: 1.5rem;
-}
-.company_details_input{
-  margin-top: 1rem;
-}
-.company_details_label{
-  font-weight: 600;
-  color:#4e4c4c;
-}
-.company_input_details{
   margin-left: 2rem;
-  color:#4e4c4c;
-  height: 23px;
-    width: 40%;
-    border: 2px solid #d7d2d2;
+  display: flex;
+  border: 2px solid rgba(157, 113, 113, 0.12);
+  border-radius: 1rem;
+  padding-left: 1rem;
 }
-
-
+.profile_general_bottom_radius{
+ border-bottom-left-radius:0;
+ border-bottom-right-radius: 0;
+}
+.profile_general_div{
+  display: flex;
+  width: 60%;
+  padding-top: 1rem;
+}
+.general_title{
+  margin-left: 0.6rem;
+}
+.general_edit_btn{
+  width:60%;
+  text-align: end;
+}
+.profile_row{
+  width: 100%;
+  margin: 2rem 0 0 0;
+}
+.general_edit{
+  margin: 0.7rem;
+}
+.profile_general_dropdown{
+ margin-left: 2rem;
+ border: 2px solid rgba(0,0,0,.12);
+ border-bottom-left-radius: 1rem;
+ border-bottom-right-radius: 1rem;
+ width: 81.2%;
+ padding-top: 0.7rem;
+ border-top: none;
+ /* margin-top: -0.5rem; */
+}
+.general_dropdown{
+  /* margin-top: 1rem ; */
+  padding: 0rem 1rem;
+}
+.general_dropdown_details{
+  display: flex;
+}
+.profile_general_dropdown_heading{
+  color:#4e4c4c;
+  width: 18%;
+  padding-top: 1rem;
+}
+.profile_general_dropdown_details{
+  padding-top: 1rem;
+}
+.profile_login_row{
+  margin: 2rem 0 0 2rem;
+  width: 81.2%;
+  border: 2px solid rgba(157, 113, 113, 0.12);
+  border-radius: 1rem;
+}
+.profile_login{
+  display: flex;
+  padding-left: 1rem;
+}
+.profile_login_dropdown_details{
+  width: 24%;
+  height: 25px;
+  border: none;
+  margin-top: 1rem;
+  background-color:#eee ;
+}
+.profile_login_dropdown_heading_forgot{
+  margin-top: 1rem;
+  color:#4e4c4c;
+  margin-left: 19rem;
+}
+.profile_company_row{
+  margin-top: 2rem;
+}

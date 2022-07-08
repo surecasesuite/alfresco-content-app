@@ -32,6 +32,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class ViewProfileComponent implements OnInit, OnDestroy{
+
   profile_data=[
     {
       "FirstName" : "Darell",
@@ -55,20 +56,20 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   contact_toggle:boolean=false;
   contact_details:boolean=true;
 
-ngOnInit() {
-}
-generalDetails(){
+  ngOnInit() {}
+  ngOnDestroy(): void {}
+  generalDetails(){
     this.dropdown= !this.dropdown;
     this.dropdown_icon= !this.dropdown_icon
   }
+
   loginDetails(){
     this.login_toggle = !this.login_toggle;
     this.login_password = !this.login_password
   }
+
   companyDetails(){
     this.contact_details = !this.contact_details;
     this.contact_toggle = !this.contact_toggle;
   }
-ngOnDestroy(): void {
-}
 }
