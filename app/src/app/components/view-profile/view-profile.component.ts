@@ -50,33 +50,29 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
      }
   ];
 
-  dropdown:boolean=false;
-  dropdown_icon:boolean=false;
-  login_toggle:boolean=false;
-  login_password:boolean=true;
-  contact_toggle:boolean=false;
-  contact_details:boolean=false;
+  general_section_dropdown:boolean=false;
+  login_section_dropdown:boolean=false;
+  password_section_dropdown:boolean=false;
+  contact_section_dropdown:boolean=false;
 
   ngOnInit() {
     console.log(this.identityUserService.getCurrentUserInfo())
   }
 
   ngOnDestroy(): void {}
-  constructor(private identityUserService: IdentityUserService) {
-}
+
+  constructor(private identityUserService: IdentityUserService) {}
 
   generalDetails(){
-    this.dropdown= !this.dropdown;
-    this.dropdown_icon= !this.dropdown_icon
+    this.general_section_dropdown= !this.general_section_dropdown
   }
 
   loginDetails(){
-    this.login_toggle = !this.login_toggle;
-    this.login_password = !this.login_password
+    this.login_section_dropdown = !this.login_section_dropdown;
+    this.password_section_dropdown = !this.password_section_dropdown
   }
 
   companyDetails(){
-    this.contact_details = !this.contact_details;
-    this.contact_toggle = !this.contact_toggle;
+    this.contact_section_dropdown = !this.contact_section_dropdown;
   }
 }
