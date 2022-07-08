@@ -21,8 +21,8 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="generalDetails()">Save</button>
       </div>
     </div>
-    <div class="profile_general_dropdown" *ngIf="dropdown">
-      <div class="general_dropdown" *ngFor="let  general of profile_data">
+    <div class="profile_general_dropdown" *ngIf="!dropdown">
+      <div class="general_dropdown" *ngFor="let general of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">First name </h4>
           <p class="profile_general_dropdown_details">{{general.FirstName}}</p>
@@ -58,11 +58,11 @@
   <div class="profile_login_row">
     <div class="profile_login">
       <div class="profile_general_div">
-        <mat-icon *ngIf="login_password">chevron_right</mat-icon>
+        <mat-icon *ngIf="!login_toggle">chevron_right</mat-icon>
         <mat-icon *ngIf="login_toggle">expand_more</mat-icon>
         <h4 class="general_title">Login</h4>
       </div>
-      <div class="general_edit_btn" *ngIf="login_password">
+      <div class="general_edit_btn" *ngIf="!login_toggle">
         <button mat-raised-button (click)="loginDetails()" class="general_edit">Edit</button>
       </div>
       <div class="general_edit_btn" *ngIf="login_toggle">
@@ -70,7 +70,7 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="loginDetails()">Save</button>
       </div>
     </div>
-    <div class="profile_login_dropdown" [ngClass]="{'profile_general_bottom_radius':login_toggle===true}">
+    <div class="profile_login_dropdown" [ngClass]="{'profile_general_bottom_radius':login_toggle===false}">
       <div class="general_dropdown" *ngFor="let login of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">Username</h4>
@@ -81,8 +81,8 @@
           <h4 class="profile_general_dropdown_heading">Email</h4>
           <p class="profile_general_dropdown_details">{{login.email}}</p>
         </div>
-        <mat-divider class="general_dropdown_divider" *ngIf="login_password"></mat-divider>
-        <div class="general_dropdown_details" *ngIf="login_password">
+        <mat-divider class="general_dropdown_divider" *ngIf="!login_toggle"></mat-divider>
+        <div class="general_dropdown_details" *ngIf="!login_toggle">
           <h4 class="profile_general_dropdown_heading">Password</h4>
           <p class="profile_general_dropdown_details">{{login.password}}</p>
         </div>
@@ -107,9 +107,9 @@
   </div>
   <div class="profile_company_row">
     <div class="profile_general"
-    [ngClass]="{'profile_general_bottom_radius': contact_toggle === true}" >
+    [ngClass]="{'profile_general_bottom_radius': contact_toggle === false}" >
       <div class="profile_general_div">
-        <mat-icon *ngIf="contact_details">chevron_right</mat-icon>
+        <mat-icon *ngIf="!contact_toggle">chevron_right</mat-icon>
         <mat-icon *ngIf="contact_toggle">expand_more</mat-icon>
         <h4 class="general_title">CompanyDetails</h4>
       </div>
@@ -147,7 +147,6 @@
           <h4 class="profile_general_dropdown_heading">Email</h4>
           <p class="profile_general_dropdown_details">{{login.company_email}}</p>
         </div>
-
       </div>
     </div>
   </div>
