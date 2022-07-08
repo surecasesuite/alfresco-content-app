@@ -50,12 +50,12 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
      }
   ];
 
-  //dropdown:boolean=false;
+  dropdown:boolean=false;
   dropdown_icon:boolean=false;
   login_toggle:boolean=false;
-  //login_password:boolean=true;
+  login_password:boolean=true;
   contact_toggle:boolean=false;
-  //contact_details:boolean=false;
+  contact_details:boolean=false;
 
   ngOnInit() {
     console.log(this.identityUserService.getCurrentUserInfo())
