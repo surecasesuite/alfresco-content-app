@@ -7,16 +7,16 @@
     <mat-divider class="mat_divider"></mat-divider>
   </div>
   <div class="profile_row">
-    <div class="profile_general" [ngClass]="{'profile_general_bottom_radius':dropdown===true}">
+    <div class="profile_general" [ngClass]="{'profile_general_bottom_radius':dropdown_icon===false}">
       <div class="profile_general_div">
-        <mat-icon *ngIf="dropdown_icon">chevron_right</mat-icon>
-        <mat-icon *ngIf="dropdown">expand_more</mat-icon>
+        <mat-icon *ngIf="!dropdown_icon">chevron_right</mat-icon>
+        <mat-icon *ngIf="dropdown_icon">expand_more</mat-icon>
         <h4 class="general_title">General</h4>
       </div>
-      <div class="general_edit_btn" *ngIf="dropdown_icon">
+      <div class="general_edit_btn" *ngIf="!dropdown_icon">
         <button mat-raised-button (click)="generalDetails()" class="general_edit">Edit</button>
       </div>
-      <div class="general_edit_btn" *ngIf="dropdown">
+      <div class="general_edit_btn" *ngIf="dropdown_icon">
         <button mat-raised-button class="general_edit" (click)="generalDetails()">Cancel</button>
         <button mat-raised-button color="primary" class="general_edit" (click)="generalDetails()">Save</button>
       </div>

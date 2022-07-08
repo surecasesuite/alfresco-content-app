@@ -50,7 +50,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
      }
   ];
 
-  dropdown:boolean=true;
+  dropdown:boolean=false;
   dropdown_icon:boolean=false;
   login_toggle:boolean=false;
   login_password:boolean=true;
