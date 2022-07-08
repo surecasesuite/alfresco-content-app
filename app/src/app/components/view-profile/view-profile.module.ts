@@ -23,11 +23,12 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 import { NgModule } from '@angular/core';
 import { ViewProfileComponent } from './view-profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '@alfresco/adf-core';
+import { CoreModule, MaterialModule } from '@alfresco/adf-core';
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
+      MaterialModule,
         CommonModule,
         RouterModule.forChild(routes),
         CoreModule
