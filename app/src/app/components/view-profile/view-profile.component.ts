@@ -22,7 +22,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
-import { IdentityUserService } from '@alfresco/adf-core';
+import { BpmUserService, IdentityUserService, PeopleContentService } from '@alfresco/adf-core';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -53,15 +53,21 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   general_section_dropdown:boolean=false;
   login_section_dropdown:boolean=false;
   password_section_dropdown:boolean=false;
-  contact_section_dropdown:boolean=false;
+  contact_section_dropdown:boolean=true;
 
   ngOnInit() {
     console.log(this.identityUserService.getCurrentUserInfo())
+    console.log('-----------------------')
+    console.log(this.bpmUserService.getCurrentUserInfo())
+    console.log('-----------------------')
+    console.log(this.peopleContentService.getCurrentUserInfo())
   }
 
   ngOnDestroy(): void {}
 
-  constructor(private identityUserService: IdentityUserService) {}
+  constructor(private peopleContentService: PeopleContentService,
+    private bpmUserService: BpmUserService,
+    private identityUserService: IdentityUserService) {}
 
   generalDetails(){
     this.general_section_dropdown= !this.general_section_dropdown
