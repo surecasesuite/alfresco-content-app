@@ -7,7 +7,7 @@
     <mat-divider class="mat_divider"></mat-divider>
   </div>
   <div class="profile_row">
-    <div class="profile_general" [ngClass]="{'profile_general_bottom_radius':general_section_dropdown===true}">
+    <div class="profile_general">
       <div class="profile_general_div">
         <mat-icon *ngIf="!general_section_dropdown" (click)="toggle_general_dropdown()">chevron_right</mat-icon>
         <mat-icon *ngIf="general_section_dropdown" (click)="toggle_general_dropdown()">expand_more</mat-icon>
@@ -21,7 +21,7 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="toggle_general_buttons()">Save</button>
       </div>
     </div>
-    <div class="profile_general_dropdown" *ngIf="toggle_general_dropdown()">
+    <div class="profile_general_dropdown" *ngIf="toggle_general_dropdown">
       <div class="general_dropdown" *ngFor="let general of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">First name </h4>
@@ -71,7 +71,7 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="toggle_password_dropdown()">Save</button>
       </div>
     </div>
-    <div class="profile_login_dropdown" [ngClass]="{'profile_general_bottom_radius':login_section_dropdown===false}">
+    <div class="profile_login_dropdown" *ngIf="login_section_dropdown">
       <div class="general_dropdown" *ngFor="let login of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">Username</h4>

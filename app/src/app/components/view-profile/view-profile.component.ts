@@ -73,11 +73,6 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
     private bpmUserService: BpmUserService,
     private identityUserService: IdentityUserService) {}
 
-  // loginDetails(){
-  //   this.login_section_dropdown = !this.login_section_dropdown;
-  //   this.password_section_dropdown = !this.password_section_dropdown
-  // }
-
   toggle_general_dropdown(){
     this.general_section_dropdown = !this.general_section_dropdown;
   }

@@ -16,6 +16,7 @@ adf-view-profile {
 }
 .profile_icon{
   margin-right: 1rem;
+  margin-top: 1rem;
 }
 
 .profile_text{
@@ -46,6 +47,12 @@ adf-view-profile {
 .general_edit_btn{
   width:60%;
   text-align: end;
+}
+.mat_divider{
+  border-top-width: 2px;
+  border-top-color: rgba(0,0,0,.22);
+  padding-left: -1px;
+  padding-right: 1px;
 }
 .profile_row{
   width: 100%;
