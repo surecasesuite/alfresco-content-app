@@ -21,7 +21,7 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="toggle_general_buttons()">Save</button>
       </div>
     </div>
-    <div class="profile_general_dropdown" (click)="toggle_general_dropdown()">
+    <div class="profile_general_dropdown" *ngIf="toggle_general_dropdown()">
       <div class="general_dropdown" *ngFor="let general of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">First name </h4>
@@ -59,16 +59,16 @@
   <div class="profile_login_row">
     <div class="profile_login">
       <div class="profile_general_div">
-        <mat-icon *ngIf="!login_section_dropdown">chevron_right</mat-icon>
-        <mat-icon *ngIf="login_section_dropdown">expand_more</mat-icon>
+        <mat-icon *ngIf="!login_section_dropdown" (click)="toggle_login_dropdown()">chevron_right</mat-icon>
+        <mat-icon *ngIf="login_section_dropdown" (click)="toggle_login_dropdown()">expand_more</mat-icon>
         <h4 class="general_title">Login</h4>
       </div>
-      <div class="general_edit_btn" *ngIf="!login_section_dropdown">
-        <button mat-raised-button (click)="loginDetails()" class="general_edit">Edit</button>
-      </div>
       <div class="general_edit_btn" *ngIf="login_section_dropdown">
-        <button mat-raised-button class="general_edit" (click)="loginDetails()">Cancel</button>
-        <button mat-raised-button color="primary" class="general_edit" (click)="loginDetails()">Save</button>
+        <button mat-raised-button (click)="toggle_login_dropdown()" class="general_edit">Edit</button>
+      </div>
+      <div class="general_edit_btn" *ngIf="!login_section_dropdown">
+        <button mat-raised-button class="general_edit" (click)="toggle_password_dropdown()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="toggle_password_dropdown()">Save</button>
       </div>
     </div>
     <div class="profile_login_dropdown" [ngClass]="{'profile_general_bottom_radius':login_section_dropdown===false}">

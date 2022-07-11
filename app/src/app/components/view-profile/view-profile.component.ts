@@ -53,7 +53,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   general_section_dropdown:boolean=true;
   general_section_buttons_toggle=true;
 
-  login_section_dropdown:boolean=false;
+  login_section_dropdown:boolean=true;
   password_section_dropdown:boolean=false;
 
   contact_section_dropdown:boolean=true;
@@ -73,10 +73,10 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
     private bpmUserService: BpmUserService,
     private identityUserService: IdentityUserService) {}
 
-  loginDetails(){
-    this.login_section_dropdown = !this.login_section_dropdown;
-    this.password_section_dropdown = !this.password_section_dropdown
-  }
+  // loginDetails(){
+  //   this.login_section_dropdown = !this.login_section_dropdown;
+  //   this.password_section_dropdown = !this.password_section_dropdown
+  // }
 
   toggle_general_dropdown(){
     this.general_section_dropdown = !this.general_section_dropdown;
@@ -86,13 +86,13 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
     this.general_section_buttons_toggle = !this.general_section_buttons_toggle;
   }
 
-  // toggle_contact_dropdown(){
-  //   this.contact_section_dropdown = !this.contact_section_dropdown;
-  // }
+  toggle_login_dropdown(){
+    this.login_section_dropdown = !this.login_section_dropdown;
+  }
 
-  // toggle_contact_buttons(){
-  //   this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
-  // }
+  toggle_password_dropdown(){
+    this.password_section_dropdown = !this.password_section_dropdown;
+  }
 
   toggle_contact_dropdown(){
     this.contact_section_dropdown = !this.contact_section_dropdown;
