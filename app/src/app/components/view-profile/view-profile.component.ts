@@ -50,7 +50,9 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
      }
   ];
 
-  general_section_dropdown:boolean=false;
+  general_section_dropdown:boolean=true;
+  general_section_buttons_toggle=true;
+
   login_section_dropdown:boolean=false;
   password_section_dropdown:boolean=false;
 
@@ -71,20 +73,32 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
     private bpmUserService: BpmUserService,
     private identityUserService: IdentityUserService) {}
 
-  generalDetails(){
-    this.general_section_dropdown= !this.general_section_dropdown
-  }
-
   loginDetails(){
     this.login_section_dropdown = !this.login_section_dropdown;
     this.password_section_dropdown = !this.password_section_dropdown
   }
 
-  companyDetails(){
+  toggle_general_dropdown(){
+    this.general_section_dropdown = !this.general_section_dropdown;
+  }
+
+  toggle_general_buttons(){
+    this.general_section_buttons_toggle = !this.general_section_buttons_toggle;
+  }
+
+  // toggle_contact_dropdown(){
+  //   this.contact_section_dropdown = !this.contact_section_dropdown;
+  // }
+
+  // toggle_contact_buttons(){
+  //   this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
+  // }
+
+  toggle_contact_dropdown(){
     this.contact_section_dropdown = !this.contact_section_dropdown;
   }
 
-  companyDetails2(){
+  toggle_contact_buttons(){
     this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
   }
 }
