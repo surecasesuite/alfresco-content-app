@@ -53,14 +53,16 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   general_section_dropdown:boolean=false;
   login_section_dropdown:boolean=false;
   password_section_dropdown:boolean=false;
+
   contact_section_dropdown:boolean=true;
+  contact_section_buttons_toggle=true;
 
   ngOnInit() {
     console.log(this.identityUserService.getCurrentUserInfo())
     console.log('-----------------------')
-    console.log(this.bpmUserService.getCurrentUserInfo())
+    this.bpmUserService.getCurrentUserInfo().subscribe(x => console.log(x))
     console.log('-----------------------')
-    console.log(this.peopleContentService.getCurrentUserInfo())
+    this.peopleContentService.getCurrentUserInfo().subscribe(x => console.log(x))
   }
 
   ngOnDestroy(): void {}
@@ -80,5 +82,9 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   companyDetails(){
     this.contact_section_dropdown = !this.contact_section_dropdown;
+  }
+
+  companyDetails2(){
+    this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
   }
 }

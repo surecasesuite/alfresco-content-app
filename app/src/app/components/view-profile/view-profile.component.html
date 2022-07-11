@@ -115,12 +115,12 @@
         <mat-icon *ngIf="contact_section_dropdown" (click)="companyDetails()">expand_more</mat-icon>
         <h4 class="general_title">CompanyDetails</h4>
       </div>
-      <div class="general_edit_btn" *ngIf="contact_section_dropdown">
-        <button mat-raised-button class="general_edit">Edit</button>
+      <div class="general_edit_btn" *ngIf="contact_section_buttons_toggle">
+        <button mat-raised-button class="general_edit" (click)="companyDetails2()">Edit</button>
       </div>
-      <div class="general_edit_btn" *ngIf="!contact_section_dropdown">
-        <button mat-raised-button class="general_edit">Cancel</button>
-        <button mat-raised-button color="primary" class="general_edit">Save</button>
+      <div class="general_edit_btn" *ngIf="!contact_section_buttons_toggle">
+        <button mat-raised-button class="general_edit" (click)="companyDetails2()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="companyDetails2()">Save</button>
       </div>
     </div>
     <div class="profile_general_dropdown" *ngIf="contact_section_dropdown">
