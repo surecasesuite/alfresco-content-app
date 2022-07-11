@@ -108,10 +108,10 @@
   </div>
 
   <div class="profile_company_row">
-    <div class="profile_general"
-    [ngClass]="{'profile_general_bottom_radius'}" >
+    <div class="profile_general profile_general_bottom_radius"
+     >
       <div class="profile_general_div">
-        <mat-icon *ngIf="!contact_section_dropdown" (click)="!toggle_contact_dropdown()">chevron_right</mat-icon>
+        <mat-icon *ngIf="!contact_section_dropdown" (click)="toggle_contact_dropdown()">chevron_right</mat-icon>
         <mat-icon *ngIf="contact_section_dropdown" (click)="toggle_contact_dropdown()">expand_more</mat-icon>
         <h4 class="general_title">Company details</h4>
       </div>
