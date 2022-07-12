@@ -12,7 +12,13 @@ adf-view-profile {
 .profile_title{
   display: flex;
   margin-left: 2rem;
+}
 
+.profile_general_row{
+  margin: 2rem 0 0 2rem;
+  width: 81.2%;
+  border: 2px solid rgba(0,0,0,.22);
+  border-radius: 1rem;
 }
 .profile_icon{
   margin-right: 1rem;
@@ -23,11 +29,11 @@ adf-view-profile {
   letter-spacing: .5px;
 }
 .profile_general{
-  width: 80%;
-  margin-left: 2rem;
+  //width: 80%;
+  //margin-left: 2rem;
   display: flex;
-  border: 2px solid rgba(87, 26, 26, 0.12);
-  border-radius: 1rem;
+  //border: 2px solid rgba(87, 26, 26, 0.12);
+  //border-radius: 1rem;
   padding-left: 1rem;
 }
 .profile_general_bottom_radius{
