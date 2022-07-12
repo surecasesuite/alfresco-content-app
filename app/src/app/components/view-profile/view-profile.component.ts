@@ -50,14 +50,14 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
      }
   ];
 
-  general_section_dropdown:boolean=true;
+  general_section_dropdown:boolean=false;
   general_section_buttons_toggle=true;
 
-  login_section_dropdown:boolean=true;
+  login_section_dropdown:boolean=false;
   login_section_buttons_toggle=true;
   password_section_dropdown:boolean=false;
 
-  contact_section_dropdown:boolean=true;
+  contact_section_dropdown:boolean=false;
   contact_section_buttons_toggle=true;
 
   ngOnInit() {
