@@ -125,7 +125,8 @@
         <button mat-raised-button color="primary" class="general_edit" (click)="toggle_contact_buttons()">Save</button>
       </div>
     </div>
-    <div  *ngIf="contact_section_dropdown">
+    <mat-divider class="mat_divider" *ngIf="contact_section_dropdown"></mat-divider>
+    <div *ngIf="contact_section_dropdown">
       <div class="general_dropdown" *ngFor="let login of profile_data">
         <div class="general_dropdown_details">
           <h4 class="profile_general_dropdown_heading">Name</h4>
@@ -151,15 +152,15 @@
           <h4 class="profile_general_dropdown_heading">Email</h4>
           <p class="profile_general_dropdown_details">{{login.company_email}}</p>
         </div>
-        <mat-divider class="mat_divider" *ngIf="contact_section_dropdown"></mat-divider>
       </div>
     </div>
   </div>
+&nbsp
+&nbsp
+&nbsp
+&nbsp
+&nbsp
+&nbsp
+&nbsp
 </div>
-&nbsp
-&nbsp
-&nbsp
-&nbsp
-&nbsp
-&nbsp
-&nbsp
+
