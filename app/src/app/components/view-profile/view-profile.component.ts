@@ -88,9 +88,6 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_login_buttons(){
     this.login_section_buttons_toggle = !this.login_section_buttons_toggle;
-  }
-
-  toggle_password_dropdown(){
     this.password_section_dropdown = !this.password_section_dropdown;
   }
 
