@@ -65,12 +65,12 @@
         <h4 class="general_title">Login</h4>
       </div>
       <mat-divider class="mat_divider"></mat-divider>
-      <div class="general_edit_btn" *ngIf="login_section_dropdown">
-        <button mat-raised-button (click)="toggle_login_dropdown()" class="general_edit">Edit</button>
+      <div class="general_edit_btn" *ngIf="login_section_buttons_toggle">
+        <button mat-raised-button (click)="toggle_login_buttons()" class="general_edit">Edit</button>
       </div>
-      <div class="general_edit_btn" *ngIf="!login_section_dropdown">
-        <button mat-raised-button class="general_edit" (click)="toggle_password_dropdown()">Cancel</button>
-        <button mat-raised-button color="primary" class="general_edit" (click)="toggle_password_dropdown()">Save</button>
+      <div class="general_edit_btn" *ngIf="!login_section_buttons_toggle">
+        <button mat-raised-button class="general_edit" (click)="toggle_login_buttons()">Cancel</button>
+        <button mat-raised-button color="primary" class="general_edit" (click)="toggle_login_buttons()">Save</button>
       </div>
     </div>
     <div class="profile_login_dropdown" *ngIf="login_section_dropdown">

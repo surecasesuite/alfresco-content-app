@@ -54,6 +54,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   general_section_buttons_toggle=true;
 
   login_section_dropdown:boolean=true;
+  login_section_buttons_toggle=true;
   password_section_dropdown:boolean=false;
 
   contact_section_dropdown:boolean=true;
@@ -83,6 +84,10 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_login_dropdown(){
     this.login_section_dropdown = !this.login_section_dropdown;
+  }
+
+  toggle_login_buttons(){
+    this.login_section_buttons_toggle = !this.login_section_buttons_toggle;
   }
 
   toggle_password_dropdown(){
