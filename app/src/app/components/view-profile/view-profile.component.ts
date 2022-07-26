@@ -1,29 +1,15 @@
-/*!
- * @license
- * Alfresco Example Content Application
+/*
+ * Copyright © 2005 - 2021 Alfresco Software, Ltd. All rights reserved.
  *
- * Copyright (C) 2005 - 2020 Alfresco Software Limited
- *
- * This file is part of the Alfresco Example Content Application.
- * If the software was purchased under a paid Alfresco license, the terms of
- * the paid license agreement will prevail.  Otherwise, the software is
- * provided under the following open source license terms:
- *
- * The Alfresco Example Content Application is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The Alfresco Example Content Application is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
+ * License rights for this program may be obtained from Alfresco Software, Ltd.
+ * pursuant to a written agreement and any use of this program without such an
+ * agreement is prohibited.
  */
-import { BpmUserService, IdentityUserService, PeopleContentService } from '@alfresco/adf-core';
+import { AlfrescoApiService } from '@alfresco/adf-core';
+import { PeopleApi, Person } from '@alfresco/js-api';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 @Component({
     selector: 'adf-view-profile',
@@ -32,23 +18,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class ViewProfileComponent implements OnInit, OnDestroy{
+  peopleApi: PeopleApi;
 
-  profile_data=[
-    {
-      "FirstName" : "Darell",
-      "LastName" : "Steward",
-      "JobTitle" : "Administrator",
-      "Location" : "02084536334",
-      "Telephone" : "02084536334",
-      "Mobile"   : "07984566738",
-      "username" : "Darell Steward",
-      "email"     : "dsteward@gmail.com",
-      "company_email": "dsteward@alfrisco.com",
-      "password"  : "********",
-      "postcode"  : "KT1 2BW",
-      "address"   : "14 Angus close, Surrey, London"
-     }
-  ];
+  profileForm:FormGroup;
+  person_details:Person;
 
   general_section_dropdown:boolean=false;
   general_section_buttons_toggle=true;
@@ -60,19 +33,43 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   contact_section_dropdown:boolean=false;
   contact_section_buttons_toggle=true;
 
+  constructor(
+    private formBuilder:FormBuilder,
+    apiService: AlfrescoApiService) {
+      this.peopleApi = new PeopleApi(apiService.getInstance());
+  }
+
   ngOnInit() {
-    console.log(this.identityUserService.getCurrentUserInfo())
-    console.log('-----------------------')
-    this.bpmUserService.getCurrentUserInfo().subscribe(x => console.log(x))
-    console.log('-----------------------')
-    this.peopleContentService.getCurrentUserInfo().subscribe(x => console.log(x))
+    this.populateForm(this.person_details);
+
+    this.peopleApi
+      .getPerson('-me-')
+      .then((userInfo) => {
+        this.person_details=userInfo?.entry;
+        this.populateForm(userInfo?.entry)
+      })
+      .catch((error) => {
+        throwError(error);
+      });
+  }
+
+  populateForm(userInfo: Person){
+    this.profileForm = this.formBuilder.group({
+      jobTitle:[userInfo?.jobTitle || '', Validators.required],
+      location:[userInfo?.location || '', Validators.required],  //validations
+      telephone:[userInfo?.telephone || '', Validators.required],
+      mobile: [userInfo?.mobile || '', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10$}")]],
+      oldPassword:['', Validators.required],
+      newPassword:['', Validators.required],
+      verifyPassword:['', Validators.required],
+      companyPostCode:[userInfo?.company?.postcode || '', Validators.required],
+      companyAddress:[userInfo?.company?.address1 || '', Validators.required],
+      companyTelephone:[userInfo?.company?.telephone || '', Validators.required],
+      companyEmail:[userInfo?.company?.email || '', Validators.required]
+     })
   }
 
   ngOnDestroy(): void {}
-
-  constructor(private peopleContentService: PeopleContentService,
-    private bpmUserService: BpmUserService,
-    private identityUserService: IdentityUserService) {}
 
   toggle_general_dropdown(){
     this.general_section_dropdown = !this.general_section_dropdown;
@@ -80,6 +77,21 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_general_buttons(){
     this.general_section_buttons_toggle = !this.general_section_buttons_toggle;
+  }
+
+  onSave_general_data(event){
+    this.general_section_buttons_toggle = !this.general_section_buttons_toggle;
+    this.updatePersonDetails(event);
+  }
+
+  onSave_login_data(){
+    this.password_section_dropdown = !this.password_section_dropdown;
+    this.login_section_buttons_toggle = !this.login_section_buttons_toggle;
+  }
+
+  onSave_company_data(event){
+    this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
+    this.updatePersonDetails(event);
   }
 
   toggle_login_dropdown(){
@@ -97,5 +109,21 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_contact_buttons(){
     this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
+  }
+
+  updatePersonDetails(event) {
+    this.peopleApi
+        .updatePerson(this.person_details.id, {
+          jobTitle: event.value.jobTitle,
+          location: event.value.location,
+          telephone: event.value.telephone,
+          mobile: event.value.mobile,
+          company: {
+            postcode: event.value.companyPostCode,
+            address1: event.value.companyAddress,
+            telephone: event.value.companyTelephone,
+            email: event.value.companyEmail
+          }
+        })
   }
 }
