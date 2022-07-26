@@ -23,7 +23,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   profileForm:FormGroup;
   person_details:Person;
 
-  general_section_dropdown:boolean=false;
+  general_section_dropdown:boolean=true;
   general_section_buttons_toggle=true;
 
   login_section_dropdown:boolean=false;
@@ -77,6 +77,10 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_general_buttons(){
     this.general_section_buttons_toggle = !this.general_section_buttons_toggle;
+
+    if(!this.general_section_buttons_toggle){
+      this.general_section_dropdown = true;
+    }
   }
 
   onSave_general_data(event){
@@ -101,6 +105,11 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   toggle_login_buttons(){
     this.login_section_buttons_toggle = !this.login_section_buttons_toggle;
     this.password_section_dropdown = !this.password_section_dropdown;
+
+    if(!this.login_section_buttons_toggle){
+      this.login_section_dropdown = true;
+      this.password_section_dropdown = true;
+    }
   }
 
   toggle_contact_dropdown(){
@@ -109,6 +118,11 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   toggle_contact_buttons(){
     this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
+
+
+    if(!this.contact_section_buttons_toggle){
+      this.contact_section_dropdown = true;
+    }
   }
 
   updatePersonDetails(event) {
