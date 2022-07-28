@@ -9,8 +9,8 @@ import { AlfrescoApiService } from '@alfresco/adf-core';
 import { PeopleApi, Person } from '@alfresco/js-api';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
-
 @Component({
     selector: 'adf-view-profile',
     templateUrl: './view-profile.component.html',
@@ -20,8 +20,8 @@ import { throwError } from 'rxjs';
 export class ViewProfileComponent implements OnInit, OnDestroy{
   peopleApi: PeopleApi;
 
-  profileForm:FormGroup;
-  person_details:Person;
+  profileForm: FormGroup;
+  person_details: Person;
 
   general_section_dropdown:boolean=true;
   general_section_buttons_toggle=true;
@@ -35,6 +35,7 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   constructor(
     private formBuilder:FormBuilder,
+    private router: Router,
     apiService: AlfrescoApiService) {
       this.peopleApi = new PeopleApi(apiService.getInstance());
   }
@@ -43,14 +44,14 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
     this.populateForm(this.person_details);
 
     this.peopleApi
-      .getPerson('-me-')
-      .then((userInfo) => {
-        this.person_details=userInfo?.entry;
-        this.populateForm(userInfo?.entry)
-      })
-      .catch((error) => {
-        throwError(error);
-      });
+        .getPerson('-me-')
+        .then((userInfo) => {
+          this.person_details=userInfo?.entry;
+          this.populateForm(userInfo?.entry)
+        })
+        .catch((error) => {
+          throwError(error);
+        });
   }
 
   populateForm(userInfo: Person){
@@ -70,6 +71,12 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {}
+
+  navigateToPersonalFiles() {
+    this.router.navigate(['/personal-files'], {
+      replaceUrl: true
+    });
+  }
 
   toggle_general_dropdown(){
     this.general_section_dropdown = !this.general_section_dropdown;
@@ -119,7 +126,6 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   toggle_contact_buttons(){
     this.contact_section_buttons_toggle = !this.contact_section_buttons_toggle;
 
-
     if(!this.contact_section_buttons_toggle){
       this.contact_section_dropdown = true;
     }
@@ -139,5 +145,11 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
             email: event.value.companyEmail
           }
         })
+        .then((person) => {
+          this.person_details = person.entry
+        })
+        .catch((error) => {
+          throwError(error);
+        });
   }
 }
