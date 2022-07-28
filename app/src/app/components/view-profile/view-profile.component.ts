@@ -56,17 +56,17 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
 
   populateForm(userInfo: Person){
     this.profileForm = this.formBuilder.group({
-      jobTitle:[userInfo?.jobTitle || '', Validators.required],
-      location:[userInfo?.location || '', Validators.required],  //validations
-      telephone:[userInfo?.telephone || '', Validators.required],
-      mobile: [userInfo?.mobile || '', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10$}")]],
-      oldPassword:['', Validators.required],
-      newPassword:['', Validators.required],
-      verifyPassword:['', Validators.required],
-      companyPostCode:[userInfo?.company?.postcode || '', Validators.required],
-      companyAddress:[userInfo?.company?.address1 || '', Validators.required],
-      companyTelephone:[userInfo?.company?.telephone || '', Validators.required],
-      companyEmail:[userInfo?.company?.email || '', Validators.required]
+      jobTitle:[userInfo?.jobTitle || ''],
+      location:[userInfo?.location || ''],
+      telephone:[userInfo?.telephone || '', Validators.pattern("^[0-9]*$")],
+      mobile: [userInfo?.mobile || '', Validators.pattern("^[0-9]*$")],
+      oldPassword:[''],
+      newPassword:[''],
+      verifyPassword:[''],
+      companyPostCode:[userInfo?.company?.postcode || ''],
+      companyAddress:[userInfo?.company?.address1 || ''],
+      companyTelephone:[userInfo?.company?.telephone || '', Validators.pattern("^[0-9]*$")],
+      companyEmail:[userInfo?.company?.email || '', Validators.email]
      })
   }
 
@@ -132,24 +132,31 @@ export class ViewProfileComponent implements OnInit, OnDestroy{
   }
 
   updatePersonDetails(event) {
-    this.peopleApi
-        .updatePerson(this.person_details.id, {
-          jobTitle: event.value.jobTitle,
-          location: event.value.location,
-          telephone: event.value.telephone,
-          mobile: event.value.mobile,
-          company: {
-            postcode: event.value.companyPostCode,
-            address1: event.value.companyAddress,
-            telephone: event.value.companyTelephone,
-            email: event.value.companyEmail
-          }
-        })
-        .then((person) => {
-          this.person_details = person.entry
-        })
-        .catch((error) => {
-          throwError(error);
-        });
+    if(this.profileForm.valid) {
+      this.peopleApi
+          .updatePerson(this.person_details.id, {
+            jobTitle: event.value.jobTitle,
+            location: event.value.location,
+            telephone: event.value.telephone,
+            mobile: event.value.mobile,
+            company: {
+              postcode: event.value.companyPostCode,
+              address1: event.value.companyAddress,
+              telephone: event.value.companyTelephone,
+              email: event.value.companyEmail
+            }
+          })
+          .then((person) => {
+            this.person_details = person?.entry;
+            this.populateForm(person?.entry);
+          })
+          .catch((error) => {
+            this.populateForm(this.person_details);
+            throwError(error);
+          });
+    }
+    else {
+      this.populateForm(this.person_details);
+    }
   }
 }
