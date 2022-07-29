@@ -23,19 +23,38 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { NgModule } from '@angular/core';
-import { AosExtensionModule } from '@alfresco/adf-office-services-ext';
-import { AcaAboutModule } from '@alfresco/aca-about';
-import { AcaSettingsModule } from '@alfresco/aca-settings';
-import { AcaFolderRulesModule } from '@alfresco/aca-folder-rules';
-import { environment } from '../environments/environment';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Rule } from '../model/rule.model';
 
-@NgModule({
-  imports: [
-    AosExtensionModule,
-    ...(environment.devTools ? [AcaSettingsModule] : []),
-    AcaAboutModule.forRoot(environment.production),
-    AcaFolderRulesModule
-  ]
+export interface EditRuleDialogOptions {
+  model?: Partial<Rule>;
+}
+
+@Component({
+  selector: 'aca-edit-rule-dialog',
+  templateUrl: './edit-rule-dialog.smart-component.html',
+  styleUrls: ['./edit-rule-dialog.smart-component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: { class: 'aca-edit-rule-dialog' }
 })
-export class AppExtensionsModule {}
+export class EditRuleDialogSmartComponent {
+  formValid = false;
+  model: Partial<Rule>;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public options: EditRuleDialogOptions) {
+    this.model = this.options?.model || {};
+  }
+
+  get isUpdateMode(): boolean {
+    return !!this.options?.model?.id;
+  }
+
+  get title(): string {
+    return 'ACA_FOLDER_RULES.EDIT_RULE_DIALOG.' + (this.isUpdateMode ? 'UPDATE_TITLE' : 'CREATE_TITLE');
+  }
+
+  get submitLabel(): string {
+    return 'ACA_FOLDER_RULES.EDIT_RULE_DIALOG.' + (this.isUpdateMode ? 'UPDATE' : 'CREATE');
+  }
+}

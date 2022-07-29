@@ -23,19 +23,18 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { NgModule } from '@angular/core';
-import { AosExtensionModule } from '@alfresco/adf-office-services-ext';
-import { AcaAboutModule } from '@alfresco/aca-about';
-import { AcaSettingsModule } from '@alfresco/aca-settings';
-import { AcaFolderRulesModule } from '@alfresco/aca-folder-rules';
-import { environment } from '../environments/environment';
+import { RuleCompositeCondition } from './rule-composite-condition.model';
 
-@NgModule({
-  imports: [
-    AosExtensionModule,
-    ...(environment.devTools ? [AcaSettingsModule] : []),
-    AcaAboutModule.forRoot(environment.production),
-    AcaFolderRulesModule
-  ]
-})
-export class AppExtensionsModule {}
+export interface Rule {
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  cascade: boolean;
+  asynchronous: boolean;
+  errorScript: string;
+  shared: boolean;
+  triggers: ('inbound' | 'update' | 'outbound')[];
+  conditions: RuleCompositeCondition;
+  actions: string[];
+}
