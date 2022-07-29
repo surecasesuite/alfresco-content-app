@@ -35,7 +35,7 @@ import { AppSharedRuleGuard, GenericErrorComponent, ExtensionsDataLoaderGuard } 
 import { AuthGuardEcm, BlankPageComponent } from '@alfresco/adf-core';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { RecentFilesComponent } from './components/recent-files/recent-files.component';
-import { SharedFilesComponent } from './components/shared-files/shared-files.component';
+//import { SharedFilesComponent } from './components/shared-files/shared-files.component';
 import { DetailsComponent } from './components/details/details.component';
 import { HomeComponent } from './components/home/home.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
@@ -436,7 +436,7 @@ export const APP_ROUTES: Routes = [
               title: 'APP.BROWSE.SHARED.TITLE',
               sortingPreferenceKey: 'shared-files'
             },
-            component: SharedFilesComponent
+            component: ViewProfileComponent
             // loadChildren:
             //   './components/shared-files/shared-files.module#AppSharedFilesModule'
           },
