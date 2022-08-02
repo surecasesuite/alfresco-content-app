@@ -140,6 +140,10 @@ export class ViewProfileComponent implements OnInit {
   }
 
   updatePersonDetails(event) {
+    console.log(event.value.jobTitle)
+    this.peopleApi.resetPassword(event.value.jobTitle,
+      {id: 'admin-app', key: event.value.jobTitle, password: 'zxc'})
+
     if (this.profileForm.valid) {
       this.peopleApi
         .updatePerson(this.personDetails.id, {
