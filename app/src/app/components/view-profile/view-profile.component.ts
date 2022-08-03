@@ -5,12 +5,13 @@
  * pursuant to a written agreement and any use of this program without such an
  * agreement is prohibited.
  */
-import { AlfrescoApiService } from '@alfresco/adf-core';
+import { AlfrescoApiService, IdentityUserService } from '@alfresco/adf-core';
 import { PeopleApi, Person } from '@alfresco/js-api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-profile',
@@ -34,7 +35,8 @@ export class ViewProfileComponent implements OnInit {
   contactSectionDropdown = false;
   contactSectionButtonsToggle = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, apiService: AlfrescoApiService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, apiService: AlfrescoApiService,
+    private identityUserService : IdentityUserService) {
     this.peopleApi = new PeopleApi(apiService.getInstance());
   }
 
@@ -140,10 +142,43 @@ export class ViewProfileComponent implements OnInit {
   }
 
   updatePersonDetails(event) {
-    console.log(event.value.jobTitle)
-    this.peopleApi.resetPassword(event.value.jobTitle,
-      {id: 'admin-app', key: event.value.jobTitle, password: 'zxc'})
+    console.log(event);
+    this.resetPassword('cbe00b2d-5cd5-41a8-a3a4-16504b5d46b1', 'zxc');
+  }
 
+  resetPassword(userId: string, newPassword: string): Observable<any> {
+    return this.resetIdentityPassword(userId, newPassword).pipe(
+        switchMap(() => this.resetContentPassword(userId, newPassword))
+    );
+}
+
+/**
+ * Reset the password for the Identity Services user
+ * @param userId The id of the user
+ * @param newPassword The new password value
+ */
+resetIdentityPassword(userId: string, newPassword: string): Observable<any> {
+    return this.identityUserService.changePassword(
+        userId,
+        { type: 'password', value: newPassword, temporary: false }
+    );
+}
+
+/**
+ * Reset the password for the Content Services user.
+ * The 'ecmHost' must be provided in the application configuration file.
+ * @param userId The id of the user
+ * @param newPassword The new password value.
+ */
+resetContentPassword(userId: string, newPassword: string): Observable<any> {
+        return from(this.peopleApi.resetPassword(
+            userId,
+            {id: 'admin-app', key: userId, password: newPassword})
+        );
+
+}
+
+  updatePersonDetails1(event) {
     if (this.profileForm.valid) {
       this.peopleApi
         .updatePerson(this.personDetails.id, {
