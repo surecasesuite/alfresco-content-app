@@ -143,26 +143,26 @@ export class ViewProfileComponent implements OnInit {
 
   updatePersonDetails(event) {
     console.log(event);
-    this.resetPassword('cbe00b2d-5cd5-41a8-a3a4-16504b5d46b1', 'zxc');
+    this.resetContentPassword('cbe00b2d-5cd5-41a8-a3a4-16504b5d46b1', 'zxc');
   }
 
-  resetPassword(userId: string, newPassword: string): Observable<any> {
-    return this.resetIdentityPassword(userId, newPassword).pipe(
-        switchMap(() => this.resetContentPassword(userId, newPassword))
-    );
-}
+//   resetPassword(userId: string, newPassword: string): Observable<any> {
+//     return this.resetIdentityPassword(userId, newPassword).pipe(
+//         switchMap(() => this.resetContentPassword(userId, newPassword))
+//     );
+// }
 
 /**
  * Reset the password for the Identity Services user
  * @param userId The id of the user
  * @param newPassword The new password value
  */
-resetIdentityPassword(userId: string, newPassword: string): Observable<any> {
-    return this.identityUserService.changePassword(
-        userId,
-        { type: 'password', value: newPassword, temporary: false }
-    );
-}
+// resetIdentityPassword(userId: string, newPassword: string): Observable<any> {
+//     return this.identityUserService.changePassword(
+//         userId,
+//         { type: 'password', value: newPassword, temporary: false }
+//     );
+// }
 
 /**
  * Reset the password for the Content Services user.
