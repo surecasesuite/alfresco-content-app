@@ -141,7 +141,7 @@ export class ViewProfileComponent implements OnInit {
 
   updatePersonDetails(event) {
     console.log(event);
-    this.resetContentPassword('cbe00b2d-5cd5-41a8-a3a4-16504b5d46b1', 'zxc');
+    this.resetContentPassword(event.value.jobTitle, 'zxc');
   }
 
 //   resetPassword(userId: string, newPassword: string): Observable<any> {
