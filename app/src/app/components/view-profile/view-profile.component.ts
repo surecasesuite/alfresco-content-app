@@ -5,13 +5,12 @@
  * pursuant to a written agreement and any use of this program without such an
  * agreement is prohibited.
  */
-import { AlfrescoApiService, IdentityUserService } from '@alfresco/adf-core';
+import { AlfrescoApiService } from '@alfresco/adf-core';
 import { PeopleApi, Person } from '@alfresco/js-api';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { from, Observable, throwError } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-profile',
@@ -35,8 +34,7 @@ export class ViewProfileComponent implements OnInit {
   contactSectionDropdown = false;
   contactSectionButtonsToggle = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, apiService: AlfrescoApiService,
-    private identityUserService : IdentityUserService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, apiService: AlfrescoApiService) {
     this.peopleApi = new PeopleApi(apiService.getInstance());
   }
 
