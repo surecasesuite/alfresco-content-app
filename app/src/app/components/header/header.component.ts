@@ -32,6 +32,8 @@ import { AppExtensionService } from '@alfresco/aca-shared';
 import { takeUntil } from 'rxjs/operators';
 import { AppConfigService } from '@alfresco/adf-core';
 import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
+import { ContentUrlService } from '../../services/content-url.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -41,6 +43,9 @@ import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
   host: { class: 'app-header' }
 })
 export class AppHeaderComponent implements OnInit, OnDestroy {
+  searchBarExpanded = false;
+  showSearchBar = true;
+  actions=[];
   private onDestroy$: Subject<boolean> = new Subject<boolean>();
   @Output()
   toggleClicked = new EventEmitter();
@@ -51,11 +56,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   headerColor$: Observable<any>;
   headerTextColor$: Observable<string>;
   logo$: Observable<string>;
+  pageName;
   landingPage: string;
+  buttonList;
 
-  actions: Array<ContentActionRef> = [];
+  // actions: Array<ContentActionRef> = [];
 
-  constructor(store: Store<AppStore>, private appExtensions: AppExtensionService, private appConfigService: AppConfigService) {
+  constructor(store: Store<AppStore>, private appExtensions: AppExtensionService, 
+    private contentservce: ContentUrlService, private appConfigService: AppConfigService, private route: Router) {
     this.headerColor$ = store.select(getHeaderColor);
     this.headerTextColor$ = store.select(getHeaderTextColor);
     this.appName$ = store.select(getAppName);
@@ -66,14 +74,28 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
       document.body.style.setProperty('--header-background-image', `url('${path}')`);
     });
   }
-
+  runAction() {
+    return false;
+    // this.store.dispatch({ type });
+  }
   ngOnInit() {
+    console.log("routeee", this.route.url);
+    this.contentservce.sendSidePageName.subscribe(data => {
+      console.log("pagggg", data.pageName);
+      this.pageName = data.pageName;
+    });
+    if (this.route.url == "/personal-files" || this.route.url == "/") {
+      this.pageName = 'APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL';
+    }
     this.appExtensions
       .getHeaderActions()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((actions) => {
         this.actions = actions;
       });
+
+      this.buttonList = this.appConfigService.get('actions-list');
+      console.log("button", this.buttonList);
 
     this.headerTextColor$.subscribe((color) => {
       document.documentElement.style.setProperty('--adf-header-text-color', color);
@@ -83,6 +105,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   isContentServiceEnabled(): boolean {
     return isContentServiceEnabled();
   }
+  isSearchBarExpanded(value) {
+    this.searchBarExpanded = value;
+  }
+  get isSmallScreen(): boolean {
+    return false;
+    // return this.layoutService.isSmallScreenWidth();
+  }
+
 
   ngOnDestroy() {
     this.onDestroy$.next(true);

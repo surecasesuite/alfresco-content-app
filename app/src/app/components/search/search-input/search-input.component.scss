@@ -51,9 +51,10 @@ mat-checkbox {
 .aca-search-input {
   width: 100%;
   max-width: $search-width;
-  background-color: $search-background;
+ // background-color: $search-background;
   border-radius: $search-border-radius;
   height: $search-height;
+  padding-right: 22px;
 }
 
 .app-search-container {

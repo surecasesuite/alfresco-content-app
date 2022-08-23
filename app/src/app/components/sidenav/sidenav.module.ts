@@ -38,6 +38,7 @@ import { ExpandMenuComponent } from './components/expand-menu.component';
 import { ButtonMenuComponent } from './components/button-menu.component';
 import { ActionDirective } from './directives/action.directive';
 import { MainActionModule } from '../main-action/main-action.module';
+import { AppToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { MainActionModule } from '../main-action/main-action.module';
     ExtensionsModule.forChild(),
     RouterModule,
     AppCreateMenuModule,
-    MainActionModule
+    MainActionModule,
+    AppToolbarModule
   ],
   declarations: [
     MenuPanelDirective,

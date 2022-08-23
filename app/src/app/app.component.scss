@@ -13,3 +13,9 @@
     border: 0;
   }
 }
+::ng-deep .adf-pagination__perpage-block {
+  margin-right: 450px !important;
+}
+::ng-deep .adf-pagination {
+  width: 101% !important;
+}

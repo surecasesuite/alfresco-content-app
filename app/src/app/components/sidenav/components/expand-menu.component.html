@@ -9,6 +9,7 @@
       [attr.title]="item.description | translate"
       mat-button
       class="action-button full-width"
+      (click)="getPageName(item.title)"
     >
       <adf-icon *ngIf="item.icon" [value]="item.icon"></adf-icon>
       <span class="action-button__label">{{ item.title | translate }}</span>
@@ -36,6 +37,7 @@
             [attr.data-automation-id]="item.id"
             mat-button
             class="action-button full-width"
+            (click)="getPageName(item.title)"
           >
             <adf-icon *ngIf="item.icon" [value]="item.icon"></adf-icon>
             <span class="action-button__label">{{ item.title | translate }}</span>
@@ -54,6 +56,7 @@
         [attr.title]="child.description | translate"
         mat-button
         class="action-button full-width"
+        (click)="getPageName(child.title)"
       >
         <adf-icon *ngIf="child.icon" [value]="child.icon"></adf-icon>
         <span class="action-button__label">{{ child.title | translate }}</span>
