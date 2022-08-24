@@ -1,27 +1,15 @@
 .app-header {
- 
   background: #FFFFFF;
   height: 96px;
   border: 1px solid rgb(220,220,220);
-  .mat-toolbar {
-    // background-image: var(--header-background-image) !important;
-    // background-repeat: no-repeat !important;
-
     .aca-current-user {
       color: var(--theme-foreground-text-color) !important;
     }
-
-    // .adf-toolbar-divider div {
-    //   // background-color: var(--theme-foreground-text-color) !important;
-    // }
-  }
 }
 .studio-project-list-header {
   box-sizing: content-box;
-  height: 30px;
   line-height: 40px;
   padding: 25px 0 35px 15px;
-  border: 1px solid var(--theme-studio-background);
   width: 77%;
   margin-left: 23%;
 
@@ -60,16 +48,6 @@
           .mat-form-field {
               display: none;
           }
-
-          modelingsdk-search-header {
-              display: flex;
-              align-items: center;
-
-              /* stylelint-disable-next-line */
-              .ng-trigger-transitionMessages {
-                  transform: translateX(12%) !important;
-              }
-          }
       }
 
       .studio-header-search-bar-active {
@@ -90,7 +68,6 @@
   }
 
   .page-title {
-    // margin-left: 5px;
       font-size: 20px;
       line-height: 40px;
   }

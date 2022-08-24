@@ -1,27 +1,7 @@
-<!-- <adf-layout-header
-  [logo]="logo$ | async"
-  [redirectUrl]="landingPage"
-  [color]="headerColor$ | async"
-  (clicked)="toggleClicked.emit($event)"
-  [expandedSidenav]="expandedSidenav"
->
-  <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
-
-  <aca-search-input *ngIf="isContentServiceEnabled()"></aca-search-input>
- [title]="appName$ | async"
-  <adf-toolbar-divider></adf-toolbar-divider>
-
-  <ng-container *ngFor="let actionRef of actions; trackBy: trackByActionId">
-    <aca-toolbar-action [actionRef]="actionRef"> </aca-toolbar-action>
-  </ng-container>
- </adf-layout-header> -->
-
-<section class="studio-project-list-header">
+ <section class="studio-project-list-header">
   <div class="studio-project-list-header-section">
       <div *ngIf="isSmallScreen">
-          <!-- <button mat-icon-button color="accent" aria-label="Open sidenav" (click)="openSidenav()"> -->
               <i class="material-icons-outlined">space_dashboard</i>
-          <!-- </button> -->
       </div>
       <div class="studio-title-actions" *ngIf="!searchBarExpanded">
           <div class="studio-project-list-header-title">

@@ -60,8 +60,6 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   landingPage: string;
   buttonList;
 
-  // actions: Array<ContentActionRef> = [];
-
   constructor(store: Store<AppStore>, private appExtensions: AppExtensionService, 
     private contentservce: ContentUrlService, private appConfigService: AppConfigService, private route: Router) {
     this.headerColor$ = store.select(getHeaderColor);
@@ -76,7 +74,6 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   }
   runAction() {
     return false;
-    // this.store.dispatch({ type });
   }
   ngOnInit() {
     console.log("routeee", this.route.url);
@@ -110,7 +107,6 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   }
   get isSmallScreen(): boolean {
     return false;
-    // return this.layoutService.isSmallScreenWidth();
   }
 
 

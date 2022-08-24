@@ -1,14 +1,11 @@
 <div class="sidenav">
   <ng-container [ngSwitch]="mode">
     <div class="section action-menu" [ngClass]="'section--' + mode">
-      <!-- <app-main-action [expanded]="mode === 'expanded'"></app-main-action> -->
-      <!-- <app-create-menu [expanded]="mode === 'expanded'"></app-create-menu> -->
       <div class="studio-main-navigation-header-title">
         <div class="studio-logo">
             <img src="./assets/Workspace.svg">
           </div>
         <div class="studio-main-navigation-header-title-text">{{ 'APP.TITLE' | translate }}</div>
-        <!-- <div style="margin-left:60px;"><img src="./assets/Union.png"></div> -->
         <ng-container *ngFor="let actionRef of actions; trackBy: trackByActionId">
           <aca-toolbar-action [actionRef]="actionRef"> </aca-toolbar-action>
         </ng-container>
