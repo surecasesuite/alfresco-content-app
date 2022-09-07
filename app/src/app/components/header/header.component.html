@@ -7,7 +7,7 @@
           <div class="studio-project-list-header-title">
             {{'APP.ALFRESCO_TITLE' | translate}}
           </div>
-          <span class="page-title">
+          <span>
             <mat-icon class="mat-icon">keyboard_arrow_right</mat-icon>
           </span>
           <span class="page-title" *ngIf="pageName==='APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL' | translate}}</span>
@@ -21,7 +21,7 @@
 
           <div class="studio-project-list-header-actions" *ngIf="!isSmallScreen; else iconButtons">
               <ng-container *ngFor="let action of buttonList">
-                  <button mat-button (click)="runAction()" class="studio-{{action.id}}-button">
+                  <button mat-button (click)="runAction(action.key)" class="studio-{{action.id}}-button">
                       <span>{{ action.title | translate }}</span>
                   </button>
               </ng-container>
@@ -29,7 +29,7 @@
       </div>
       <div class="studio-header-vertical" *ngIf="!searchBarExpanded"></div>
 
-      <div *ngIf="showSearchBar" [ngClass]="searchBarExpanded === true ? 'studio-header-search-bar-active' : 'studio-header-search-bar-inactive'">
+      <div *ngIf="showSearchBar"  [ngClass]="searchBarExpanded === true ? 'studio-header-search-bar-active' : 'studio-header-search-bar-inactive'">
         <!-- <aca-search-input *ngIf="isContentServiceEnabled()"></aca-search-input>   -->
         <aca-search-input></aca-search-input>
         <!-- <modelingsdk-search-header (isSearchBarExpanded)="isSearchBarExpanded($event)" [url]="url"></modelingsdk-search-header> -->
@@ -40,7 +40,7 @@
 <ng-template #iconButtons>
   <div class="studio-project-list-header-actions">
       <ng-container *ngFor="let action of buttonList">
-          <button mat-mini-fab [matTooltip]="action.actionName" (click)="runAction()" class="studio-{{action.id}}-button">
+          <button mat-mini-fab [matTooltip]="action.actionName" (click)="runAction(action.key)" class="studio-{{action.id}}-button">
               <mat-icon>{{action.icon}}</mat-icon>
           </button>
       </ng-container>

@@ -3,13 +3,14 @@
     <div class="section action-menu" [ngClass]="'section--' + mode">
       <div class="studio-main-navigation-header-title">
         <div class="studio-logo">
-            <img src="./assets/Workspace.svg">
+            <!-- <img src="./assets/Workspace.svg"> -->
+            <mat-icon svgIcon="workspace"></mat-icon>  
           </div>
         <div class="studio-main-navigation-header-title-text">{{ 'APP.TITLE' | translate }}</div>
         <ng-container *ngFor="let actionRef of actions; trackBy: trackByActionId">
-          <aca-toolbar-action [actionRef]="actionRef"> </aca-toolbar-action>
+          <aca-toolbar-action [actionRef]="actionRef"></aca-toolbar-action>
         </ng-container>
-        <div class="menu-icon"><img src="./assets/Menu.png"></div>
+        <modelingsdk-user-info-menu></modelingsdk-user-info-menu>
     </div>
     </div>
 

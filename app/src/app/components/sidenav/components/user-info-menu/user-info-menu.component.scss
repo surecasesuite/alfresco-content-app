@@ -1,0 +1,61 @@
+.ama-user-menu {
+    font-family: var(--theme-font-family);
+
+    &-initials {
+
+        .ama-user-initials {
+            border-radius: 90%;
+            height: 32px;
+            margin-right: 0;
+            min-width: 32px;
+            padding: 0;
+            font-weight: bolder;
+            line-height: 32px !important;
+            text-align: center;
+            vertical-align: middle;
+            background: var(--theme-studio-background);
+            border: none;
+        }
+        .menu-icon{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            align-items: center;
+            width: 28px;
+            height: 28px;
+            margin-left: 12px;
+            // padding-top: 4px;
+          }
+
+        .ama-user-initials.ama-details {
+            margin-top: 15px;
+        }
+
+        .ama-user-name-mail {
+            margin-left: 15px;
+            // line-height: 60px;
+        }
+
+        .ama-user-menu-name {
+            height: 24px;
+        }
+    }
+
+    &-initials.ama-details {
+        display: flex;
+        height: 66px;
+    }
+
+    &-admin {
+        text-decoration: none;
+        color: var(--theme-text-fg-color);
+    }
+}
+.cdk-overlay-connected-position-bounding-box {
+    left: 14px !important; 
+}
+.mat-menu-panel {
+    width: 264px !important;
+    // max-width: 300px !important;
+}
+

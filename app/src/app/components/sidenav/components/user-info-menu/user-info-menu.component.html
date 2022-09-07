@@ -1,0 +1,68 @@
+<div class="ama-user-menu">
+    <div  class="ama-user-menu-initials">
+        <button mat-button [matMenuTriggerFor]="menu" class="ama-user-initials">
+            <!-- <div [outerHTML]="userDetails |  usernameInitials"></div> -->
+            <mat-icon class="menu-icon" svgIcon="menu"></mat-icon> 
+        </button>
+    </div>
+    <mat-menu #menu="matMenu" xPosition="before">
+        <a mat-menu-item class="ama-user-menu-admin" (click)="openAdminApp()">
+            <mat-icon svgIcon="admin"></mat-icon> 
+            <span>{{ 'APP.ADMIN' | translate }}</span>
+        </a>
+        <a mat-menu-item class="ama-user-menu-admin" (click)="openModelerApp()">
+            <mat-icon svgIcon="modeler"></mat-icon> 
+            <span>{{ 'APP.MODELER' | translate }}</span>
+        </a>
+        <mat-divider></mat-divider>
+        <!-- <button mat-menu-item [matMenuTriggerFor]="langMenu" data-automation-id="user-language-menu">
+            <mat-icon>translate</mat-icon>
+            <span>{{ 'APP.LANGUAGE' | translate }}</span>
+        </button>
+    
+        <mat-menu #langMenu="matMenu">
+            <adf-language-menu></adf-language-menu>
+        </mat-menu> -->
+
+        <button mat-menu-item data-automation-id="user-language-menu" [routerLink]="['/settings']">
+            <mat-icon>settings</mat-icon>
+            <span>{{ 'APP.SETTINGS.TITLE' | translate }}</span>
+        </button>
+
+        <!-- <button mat-menu-item data-automation-id="about" (click)="navigateToAbout()">
+            <mat-icon>info</mat-icon>
+            <span>{{ 'APP.BROWSE.ABOUT.TITLE' | translate }}</span>
+        </button> -->
+        <button mat-menu-item data-automation-id="about" (click)="navigateToAbout()">
+            <mat-icon>help_outline</mat-icon>
+            <span>{{ 'APP.HELP' | translate }}</span>
+        </button>
+        <a mat-menu-item data-automation-id="ama-user-menu-docs" (click)="navigateToDocs()">
+            <mat-icon [ngStyle]="{'color': 'var(--theme-document-color)'}">book</mat-icon>
+            <span>{{ 'APP.DOCUMENTATION' | translate }}</span>
+        </a>
+        <mat-divider></mat-divider>
+        <div mat-menu-item class="ama-user-menu-initials ama-details">
+            <button class="ama-user-initials ama-details">
+                <!-- <div [outerHTML]="userDetails |  usernameInitials"></div> -->
+                <mat-icon svgIcon="avatar"></mat-icon> 
+            </button>
+            <div class="ama-user-name-mail">
+                <!-- <div class="ama-user-menu-name">{{ userName }}</div>
+                <div class="ama-user-menu-name">{{ userMail }}</div> -->
+                <div class="ama-user-menu-name">admin admin</div>
+                <div class="ama-user-menu-name">admin@alfresco.com</div>
+            </div>
+        </div>
+   
+        <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span>{{ 'APP.SWITCH_ACCOUNT' | translate }}</span>
+            <!-- <mat-icon>arrow_right</mat-icon> -->
+        </button>
+        <button mat-menu-item data-automation-id="ama-user-menu-logout" adf-logout [enableRedirect]="false">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>{{ 'APP.LOG_OUT' | translate }}</span>
+        </button>
+    </mat-menu>
+</div>

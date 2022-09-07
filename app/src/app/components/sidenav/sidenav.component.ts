@@ -45,6 +45,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   groups: Array<NavBarGroupRef> = [];
   private onDestroy$ = new Subject<boolean>();
   actions = [];
+  openMenuDialog;
 
   constructor(private store: Store<AppStore>, private extensions: AppExtensionService) {}
 
@@ -53,6 +54,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
       .getHeaderActions()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((actions) => {
+      //  this.actions = actions;
+        console.log("actions 1", actions);
+        console.log("actions", this.actions);
         let data = [];
         data = actions;
         this.actions = data.filter((element)=>{
@@ -82,5 +86,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy$.next(true);
     this.onDestroy$.complete();
+  }
+  openMenu() {
+    this.openMenuDialog = true;
   }
 }
