@@ -23,7 +23,7 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, DoCheck, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ContentActionRef } from '@alfresco/adf-extensions';
 import { ToolbarButtonType } from '../toolbar-button/toolbar-button.component';
 import { ThemePalette } from '@angular/material/core';
@@ -36,7 +36,7 @@ import { ThemePalette } from '@angular/material/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'aca-toolbar-action' }
 })
-export class ToolbarActionComponent implements DoCheck {
+export class ToolbarActionComponent implements OnInit, DoCheck {
   @Input()
   type: ToolbarButtonType = ToolbarButtonType.ICON_BUTTON;
 
@@ -47,6 +47,10 @@ export class ToolbarActionComponent implements DoCheck {
   actionRef: ContentActionRef;
 
   constructor(private cd: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+      console.log("ttt", this.actionRef);
+  }
 
   // todo: review after ADF 2.6
   // preview component : change detection workaround for children without input

@@ -2,7 +2,7 @@
   <adf-sidenav-layout
     #layout
     [sidenavMin]="70"
-    [sidenavMax]="320"
+    [sidenavMax]="289"
     [stepOver]="600"
     [hideSidenav]="hideSidenav"
     [expandedSidenav]="expandedSidenav"
@@ -10,14 +10,15 @@
   >
     <adf-sidenav-layout-header>
       <ng-template let-isMenuMinimized="isMenuMinimized">
-        <app-header role="heading" aria-level="1" *ngIf="!hideSidenav" (toggleClicked)="layout.toggleMenu()" [expandedSidenav]="!isMenuMinimized()">
+        <app-header style="width:100%" role="heading" aria-level="1" *ngIf="!hideSidenav" (toggleClicked)="layout.toggleMenu()" [expandedSidenav]="!isMenuMinimized()">
         </app-header>
       </ng-template>
     </adf-sidenav-layout-header>
 
-    <adf-sidenav-layout-navigation>
+    <adf-sidenav-layout-navigation >
       <ng-template let-isMenuMinimized="isMenuMinimized">
-        <app-sidenav
+        <app-sidenav style="top:0;position:fixed;width: 289px;
+        border: 1px solid rgb(220,220,220);background: rgba(33, 33, 33, 0.12);"
           [mode]="isMenuMinimized() ? 'collapsed' : 'expanded'"
           [attr.data-automation-id]="isMenuMinimized() ? 'collapsed' : 'expanded'"
           (swipeleft)="hideMenu($event)"

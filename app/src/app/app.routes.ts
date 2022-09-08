@@ -39,6 +39,7 @@ import { SharedFilesComponent } from './components/shared-files/shared-files.com
 import { DetailsComponent } from './components/details/details.component';
 import { HomeComponent } from './components/home/home.component';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
+import { SettingsComponent } from '../../../projects/aca-settings/src/public-api';
 
 export const APP_ROUTES: Routes = [
   {
@@ -51,6 +52,10 @@ export const APP_ROUTES: Routes = [
     data: {
       title: 'APP.SIGN_IN'
     }
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: 'preview/s/:id',

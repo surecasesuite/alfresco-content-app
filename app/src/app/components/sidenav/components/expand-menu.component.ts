@@ -25,6 +25,7 @@
 
 import { Component, OnInit, Input, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { NavBarLinkRef } from '@alfresco/adf-extensions';
+import { ContentUrlService } from '../../../services/content-url.service';
 
 @Component({
   selector: 'app-expand-menu',
@@ -36,7 +37,7 @@ export class ExpandMenuComponent implements OnInit {
   @Input()
   item: NavBarLinkRef;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef, private contentservce: ContentUrlService) {}
 
   ngOnInit() {
     this.cd.detectChanges();
@@ -44,5 +45,9 @@ export class ExpandMenuComponent implements OnInit {
 
   trackById(_index: number, obj: NavBarLinkRef) {
     return obj.id;
+  }
+
+  getPageName(data) {
+    this.contentservce.sendSidePageName.next({pageName: data})
   }
 }

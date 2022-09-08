@@ -25,6 +25,12 @@
 
 import { SelectionState, ProfileState, NavigationState } from '@alfresco/adf-extensions';
 import { RepositoryInfo, VersionEntry } from '@alfresco/js-api';
+import { ModelIdentifier } from './ama-store.interfaces';
+
+export interface AppTheme {
+  name: string;
+  className: string;
+}
 
 export interface AppState {
   appName: string;
@@ -48,6 +54,42 @@ export interface AppState {
   fileUploadingDialog: boolean;
 }
 
+export interface ModelState {
+  menuOpened: boolean;
+  selectedProjectId: string | null;
+  openedModel: ModelIdentifier;
+  selectedTheme: AppTheme;
+  dirtyState: boolean;
+  toolbar: ToolbarState;
+  logs: LogMessage[];
+}
+
 export interface AppStore {
   app: AppState;
+}
+export interface AmaState {
+  app: ModelState;
+}
+export interface ToolbarState {
+  inProgress: boolean;
+  userMessage: string;
+  logHistoryVisible: boolean;
+}
+
+export interface LogMessage {
+  type: MESSAGE;
+  datetime: Date;
+  initiator: LogMessageInitiator;
+  messages: string[];
+}
+export enum MESSAGE {
+  INFO = 'info',
+  WARN = 'warning',
+  ERROR = 'error'
+}
+
+export interface LogMessageInitiator {
+  key: string | symbol;
+  displayName: string;
+  extra?: any;
 }

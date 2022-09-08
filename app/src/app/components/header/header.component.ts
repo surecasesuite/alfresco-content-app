@@ -32,6 +32,8 @@ import { AppExtensionService } from '@alfresco/aca-shared';
 import { takeUntil } from 'rxjs/operators';
 import { AppConfigService } from '@alfresco/adf-core';
 import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
+import { ContentUrlService } from '../../services/content-url.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -41,6 +43,11 @@ import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
   host: { class: 'app-header' }
 })
 export class AppHeaderComponent implements OnInit, OnDestroy {
+  createActions: any = [];
+  actionUpload: any = [];
+  searchBarExpanded = false;
+  showSearchBar = true;
+  actions = [];
   private onDestroy$: Subject<boolean> = new Subject<boolean>();
   @Output()
   toggleClicked = new EventEmitter();
@@ -51,11 +58,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   headerColor$: Observable<any>;
   headerTextColor$: Observable<string>;
   logo$: Observable<string>;
+  pageName;
   landingPage: string;
+  buttonList;
+  actionRef: ContentActionRef;
+  actionRefUpload: ContentActionRef;
 
-  actions: Array<ContentActionRef> = [];
-
-  constructor(store: Store<AppStore>, private appExtensions: AppExtensionService, private appConfigService: AppConfigService) {
+  constructor(store: Store<AppStore>, private appExtensions: AppExtensionService,
+    private contentservce: ContentUrlService, private appConfigService: AppConfigService, private router: Router) {
     this.headerColor$ = store.select(getHeaderColor);
     this.headerTextColor$ = store.select(getHeaderTextColor);
     this.appName$ = store.select(getAppName);
@@ -66,8 +76,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
       document.body.style.setProperty('--header-background-image', `url('${path}')`);
     });
   }
+  
 
   ngOnInit() {
+    this.contentservce.sendSidePageName.subscribe(data => {
+      this.pageName = data.pageName;
+    });
+
+    this.getPageTitle();
     this.appExtensions
       .getHeaderActions()
       .pipe(takeUntil(this.onDestroy$))
@@ -75,14 +91,90 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
         this.actions = actions;
       });
 
+    this.buttonList = this.appConfigService.get('actions-list');
+
     this.headerTextColor$.subscribe((color) => {
       document.documentElement.style.setProperty('--adf-header-text-color', color);
     });
+    
+    this.appExtensions
+      .getCreateActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((createActions) => {
+        let data = [];
+        data = createActions;
+        this.createActions = data.filter((item)=>{
+          return item.id == "app.create.library";
+        });
+        this.actionRef = Object.assign({},this.createActions);
+        this.actionUpload = data.filter((item)=>{
+          return item.id == "app.create.uploadFolder";
+        });
+        this.actionRefUpload = Object.assign({},this.actionUpload);
+        console.log("header accc-->", this.createActions);
+      });
+  }
+
+  runAction(data) {
+    console.log("header accc refff-->", this.actionRef);
+    if ((data == "create") && (this.router.url == '/favorite/libraries' || this.router.url == '/libraries')) {
+      this.appExtensions.runActionById(this.actionRef[0].actions.click);
+    } else if (data == "upload" && this.router.url == '/personal-files') {
+        this.appExtensions.runActionById(this.actionRefUpload[0].actions.click);
+    }
+  }
+
+  getPageTitle() {
+    const url = this.router.url;
+    switch (url) {
+      case '/personal-files':
+      case '/': {
+        this.pageName = 'APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/favorite/libraries': {
+        this.pageName = 'APP.BROWSE.LIBRARIES.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/favorite/libraries': {
+        this.pageName = 'APP.BROWSE.LIBRARIES.MENU.FAVORITE_LIBRARIES.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/libraries': {
+        this.pageName = 'APP.BROWSE.LIBRARIES.MENU.MY_LIBRARIES.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/shared': {
+        this.pageName = 'APP.BROWSE.SHARED.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/recent-files': {
+        this.pageName = 'APP.BROWSE.RECENT.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/favorites': {
+        this.pageName = 'APP.BROWSE.FAVORITES.SIDENAV_LINK.LABEL';
+        break;
+      }
+      case '/trashcan': {
+        this.pageName = 'APP.BROWSE.TRASHCAN.SIDENAV_LINK.LABEL';
+        break;
+      }
+      default:
+        break;
+    }
   }
 
   isContentServiceEnabled(): boolean {
     return isContentServiceEnabled();
   }
+  isSearchBarExpanded(value) {
+    this.searchBarExpanded = value;
+  }
+  get isSmallScreen(): boolean {
+    return false;
+  }
+
 
   ngOnDestroy() {
     this.onDestroy$.next(true);

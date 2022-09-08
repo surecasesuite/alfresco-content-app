@@ -25,7 +25,7 @@
   },
   "locale": "en",
   "application": {
-    "name": "Alfresco Content Application",
+    "name": "Workspace",
     "version": "2.11.0",
     "logo": "assets/images/alfresco-logo-flower.svg",
     "headerImagePath": "assets/images/mastHead-bg-shapesPattern.svg",
@@ -368,6 +368,26 @@
       ]
     }
   },
+   "actions-list": [
+        {
+          "id": "create",
+          "key": "create",
+          "type": "text",
+          "title": "Create",
+          "sortable": true,
+          "draggable": true,
+          "handler": ""
+        },
+        {
+          "id": "upload",
+          "key": "upload",
+          "type": "text",
+          "title": "Upload",
+          "sortable": true,
+          "draggable": true,
+          "handler": ""
+        }
+      ],
   "aspect-visible": {
     "default" : ["cm:generalclassifiable", "cm:complianceable",
                  "cm:dublincore", "cm:effectivity", "cm:summarizable",

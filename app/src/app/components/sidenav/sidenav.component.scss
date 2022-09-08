@@ -3,9 +3,17 @@
   flex: 1;
   flex-direction: column;
   height: 100%;
-  overflow-y: hidden;
 }
-
+.menu-icon{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-left: 12px;
+  padding-top: 4px;
+}
 .aca-menu-panel {
   .action-button--active {
     color: var(--theme-accent-color) !important;
@@ -41,15 +49,11 @@
   .section.action-menu {
     padding: 8px 14px;
     position: sticky;
-  }
-
-  .section-sub-actions {
-    overflow-y: auto;
+    padding: 25px 0 25px 20px;
   }
 
   .section {
     padding: 8px 6px;
-    border-bottom: 1px solid var(--theme-divider-color);
   }
 
   .section--collapsed {
@@ -148,3 +152,66 @@
     padding: 0 0 0 8px !important;
   }
 }
+.studio-main-navigation {
+  width: 289px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 35px;
+  padding-top: 15px;
+  position:absolute;
+  top: 0px;
+  border:none;
+  &-container {
+      width: 100%;
+  }
+
+  &-header {
+      width: 100%;
+      display:flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      &-title {
+          display:flex;
+          align-items: center;
+          width: 100%;
+
+          .studio-logo {
+              // display:flex;
+              // width: 32px;
+              // height: 32px;
+              // justify-content: center;
+              // align-items: center;   
+              // left: 24px; 
+                position: absolute;
+                width: 18px;
+                height: 19.86px;
+                left: 3px;
+                top: 2.25px;
+                display: contents;
+
+          }
+
+          &-text {
+              // font-size: 16px;
+              // line-height: 22px;
+              margin-left: 12px;
+              display: flex;
+              align-items: center;
+              padding: 4px 0px;
+              width: 76px;
+              height: 32px;
+              left: 44px;
+              font-family: 'Inter';
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 24px;
+              letter-spacing: 0.25px;
+              color: #212121;
+          }
+        }
+      }
+    }

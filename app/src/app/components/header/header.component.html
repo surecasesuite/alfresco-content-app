@@ -1,19 +1,50 @@
-<adf-layout-header
-  [logo]="logo$ | async"
-  [redirectUrl]="landingPage"
-  [tooltip]="appName$ | async"
-  [color]="headerColor$ | async"
-  [title]="appName$ | async"
-  (clicked)="toggleClicked.emit($event)"
-  [expandedSidenav]="expandedSidenav"
->
-  <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
+ <section class="studio-project-list-header">
+  <div class="studio-project-list-header-section">
+      <div *ngIf="isSmallScreen">
+              <i class="material-icons-outlined">space_dashboard</i>
+      </div>
+      <div class="studio-title-actions" *ngIf="!searchBarExpanded">
+          <div class="studio-project-list-header-title">
+            {{'APP.ALFRESCO_TITLE' | translate}}
+          </div>
+          <span>
+            <mat-icon class="mat-icon">keyboard_arrow_right</mat-icon>
+          </span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.LIBRARIES.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.LIBRARIES.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.LIBRARIES.MENU.FAVORITE_LIBRARIES.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.LIBRARIES.MENU.FAVORITE_LIBRARIES.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.LIBRARIES.MENU.MY_LIBRARIES.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.LIBRARIES.MENU.MY_LIBRARIES.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.SHARED.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.SHARED.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.RECENT.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.RECENT.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.FAVORITES.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.FAVORITES.SIDENAV_LINK.LABEL' | translate}}</span>
+          <span class="page-title" *ngIf="pageName==='APP.BROWSE.TRASHCAN.SIDENAV_LINK.LABEL'">{{'APP.BROWSE.TRASHCAN.SIDENAV_LINK.LABEL' | translate}}</span>
 
-  <aca-search-input *ngIf="isContentServiceEnabled()"></aca-search-input>
+          <div class="studio-project-list-header-actions" *ngIf="!isSmallScreen; else iconButtons">
+              <ng-container *ngFor="let action of buttonList">
+                  <button mat-button (click)="runAction(action.key)" class="studio-{{action.id}}-button">
+                      <span>{{ action.title | translate }}</span>
+                  </button>
+              </ng-container>
+          </div>
+      </div>
+      <div class="studio-header-vertical" *ngIf="!searchBarExpanded"></div>
 
-  <adf-toolbar-divider></adf-toolbar-divider>
+      <div *ngIf="showSearchBar"  [ngClass]="searchBarExpanded === true ? 'studio-header-search-bar-active' : 'studio-header-search-bar-inactive'">
+        <!-- <aca-search-input *ngIf="isContentServiceEnabled()"></aca-search-input>   -->
+        <aca-search-input></aca-search-input>
+        <!-- <modelingsdk-search-header (isSearchBarExpanded)="isSearchBarExpanded($event)" [url]="url"></modelingsdk-search-header> -->
+      </div>
+  </div>
+</section>
 
-  <ng-container *ngFor="let actionRef of actions; trackBy: trackByActionId">
-    <aca-toolbar-action [actionRef]="actionRef"> </aca-toolbar-action>
-  </ng-container>
-</adf-layout-header>
+<ng-template #iconButtons>
+  <div class="studio-project-list-header-actions">
+      <ng-container *ngFor="let action of buttonList">
+          <button mat-mini-fab [matTooltip]="action.actionName" (click)="runAction(action.key)" class="studio-{{action.id}}-button">
+              <mat-icon>{{action.icon}}</mat-icon>
+          </button>
+      </ng-container>
+  </div>
+</ng-template>
+
+

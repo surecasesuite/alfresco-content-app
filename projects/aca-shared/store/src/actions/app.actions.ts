@@ -88,6 +88,13 @@ export class ReloadDocumentListAction implements Action {
   constructor(public payload?: any) {}
 }
 
+
+export const OPEN_ABOUT_DIALOG = 'Open About Dialog';
+export class OpenAboutDialogAction implements Action {
+    readonly type = OPEN_ABOUT_DIALOG;
+    constructor() {}
+}
+
 export class ResetSelectionAction implements Action {
   readonly type = AppActionTypes.ResetSelection;
 
