@@ -14,18 +14,18 @@
   </aca-page-layout-error>
 
   <aca-page-layout-content>
-    <div class="main-content" *ngIf="!(showLoader$ | async)">
+    <div style="width: 100%" *ngIf="!(showLoader$ | async)">
 
       hello
       <hy-content-list
-      hyDensity
-      [dataSource]="dataSource"
-    >
-      <hy-content-list-column propertyName="title" label="Title"></hy-content-list-column>
-      <hy-content-list-column propertyName="patientName" label="Patient Name"></hy-content-list-column>
+        hyDensity
+        [dataSource]="dataSource"
+      >
+        <hy-content-list-column propertyName="title" label="Title"></hy-content-list-column>
+        <hy-content-list-column propertyName="patientName" label="Patient Name"></hy-content-list-column>
 
 
-    </hy-content-list>
+      </hy-content-list>
     </div>
 
     <mat-progress-spinner *ngIf="showLoader$ | async"
