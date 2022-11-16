@@ -62,6 +62,7 @@ import { INITIAL_APP_STATE } from './content-plugin/store/initial-state';
 import { ContentVersionService } from '@alfresco/adf-content-services';
 import { ContentUrlService } from './content-plugin/services/content-url.service';
 import { STORE_INITIAL_APP_DATA } from '@alfresco/aca-shared/store';
+import { HyContentListModule } from '@hyland/ui';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeDe);
@@ -87,6 +88,7 @@ registerLocaleData(localeSv);
     CoreModule.forRoot(),
     SharedModule.forRoot(),
     CoreExtensionsModule.forRoot(),
+    HyContentListModule,
     environment.e2e ? NoopAnimationsModule : BrowserAnimationsModule,
     RouterModule.forRoot([], {
       useHash: true,

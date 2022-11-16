@@ -39,6 +39,154 @@ import { FilterSearch, ShareDataRow } from '@alfresco/adf-content-services';
 import { DocumentListPresetRef } from '@alfresco/adf-extensions';
 import { Observable } from 'rxjs';
 
+export interface HyContentListSandboxRowData {
+  title: string;
+  dueDate: Date;
+  progress: number;
+  patientName: string;
+  state: string;
+  completed?: boolean;
+  color?: string;
+  file?: string;
+  type?: any;
+  extension?: string;
+  shape?: string;
+  thumbnail?: string;
+};
+export const mockDataSource: HyContentListSandboxRowData[] = [
+  {
+    type: 'medical',
+    title: `Mental Status Examination`,
+    dueDate: new Date('October 12, 2020'),
+    progress: 100,
+    patientName: 'Noel Mccarthy',
+    color:
+      'a vibrant blue that enhances our users ability to complete tasks more efficiently and promote active state recognition',
+    state: 'IL',
+    completed: true
+  },
+  {
+    extension: 'html',
+    title: `Physician Notes. Its going to be a really long sentence.
+    This is a really long sentence to demonstrate the wrapping of it`,
+    dueDate: new Date('October 13, 2020'),
+    progress: 60,
+    patientName: 'Jamal Walmsley',
+    file: 'DICOM this is a long file patientName',
+    color: 'blue',
+    state: 'OH',
+    completed: true,
+    type: 'word'
+  },
+  {
+    thumbnail: 'assets/Sample.png',
+    title: `This is a custom cell`,
+    dueDate: new Date('11/15/2001'),
+    shape: 'ring',
+    patientName: 'Emily Petersen',
+    state: 'NE',
+    progress: 35,
+    color: 'fuchsia',
+    completed: false
+  },
+  {
+    title: `Physician Notes. Its going to be a really long sentence.`,
+    dueDate: new Date('October 20 2020'),
+    progress: 50,
+    patientName: 'Karter Krause',
+    color: 'orange',
+    state: 'MI',
+    completed: true
+  },
+  {
+    type: 'medical',
+    title: 'Medical history record',
+    patientName: 'Corban Bateman',
+    dueDate: new Date(),
+    progress: 85,
+    file: 'DICOM',
+    state: 'FL',
+    completed: false
+  },
+  {
+    extension: 'xls',
+    title: 'Operative Report',
+    patientName: 'Elliott Lutz',
+    dueDate: new Date('01/21/20'),
+    progress: 45,
+    file: 'DICOM',
+    shape: 'triangle',
+    state: 'FL',
+    completed: false
+  },
+  {
+    title: 'DICOM Study 2',
+    patientName: 'Milana Wallace',
+    dueDate: new Date('02/11/20'),
+    progress: 15,
+    file: 'DICOM',
+    shape: 'triangle',
+    state: 'FL',
+    completed: false
+  },
+  {
+    type: 'word',
+    title: 'Discharge Summary',
+    patientName: 'Richie Kramer',
+    dueDate: new Date(),
+    progress: 45,
+    file: 'DICOM',
+    shape: 'triangle',
+    state: 'FL',
+    completed: false
+  },
+  {
+    extension: 'pdf',
+    title: 'Discharge Summary',
+    patientName: 'Marvin Brady',
+    dueDate: new Date('08/11/20'),
+    progress: 15,
+    file: 'DICOM',
+    shape: 'square',
+    state: 'NV',
+    completed: true
+  },
+  {
+    thumbnail:
+      'https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG',
+    type: 'form',
+    patientName: 'Lynsey Warren',
+    title: 'Physician Notes 2',
+    dueDate: new Date('08/11/18'),
+    progress: 65,
+    color: 'purple',
+    state: 'PA',
+    completed: true
+  },
+  {
+    extension: 'pdf',
+    title: `Physician Notes. Its going to be a really long sentence.`,
+    patientName: 'Jody Dorsey',
+    dueDate: new Date('09/17/18'),
+    type: 'pdf',
+    shape: 'square',
+    state: 'NY',
+    progress: 90,
+    completed: false
+  },
+  {
+    thumbnail: 'assets/Sample.png',
+    title: `Physician Notes. Its going to be a really long sentence.
+    This is it`,
+    patientName: 'Jackson Avila',
+    dueDate: new Date('09/1/20'),
+    type: 'image',
+    shape: 'square',
+    state: 'NY',
+    progress: 36,
+    completed: false
+  }
+];
 @Component({
   templateUrl: './files.component.html'
 })
@@ -48,6 +196,7 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   isAdmin = false;
   selectedNode: MinimalNodeEntity;
   queryParams = null;
+  dataSource =  mockDataSource;
 
   showLoader$: Observable<boolean>;
   private nodePath: PathElement[];

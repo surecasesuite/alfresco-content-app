@@ -119,6 +119,7 @@ import { ViewNodeComponent } from './components/toolbar/view-node/view-node.comp
 import { CONTENT_ROUTES } from './content.routes';
 import { RouterModule } from '@angular/router';
 import { UploadFilesAreaComponent } from './components/upload-files-area/upload-files-area.component';
+import { HyContentListModule } from '@hyland/ui';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeDe);
@@ -148,6 +149,7 @@ registerLocaleData(localeSv);
     CoreModule.forChild(),
     ExtensionsModule.forChild(),
     CoreExtensionsModule.forChild(),
+    HyContentListModule,
     SharedModule,
     MaterialModule,
     AppStoreModule,
