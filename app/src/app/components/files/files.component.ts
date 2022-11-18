@@ -36,11 +36,12 @@ import { SetCurrentFolderAction, isAdmin, AppStore, UploadFileVersionAction, sho
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FilterSearch, ShareDataRow } from '@alfresco/adf-content-services';
-import { DocumentListPresetRef } from '@alfresco/adf-extensions';
+import { ContentActionRef, DocumentListPresetRef } from '@alfresco/adf-extensions';
 import { Observable } from 'rxjs';
 
 @Component({
-  templateUrl: './files.component.html'
+  templateUrl: './files.component.html',
+  styleUrls: ['./files.component.scss']
 })
 export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   isValidPath = true;
@@ -51,8 +52,14 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
 
   showLoader$: Observable<boolean>;
   private nodePath: PathElement[];
+  searchVisibility = false;
+
+  actions: Array<ContentActionRef> = [];
 
   columns: DocumentListPresetRef[] = [];
+
+  createActions: Array<ContentActionRef> = [];
+  isMainActionPresent: boolean;
 
   constructor(
     private router: Router,
@@ -70,6 +77,20 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.extensions
+      .getCreateActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((createActions) => {
+        this.createActions = createActions;
+      });
+
+    this.extensions
+      .getMainAction()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((mainAction) => {
+        this.isMainActionPresent = !!mainAction;
+      });
 
     const { route, nodeActionsService, uploadService } = this;
     const { data } = route.snapshot;
@@ -123,6 +144,22 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.store.dispatch(new SetCurrentFolderAction(null));
     super.ngOnDestroy();
+  }
+
+  trackByActionId(_: number, action: ContentActionRef) {
+    return action.id;
+  }
+
+  create() {
+    //
+  }
+
+  upload() {
+    //
+  }
+
+  onSearchVisibilityChange() {
+    this.searchVisibility = !this.searchVisibility;
   }
 
   navigate(nodeId: string = null) {

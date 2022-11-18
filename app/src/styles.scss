@@ -56,3 +56,10 @@ body {
 .adf-pagination__controls-block {
   padding-right: 24px !important;
 }
+
+.aca-page-layout .aca-page-layout-header {
+  background-color: var(--theme-white-color) !important;
+  flex-basis: 96px !important;
+  height: 32px !important;
+  padding: 32px 24px;
+}

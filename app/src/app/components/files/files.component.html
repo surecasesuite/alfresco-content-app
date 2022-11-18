@@ -1,13 +1,113 @@
 <aca-page-layout [hasError]="!isValidPath">
   <aca-page-layout-header>
-    <adf-breadcrumb [root]="title" [folderNode]="node" [maxItems]="isSmallScreen ? 1 : 0" (navigate)="onBreadcrumbNavigate($event)"> </adf-breadcrumb>
+    <adf-breadcrumb *ngIf="!searchVisibility" [root]="title" [folderNode]="node" [maxItems]="isSmallScreen ? 1 : 0"
+      (navigate)="onBreadcrumbNavigate($event)"> </adf-breadcrumb>
 
     <adf-toolbar class="adf-toolbar--inline">
+          <!-- <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
+
+      <aca-search-input *ngIf="!searchVisibility"></aca-search-input>
+
+      <adf-toolbar-divider></adf-toolbar-divider> -->
+
       <ng-container *ngFor="let entry of actions; trackBy: trackByActionId">
-        <aca-toolbar-action [actionRef]="entry"></aca-toolbar-action>
+        <aca-toolbar-action [actionRef]="entry">
+        </aca-toolbar-action>
       </ng-container>
+
+      <!-- <adf-toolbar-title *ngIf="!searchVisibility"> -->
+        <!-- <adf-breadcrumb *ngIf="!searchVisibility" [root]="title" [folderNode]="node" [maxItems]="isSmallScreen ? 1 : 0" (navigate)="onBreadcrumbNavigate($event)"> </adf-breadcrumb> -->
+        <ng-container class="acionBar">
+          <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="create()" data-automation-id="create-button"
+          [matMenuTriggerFor]="rootMenu"
+          [class]="{
+            'app-create-menu-secondary-button': isMainActionPresent
+          }"
+            class="aca-mat-buttons aca-create-button">
+            <span>Create</span>
+          </button>
+
+          <mat-menu #rootMenu="matMenu" role="menu" class="app-create-menu__root-menu app-create-menu__sub-menu" [overlapTrigger]="false" yPosition="below">
+            <div *ngFor="let action of createActions; trackBy: trackByActionId">
+              <app-toolbar-menu-item [actionRef]="action"></app-toolbar-menu-item>
+            </div>
+          </mat-menu>
+
+          <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="upload()"
+            class="aca-mat-buttons aca-update-button">
+            <span>Upload</span>
+          </button>
+
+          <div *ngIf="!searchVisibility" class="aca-header-vertical"></div>
+
+          <aca-search-input class="aca-search-input"
+            (click)="onSearchVisibilityChange()">
+          </aca-search-input>
+
+        </ng-container>
+
+
+
+
+
+      <!-- </adf-toolbar-title> -->
+
+<!--
+      <div class="acc-action-toolbar">
+
+      <ng-container>
+        <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="create()"
+          class="acc-mat-buttons acc-create-button">
+          <span>Create</span>
+        </button>
+
+        <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="upload()"
+          class="acc-mat-buttons acc-create-button">
+          <span>Upload</span>
+        </button>
+
+        <div *ngIf="!searchVisibility" class="acc-header-vertical"></div>
+
+        <adf-search-text-input class="aaa-content-identity-search"
+          (click)="onSearchVisibilityChange()">
+        </adf-search-text-input>
+
+      </ng-container>
+
+      </div> -->
+
     </adf-toolbar>
+
+    <!--  <adf-toolbar>
+      <adf-toolbar-title>
+
+        <adf-breadcrumb [root]="title" [folderNode]="node" [maxItems]="isSmallScreen ? 1 : 0" (navigate)="onBreadcrumbNavigate($event)"> </adf-breadcrumb>
+
+
+      <div class="acc-action-toolbar">
+        <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="create()"
+            class="acc-mat-buttons acc-create-button">
+            <span>Create</span>
+        </button>
+
+        <button *ngIf="!searchVisibility" data-automation-id="create-person" mat-button (click)="upload()"
+            class="acc-mat-buttons acc-create-button">
+            <span>Upload</span>
+        </button>
+
+        <div *ngIf="!searchVisibility" class="acc-header-vertical"></div>
+
+        <adf-search-text-input class="aaa-content-identity-search"
+            >
+        </adf-search-text-input>
+    </div>
+
+      </adf-toolbar-title>
+  </adf-toolbar> -->
+
   </aca-page-layout-header>
+
+
 
   <aca-page-layout-error>
     <aca-generic-error></aca-generic-error>
@@ -15,41 +115,19 @@
 
   <aca-page-layout-content>
     <div class="main-content" *ngIf="!(showLoader$ | async)">
-      <adf-upload-drag-area [rootFolderId]="node?.id" [disabled]="!canUpload" (updateFileVersion)="onUploadNewVersion($event)">
-        <adf-document-list
-          #documentList
-          acaDocumentList
-          acaContextActions
-          [display]="documentDisplayMode$ | async"
-          selectionMode="multiple"
-          [currentFolderId]="node?.id"
-          [loading]="true"
-          [showHeader]="showHeader"
-          [node]="nodeResult"
-          [allowDropFiles]="true"
-          [navigate]="false"
-          [sorting]="['name', 'ASC']"
-          [imageResolver]="imageResolver"
-          [headerFilters]="true"
-          [filterValue]="queryParams"
-          (node-dblclick)="handleNodeClick($event)"
-          (name-click)="handleNodeClick($event)"
-          (sorting-changed)="onSortingChanged($event)"
-          (filterSelection)="onFilterSelected($event)"
-          (error)="onError()"
-        >
+      <adf-upload-drag-area [rootFolderId]="node?.id" [disabled]="!canUpload"
+        (updateFileVersion)="onUploadNewVersion($event)">
+        <adf-document-list #documentList acaDocumentList acaContextActions [display]="documentDisplayMode$ | async"
+          selectionMode="multiple" [currentFolderId]="node?.id" [loading]="true" [showHeader]="showHeader"
+          [node]="nodeResult" [allowDropFiles]="true" [navigate]="false" [sorting]="['name', 'ASC']"
+          [imageResolver]="imageResolver" [headerFilters]="true" [filterValue]="queryParams"
+          (node-dblclick)="handleNodeClick($event)" (name-click)="handleNodeClick($event)"
+          (sorting-changed)="onSortingChanged($event)" (filterSelection)="onFilterSelected($event)" (error)="onError()">
           <data-columns>
             <ng-container *ngFor="let column of columns; trackBy: trackByColumnId">
               <ng-container *ngIf="column.template && !(column.desktopOnly && isSmallScreen)">
-                <data-column
-                  [key]="column.key"
-                  [title]="column.title"
-                  [type]="column.type"
-                  [format]="column.format"
-                  [class]="column.class"
-                  [sortable]="column.sortable"
-                  [sortingKey]="column.sortingKey || column.key"
-                >
+                <data-column [key]="column.key" [title]="column.title" [type]="column.type" [format]="column.format"
+                  [class]="column.class" [sortable]="column.sortable" [sortingKey]="column.sortingKey || column.key">
                   <ng-template let-context>
                     <adf-dynamic-column [id]="column.template" [context]="context"> </adf-dynamic-column>
                   </ng-template>
@@ -57,15 +135,8 @@
               </ng-container>
 
               <ng-container *ngIf="!column.template && !(column.desktopOnly && isSmallScreen)">
-                <data-column
-                  [key]="column.key"
-                  [title]="column.title"
-                  [type]="column.type"
-                  [format]="column.format"
-                  [class]="column.class"
-                  [sortable]="column.sortable"
-                  [sortingKey]="column.sortingKey || column.key"
-                >
+                <data-column [key]="column.key" [title]="column.title" [type]="column.type" [format]="column.format"
+                  [class]="column.class" [sortable]="column.sortable" [sortingKey]="column.sortingKey || column.key">
                 </data-column>
               </ng-container>
             </ng-container>
@@ -86,11 +157,8 @@
       </adf-upload-drag-area>
     </div>
 
-    <mat-progress-spinner *ngIf="showLoader$ | async"
-      id="adf-document-list-loading"
-      class="adf-document-list-loading-margin"
-      [color]="'primary'"
-      [mode]="'indeterminate'">
+    <mat-progress-spinner *ngIf="showLoader$ | async" id="adf-document-list-loading"
+      class="adf-document-list-loading-margin" [color]="'primary'" [mode]="'indeterminate'">
     </mat-progress-spinner>
 
     <div class="sidebar" *ngIf="infoDrawerOpened$ | async">

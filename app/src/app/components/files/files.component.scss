@@ -1,0 +1,61 @@
+.aca-search-input {
+  width: 100%;
+  background-color: var(--theme-white-color);
+}
+
+.acionBar {
+  display: flex;
+  flex: auto;
+  height: 32px;
+  //width: 100%;
+  position: fixed;
+  right: 0;
+  padding: 0 24px;
+
+}
+
+
+.aca-header-vertical {
+  height: 32px;
+  display: flex;
+  margin-left: 12px;
+  margin-right: -12px;
+  border: 1px solid var(--theme-header-vertical-color);
+}
+
+.aca-mat-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  font-size: 14px;
+  font-style: normal;
+  width: 71px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.aca-create-button {
+  font-family: var(--default-font-family);
+  background-color: var(--theme-create-button-background-color);
+  color: var(--theme-create-button-text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  padding: 4px 0;
+}
+
+.aca-update-button {
+  font-family: var(--default-font-family);
+  background-color: var(--theme-upload-button-background-color);
+  color: var(--theme-white-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  padding: 4px 0;
+  margin-left: 12px;
+}

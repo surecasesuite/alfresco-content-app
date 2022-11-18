@@ -68,7 +68,11 @@ $defaults: (
   --theme-heading-color: $black-heading,
   --theme-dropdown-color: $grey-dropdown-background,
   --theme-grey-divider-color: $grey-divider,
+  --theme-create-button-background-color: rgba(33, 33, 33, 0.05),
+  --theme-create-button-text-color: #212121,
+  --theme-upload-button-background-color: #2A7DE1,
   --theme-white-color: #fff,
+  --theme-header-vertical-color: rgba(33, 33, 33, 0.12),
 );
 
 // propagates SCSS variables into the CSS variables scope
