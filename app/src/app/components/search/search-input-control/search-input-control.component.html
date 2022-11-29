@@ -1,14 +1,14 @@
 <div class="app-search-container">
-  <!-- <button
+  <button style="background-color: blue ;"
     mat-icon-button
     id="app-search-button"
     class="app-search-button"
     (click)="searchSubmit(searchTerm)"
     [title]="'SEARCH.BUTTON.TOOLTIP' | translate"
   >
-    <mat-icon [attr.aria-label]="'SEARCH.BUTTON.ARIA-LABEL' | translate">search</mat-icon>
-  </button> -->
-  <mat-form-field class="app-input-form-field" [floatLabel]="'never'">
+    <mat-icon [attr.aria-label]="'SEARCH.BUTTON.ARIA-LABEL' | translate" >search</mat-icon>
+  </button> 
+  <mat-form-field class="app-input-form-field" [floatLabel]="'never'" >
     <input
       matInput
       #searchInput

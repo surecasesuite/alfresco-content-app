@@ -3,11 +3,11 @@
   (menuOpened)="onMenuOpened()"
   (menuClosed)="syncInputValues()" -->
   <span>
-    <button mat-icon-button class="app-search-button" (click)="searchByOption()"
+     <button mat-icon-button class="app-search-button" (click)="searchByOption()" style="background-color: yellow;" *ngIf="!href.includes('/search')"
       [title]="'SEARCH.BUTTON.TOOLTIP' | translate">
       <mat-icon [attr.aria-label]="'SEARCH.BUTTON.ARIA-LABEL' | translate">search</mat-icon>
-    </button>
-    <app-search-input-control #searchInputControl (click)="$event.stopPropagation()" (submit)="onSearchSubmit($event)"
+    </button> 
+    <app-search-input-control #searchInputControl (click)="$event.stopPropagation()" (submit)="onSearchSubmit($event)" *ngIf="href.includes('/search')"
       (searchChange)="onSearchChange($event)">
     </app-search-input-control>
   </span>
@@ -25,10 +25,10 @@
     <div matSuffix class="app-suffix-search-icon-wrapper">
       <mat-icon>arrow_drop_down</mat-icon>
     </div>
-  </mat-form-field> -->
+  </mat-form-field>  -->
 </div>
 
-<mat-menu #searchOptionsMenu="matMenu" [overlapTrigger]="true" class="app-search-options-menu">
+<!-- <mat-menu #searchOptionsMenu="matMenu" [overlapTrigger]="true" class="app-search-options-menu">
   <div (keydown.tab)="$event.stopPropagation()" (keydown.shift.tab)="$event.stopPropagation()">
     <div cdkTrapFocus>
       <app-search-input-control #searchInputControl (click)="$event.stopPropagation()" (submit)="onSearchSubmit($event)"
@@ -44,4 +44,4 @@
       </div>
     </div>
   </div>
-</mat-menu>
+</mat-menu>  -->
