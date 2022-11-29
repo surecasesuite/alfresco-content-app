@@ -55,10 +55,11 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   searchVisibility = false;
 
   actions: Array<ContentActionRef> = [];
+  createActions: Array<ContentActionRef> = [];
+  uploadActions: Array<ContentActionRef> = [];
 
   columns: DocumentListPresetRef[] = [];
 
-  createActions: Array<ContentActionRef> = [];
   isMainActionPresent: boolean;
 
   constructor(
@@ -81,9 +82,15 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
     this.extensions
       .getCreateActions()
       .pipe(takeUntil(this.onDestroy$))
-      .subscribe((createActions) => {
-        this.createActions = createActions;
+      .subscribe((actions) => {
+        this.actions = actions;
+        console.log("Result", actions);
       });
+
+    this.createActions = this.actions.filter( action => !action.id.includes('upload'));
+
+    this.uploadActions = this.actions.filter( action => action.id.includes('upload'));
+
 
     this.extensions
       .getMainAction()
