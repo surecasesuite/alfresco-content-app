@@ -3,6 +3,10 @@
 $adf-chip-background: #efefef;
 $contrast-gray: #646569;
 
+adf-toolbar {
+  width: 100% !important;
+}
+
 .adf-search-results {
   @include flex-row;
 
