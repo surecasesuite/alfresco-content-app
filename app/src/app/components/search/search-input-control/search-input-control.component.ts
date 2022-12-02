@@ -69,8 +69,7 @@ export class SearchInputControlComponent implements OnInit, OnDestroy {
   ngOnInit(){
     this.route.params.subscribe(params => {
       console.log(params);
-      this.prevRoute = params.prevRoute
-      //.toString();
+      this.prevRoute = params.prevRoute;
   });
   }
 
@@ -96,7 +95,7 @@ export class SearchInputControlComponent implements OnInit, OnDestroy {
     //   },
     //   queryParamsHandling: 'merge'
     // })
-    this.router.navigate(['/personal-files']);
+    this.router.navigate([this.prevRoute]);
   }
 
   isTermTooShort() {

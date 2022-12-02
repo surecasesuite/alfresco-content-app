@@ -20,8 +20,35 @@
       (keyup.enter)="searchSubmit($event)"
       [placeholder]="'SEARCH.INPUT.PLACEHOLDER' | translate"
     />
+
+  
+
     <div matSuffix class="app-suffix-search-icon-wrapper">
-      <mat-icon *ngIf="searchTerm.length" (click)="clear()" class="app-clear-icon">clear</mat-icon>
+      <!-- <mat-chip [matMenuTriggerFor]="searchOptionsMenu">
+        In: Current Folder
+    </mat-chip>
+
+    <adf-search-check-list></adf-search-check-list>
+
+    <mat-menu #searchOptionsMenu="matMenu" [overlapTrigger]="true" class="app-search-options-menu">
+      <div (keydown.tab)="$event.stopPropagation()" (keydown.shift.tab)="$event.stopPropagation()">
+        <div cdkTrapFocus>
+          <app-search-input-control #searchInputControl (click)="$event.stopPropagation()" (submit)="onSearchSubmit($event)"
+            (searchChange)="onSearchChange($event)">
+          </app-search-input-control>
+          <mat-hint *ngIf="hasLibraryConstraint()" class="app-search-hint">{{ 'SEARCH.INPUT.HINT' | translate }}</mat-hint>
+    
+          <div id="search-options">
+            <mat-checkbox *ngFor="let option of searchOptions" id="{{ option.id }}" [(ngModel)]="option.value"
+              [disabled]="option.shouldDisable()" (change)="searchByOption()" (click)="$event.stopPropagation()">
+              {{ option.key | translate }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </mat-menu>  -->
+
+      <mat-icon (click)="clear()" class="app-clear-icon">clear</mat-icon>
     </div>
   </mat-form-field>
 </div>
