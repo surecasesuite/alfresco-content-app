@@ -61,6 +61,7 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   columns: DocumentListPresetRef[] = [];
 
   isMainActionPresent: boolean;
+  href: string = '';
 
   constructor(
     private router: Router,
@@ -77,7 +78,9 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    super.ngOnInit();
+    //super.ngOnInit();
+
+    console.log("Visibility Value", this.searchVisibility);
 
     this.extensions
       .getCreateActions()
@@ -103,6 +106,8 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
     const { data } = route.snapshot;
 
     this.title = data.title;
+
+    this.href = this.router.url;
 
     this.showLoader$ = this.store.select(showLoaderSelector);
     route.queryParamMap.subscribe((queryMap: Params) => {
@@ -167,7 +172,10 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
 
   onSearchVisibilityChange() {
     this.searchVisibility = !this.searchVisibility;
-    this.router.navigate(['/search']);
+    this.router.navigate(['/search', {prevRoute:this.href}], 
+    //{skipLocationChange: true, replaceUrl: false}
+    );
+
   }
 
   navigate(nodeId: string = null) {

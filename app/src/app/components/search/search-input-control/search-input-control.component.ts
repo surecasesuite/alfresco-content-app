@@ -23,7 +23,8 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -33,7 +34,7 @@ import { Subject } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   host: { class: 'app-search-control' }
 })
-export class SearchInputControlComponent implements OnDestroy {
+export class SearchInputControlComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<boolean> = new Subject<boolean>();
 
   /** Type of the input field to render, e.g. "search" or "text" (default). */
@@ -59,6 +60,19 @@ export class SearchInputControlComponent implements OnDestroy {
   searchInput: ElementRef;
 
   searchTerm = '';
+  prevRoute: string = '';
+
+  constructor(private router: Router, private route: ActivatedRoute){
+    
+  }
+
+  ngOnInit(){
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.prevRoute = params.prevRoute
+      //.toString();
+  });
+  }
 
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
@@ -75,7 +89,14 @@ export class SearchInputControlComponent implements OnDestroy {
 
   clear() {
     this.searchTerm = '';
-    this.searchChange.emit('');
+    //this.searchChange.emit('');
+    // this.router.navigate([this.prevRoute], {
+    //   queryParams: {
+    //     'q': null,
+    //   },
+    //   queryParamsHandling: 'merge'
+    // })
+    this.router.navigate(['/personal-files']);
   }
 
   isTermTooShort() {

@@ -17,8 +17,8 @@
 
       <!-- <adf-toolbar-title *ngIf="!searchVisibility"> -->
         <!-- <adf-breadcrumb *ngIf="!searchVisibility" [root]="title" [folderNode]="node" [maxItems]="isSmallScreen ? 1 : 0" (navigate)="onBreadcrumbNavigate($event)"> </adf-breadcrumb> -->
-        <ng-container class="acionBar">
-          <button *ngIf="!searchVisibility" data-automation-id="create" mat-button (click)="create()" data-automation-id="create-button"
+        <ng-container class="acionBar" *ngIf="!searchVisibility">
+          <button  data-automation-id="create" mat-button (click)="create()" data-automation-id="create-button"
           [matMenuTriggerFor]="createMenu"
           [class]="{
             'app-create-menu-secondary-button': isMainActionPresent
@@ -33,7 +33,7 @@
             </div>
           </mat-menu>
 
-          <button *ngIf="!searchVisibility" data-automation-id="upload" mat-button (click)="upload()"
+          <button  data-automation-id="upload" mat-button (click)="upload()"
           [matMenuTriggerFor]="uploadMenu"
           [class]="{
             'app-upload-menu-secondary-button': isMainActionPresent
@@ -48,7 +48,7 @@
             </div>
           </mat-menu>
 
-          <div *ngIf="!searchVisibility" class="aca-header-vertical"></div>
+          <div  class="aca-header-vertical"></div>
 
           <aca-search-input class="aca-search-input"
             (click)="onSearchVisibilityChange()">
