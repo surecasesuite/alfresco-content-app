@@ -7,73 +7,80 @@
  */
 
 import { AlfrescoApiService } from '@alfresco/adf-core';
-import {  PasswordResetBody, PeopleApi } from '@alfresco/js-api';
+import { PasswordResetBody, PeopleApi } from '@alfresco/js-api';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors,
-  ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html'
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-    private peopleApi: PeopleApi;
-    resetPasswordForm: FormGroup;
+  private peopleApi: PeopleApi;
+  resetPasswordForm: FormGroup;
+  passwordVisibility: boolean;
+  confirmPasswordVisibility: boolean;
 
-    constructor(private activatedRoute: ActivatedRoute,
-      private apiService: AlfrescoApiService,) {}
+  constructor(private activatedRoute: ActivatedRoute, private apiService: AlfrescoApiService) {}
 
-    get peopleApiInstance() {
-      return (
-          this.peopleApi ||
-        (this.peopleApi = new PeopleApi(this.apiService.getInstance()))
-      );
-    }
+  get peopleApiInstance() {
+    return this.peopleApi || (this.peopleApi = new PeopleApi(this.apiService.getInstance()));
+  }
 
-    ngOnInit(): void {
-      this.resetPasswordForm = new FormGroup(
-        {
-          password: new FormControl('', [Validators.required]),
-          confirmPassword: new FormControl('', [Validators.required]),
-        },
-        [this.matchValidator('password', 'confirmPassword')]
-      );
-    }
+  ngOnInit(): void {
+    this.resetPasswordForm = new FormGroup(
+      {
+        password: new FormControl('', [Validators.required]),
+        confirmPassword: new FormControl('', [Validators.required])
+      },
+      [this.matchValidator('password', 'confirmPassword')]
+    );
+    this.passwordVisibility = false;
+    this.confirmPasswordVisibility = false;
+  }
 
-    changePassword() {
-      let key = '', id = '', userName = '';
+  togglePasswordVisibility() {
+    this.passwordVisibility = !this.passwordVisibility;
+  }
 
-      this.activatedRoute.queryParams.subscribe(data => {
-        key = data["key"];
-        id = data["id"];
-        userName = data["userName"];
-      });
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisibility = !this.confirmPasswordVisibility;
+  }
 
-      this.peopleApiInstance.resetPassword(
-        userName,
-        {password: this.resetPasswordForm.controls.password.value, id: id, key: key} as PasswordResetBody);
-    }
+  changePassword() {
+    let key = '';
+    let id = '';
+    let userName = '';
 
-    isSubmitButtonDisabled(): boolean {
-      return this.resetPasswordForm.invalid || this.passwordMatchError();
-    }
+    this.activatedRoute.queryParams.subscribe((data) => {
+      key = data.key;
+      id = data.id;
+      userName = data.userName;
+    });
 
-    passwordMatchError(): boolean {
-      return (
-        this.resetPasswordForm.getError('mismatch') &&
-        this.resetPasswordForm.get('confirmPassword')?.touched
-      );
-    }
+    this.peopleApiInstance.resetPassword(userName, {
+      password: this.resetPasswordForm.controls.password.value,
+      id,
+      key
+    } as PasswordResetBody);
+  }
 
-    matchValidator(source: string, target: string): ValidatorFn {
-      return (control: AbstractControl): ValidationErrors | null => {
-        const sourceCtrl = control.get(source);
-        const targetCtrl = control.get(target);
+  isSubmitButtonDisabled(): boolean {
+    return this.resetPasswordForm.invalid || this.passwordMatchError();
+  }
 
-        return sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value
-          ? { mismatch: true }
-          : null;
-      };
-    }
+  passwordMatchError(): boolean {
+    return this.resetPasswordForm.getError('mismatch') && this.resetPasswordForm.get('confirmPassword')?.dirty;
+  }
+
+  matchValidator(source: string, target: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const sourceCtrl = control.get(source);
+      const targetCtrl = control.get(target);
+
+      return sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value ? { mismatch: true } : null;
+    };
+  }
 }

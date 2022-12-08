@@ -6,6 +6,7 @@
  * agreement is prohibited.
  */
 
+import { MaterialModule } from '@alfresco/adf-core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -15,20 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ResetPasswordComponent } from './reset-password.component';
 
 @NgModule({
-    imports: [
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        TranslateModule,
-        HttpClientModule
-    ],
-    declarations: [
-        ResetPasswordComponent
-    ],
-    exports: [
-        ResetPasswordComponent
-    ]
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, CommonModule, TranslateModule, HttpClientModule, MaterialModule],
+  declarations: [ResetPasswordComponent],
+  exports: [ResetPasswordComponent]
 })
-export class ResetPasswordModule {
-}
+export class ResetPasswordModule {}
