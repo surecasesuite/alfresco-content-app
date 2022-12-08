@@ -173,7 +173,7 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   onSearchVisibilityChange() {
     this.searchVisibility = !this.searchVisibility;
     this.router.navigate(['/search', {prevRoute:this.href}], 
-    {skipLocationChange: true, replaceUrl: false}
+    //{skipLocationChange: true, replaceUrl: false}
     );
 
   }

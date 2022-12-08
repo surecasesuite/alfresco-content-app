@@ -23,6 +23,7 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -62,7 +63,7 @@ export class SearchInputControlComponent implements OnInit, OnDestroy {
   searchTerm = '';
   prevRoute: string = '';
 
-  constructor(private router: Router, private route: ActivatedRoute){
+  constructor(private router: Router, private route: ActivatedRoute, private location: Location){
     
   }
 
@@ -71,6 +72,7 @@ export class SearchInputControlComponent implements OnInit, OnDestroy {
       console.log(params);
       this.prevRoute = params.prevRoute;
   });
+  console.log(this.router)
   }
 
   ngOnDestroy(): void {
@@ -88,14 +90,22 @@ export class SearchInputControlComponent implements OnInit, OnDestroy {
 
   clear() {
     this.searchTerm = '';
-    //this.searchChange.emit('');
+    for(let i = 0; i<2; i++){
+      this.location.back();
+    }
+  //   this.route.params.subscribe(params => {
+  //     console.log(params);
+  //     this.prevRoute = params.prevRoute;
+  // });
+  //   console.log("Prev ROute is ", this.prevRoute);
+    this.searchChange.emit('');
     // this.router.navigate([this.prevRoute], {
     //   queryParams: {
     //     'q': null,
     //   },
     //   queryParamsHandling: 'merge'
     // })
-    this.router.navigate([this.prevRoute]);
+    //this.router.navigate([this.prevRoute]);
   }
 
   isTermTooShort() {
