@@ -23,7 +23,9 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, Output, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+//import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -59,6 +61,20 @@ export class SearchInputControlComponent implements OnDestroy {
   searchInput: ElementRef;
 
   searchTerm = '';
+  //prevRoute: string = '';
+
+  constructor(
+    //private router: Router, private activatedRoute: ActivatedRoute,
+    private location: Location
+  ) {}
+
+  // ngOnInit(){
+  //   this.activatedRoute.params.subscribe(params => {
+  //     console.log(params);
+  //     this.prevRoute = params.prevRoute;
+  //   });
+  //   console.log(this.router)
+  // }
 
   ngOnDestroy(): void {
     this.onDestroy$.next(true);
@@ -76,6 +92,9 @@ export class SearchInputControlComponent implements OnDestroy {
   clear() {
     this.searchTerm = '';
     this.searchChange.emit('');
+    //for(let i = 0; i<2; i++){
+    this.location.back();
+    //}
   }
 
   isTermTooShort() {

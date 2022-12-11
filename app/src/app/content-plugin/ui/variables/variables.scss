@@ -70,6 +70,12 @@ $defaults: (
   --theme-dropdown-color: $grey-dropdown-background,
   --theme-grey-divider-color: $grey-divider,
   --theme-pagination-background-color: $pagination-background-color,
+
+  --theme-create-button-background-color: $grey-text-background,
+  --theme-create-button-text-color: #212121,
+  --theme-upload-button-background-color: #2A7DE1,
+  --theme-upload-button-text-color: $pagination-background-color,
+
 );
 
 // propagates SCSS variables into the CSS variables scope

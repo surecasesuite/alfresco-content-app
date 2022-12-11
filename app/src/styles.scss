@@ -11,3 +11,30 @@ html {
 body {
   margin: 0;
 }
+
+
+.aca-page-layout .aca-page-layout-header {
+  background-color: white !important;
+  flex-basis: 96px !important;
+  height: 32px !important;
+  padding: 32px 24px;
+  //border-top: 1px solid black !important;
+}
+
+// .aca-page-layout .aca-page-layout-header {
+//   height: 32px !important;
+//   padding: 32px 24px !important;
+//   background-color: aqua !important;
+
+//   adf-breadcrumb {
+//     height: 32px !important;
+//   }
+
+//   aca-search-input {
+//     height: 32px !important;
+//   }
+
+//   adf-toolbar {
+//     height: 32px !important;
+//   }
+// }

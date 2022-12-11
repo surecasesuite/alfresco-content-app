@@ -36,11 +36,13 @@ import { SetCurrentFolderAction, isAdmin, AppStore, UploadFileVersionAction, sho
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FilterSearch, ShareDataRow } from '@alfresco/adf-content-services';
-import { DocumentListPresetRef } from '@alfresco/adf-extensions';
+import { ContentActionRef, DocumentListPresetRef } from '@alfresco/adf-extensions';
 import { Observable } from 'rxjs';
+import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
 
 @Component({
-  templateUrl: './files.component.html'
+  templateUrl: './files.component.html',
+  styleUrls: ['./files.component.scss']
 })
 export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   isValidPath = true;
@@ -48,6 +50,12 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   isAdmin = false;
   selectedNode: MinimalNodeEntity;
   queryParams = null;
+  searchMode = true;
+  searchVisibility = false;
+  isMainActionPresent: boolean;
+  actions: Array<ContentActionRef> = [];
+  createActions: Array<ContentActionRef> = [];
+  uploadActions: Array<ContentActionRef> = [];
 
   showLoader$: Observable<boolean>;
   private nodePath: PathElement[];
@@ -70,6 +78,19 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.searchVisibility = false;
+
+    this.extensions
+      .getCreateActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((actions) => {
+        this.createActions = actions.filter((action) => !(action.id.includes('upload') || action.id.includes('separator')));
+        this.uploadActions = actions.filter((action) => action.id.includes('upload'));
+
+        console.log('CREATE', this.createActions);
+        console.log('UPLOAD', this.uploadActions);
+      });
 
     const { route, nodeActionsService, uploadService } = this;
     const { data } = route.snapshot;
@@ -118,6 +139,28 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
       });
 
     this.columns = this.extensions.documentListPresets.files || [];
+  }
+
+  // navigateToSearch(){
+  //   this.router.navigate(['/search', {prevRoute:this.href}],
+  //   {skipLocationChange: true, replaceUrl: false}
+  //   );
+  // }
+
+  onSearchVisibilityChange() {
+    this.searchVisibility = !this.searchVisibility;
+  }
+
+  create() {}
+
+  upload() {}
+
+  //   onSearchVisibilityChange(isVisible: boolean) {
+  //     this.searchVisibility = isVisible;
+  // }
+
+  isContentServiceEnabled(): boolean {
+    return isContentServiceEnabled();
   }
 
   ngOnDestroy() {

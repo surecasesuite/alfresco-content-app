@@ -50,6 +50,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   navigationTimer: any;
   has400LibraryError = false;
   searchOnChange: boolean;
+  href = '';
 
   searchedWord: string = null;
   searchOptions: Array<SearchOptionModel> = [
@@ -102,9 +103,15 @@ export class SearchInputComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.href = this.router.url;
+
     this.appHookService.library400Error.pipe(takeUntil(this.onDestroy$)).subscribe(() => {
       this.has400LibraryError = true;
     });
+  }
+
+  navigateToSearch() {
+    this.router.navigate(['/search', { prevRoute: this.href }], { skipLocationChange: true, replaceUrl: false });
   }
 
   showInputValue() {
