@@ -11,7 +11,7 @@
         <button class="aca-mat-button aca-create-button" mat-stroked-button
           data-automation-id="create-button" [matMenuTriggerFor]="createMenu" [class]="{
           'app-create-menu-secondary-button': isMainActionPresent
-        }" [matMenuTriggerFor]="createMenu">Create</button>
+        }" [matMenuTriggerFor]="createMenu">{{ 'APP.HEADER.BUTTONS.CREATE' | translate }}</button>
 
         <mat-menu #createMenu="matMenu" role="menu" class="app-create-menu__root-menu app-create-menu__sub-menu"
           [overlapTrigger]="false" yPosition="below">

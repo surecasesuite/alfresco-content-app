@@ -37,10 +37,12 @@ import { PageComponent } from '../page.component';
 import { DocumentListPresetRef } from '@alfresco/adf-extensions';
 
 @Component({
-  templateUrl: './favorites.component.html'
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent extends PageComponent implements OnInit {
   isSmallScreen = false;
+  searchVisibility = false;
 
   columns: DocumentListPresetRef[] = [];
 
@@ -69,6 +71,10 @@ export class FavoritesComponent extends PageComponent implements OnInit {
     ]);
 
     this.columns = this.extensions.documentListPresets.favorites;
+  }
+
+  onSearchVisibilityChange() {
+    this.searchVisibility = !this.searchVisibility;
   }
 
   navigate(favorite: MinimalNodeEntryEntity) {

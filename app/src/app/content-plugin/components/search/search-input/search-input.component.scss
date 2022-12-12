@@ -1,6 +1,6 @@
 $search-width: 594px;
-$search-height: 40px;
-$search-background: transparent;
+$search-height: 32px;
+$search-background: #f5f6f5;
 $search-border-radius: 4px;
 $top-margin: 12px;
 
@@ -64,6 +64,8 @@ mat-checkbox {
   background-color: $search-background;
   border-radius: $search-border-radius;
   height: $search-height;
+  margin-bottom: 0 !important;
+  padding-bottom: 26px !important;
 }
 
 .app-search-container {

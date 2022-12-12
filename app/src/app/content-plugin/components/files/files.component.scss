@@ -3,28 +3,10 @@
   background-color: var(--theme-white-color);
 }
 
-// .acionBar {
-//   display: flex;
-//   flex-direction: row;
-//   height: 32px;
-//   position: fixed;
-//   right: 0;
-//   padding: 0 24px;
-// }
-
 .actionBar {
   display: flex;
   flex: auto;
   height: 32px;
-}
-
-
-.aca-header-vertical {
-  height: 32px;
-  display: flex;
-  margin-left: 12px;
-  margin-right: -12px;
-  border: 1px solid var(--theme-header-vertical-color);
 }
 
 .aca-mat-button {

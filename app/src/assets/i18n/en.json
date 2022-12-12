@@ -102,6 +102,13 @@
                 "CREATE_LIBRARY": "Create a new File Library"
             }
         },
+        "HEADER": {
+            "BUTTONS": {
+                "CREATE": "Create",
+                "UPLOAD": "Upload",
+                "DELETE_ALL": "Delete All"
+            }
+        },
         "BROWSE": {
             "PERSONAL": {
                 "TITLE": "Personal Files",

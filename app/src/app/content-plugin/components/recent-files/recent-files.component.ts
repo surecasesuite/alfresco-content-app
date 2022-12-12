@@ -37,10 +37,12 @@ import { AppExtensionService } from '@alfresco/aca-shared';
 import { DocumentListPresetRef } from '@alfresco/adf-extensions';
 
 @Component({
-  templateUrl: './recent-files.component.html'
+  templateUrl: './recent-files.component.html',
+  styleUrls: ['./recent-files.component.scss']
 })
 export class RecentFilesComponent extends PageComponent implements OnInit {
   isSmallScreen = false;
+  searchVisibility = false;
 
   columns: DocumentListPresetRef[] = [];
 
@@ -68,6 +70,10 @@ export class RecentFilesComponent extends PageComponent implements OnInit {
     ]);
 
     this.columns = this.extensions.documentListPresets.recent || [];
+  }
+
+  onSearchVisibilityChange() {
+    this.searchVisibility = !this.searchVisibility;
   }
 
   onNodeDoubleClick(node: MinimalNodeEntity) {

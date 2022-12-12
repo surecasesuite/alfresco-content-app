@@ -38,7 +38,6 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { FilterSearch, ShareDataRow } from '@alfresco/adf-content-services';
 import { ContentActionRef, DocumentListPresetRef } from '@alfresco/adf-extensions';
 import { Observable } from 'rxjs';
-import { isContentServiceEnabled } from '@alfresco/aca-shared/rules';
 
 @Component({
   templateUrl: './files.component.html',
@@ -56,7 +55,6 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
   actions: Array<ContentActionRef> = [];
   createActions: Array<ContentActionRef> = [];
   uploadActions: Array<ContentActionRef> = [];
-
   showLoader$: Observable<boolean>;
   private nodePath: PathElement[];
 
@@ -141,26 +139,8 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
     this.columns = this.extensions.documentListPresets.files || [];
   }
 
-  // navigateToSearch(){
-  //   this.router.navigate(['/search', {prevRoute:this.href}],
-  //   {skipLocationChange: true, replaceUrl: false}
-  //   );
-  // }
-
   onSearchVisibilityChange() {
     this.searchVisibility = !this.searchVisibility;
-  }
-
-  create() {}
-
-  upload() {}
-
-  //   onSearchVisibilityChange(isVisible: boolean) {
-  //     this.searchVisibility = isVisible;
-  // }
-
-  isContentServiceEnabled(): boolean {
-    return isContentServiceEnabled();
   }
 
   ngOnDestroy() {
