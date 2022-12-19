@@ -32,7 +32,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup(
       {
-        password: new FormControl('', [Validators.required, Validators.pattern('^.*(?=.{6,20})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-_@!#$%&*]).*$')]),
+        password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
       },
       [this.matchValidator('password', 'confirmPassword')]
@@ -68,7 +68,11 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   isSubmitButtonDisabled(): boolean {
-    return this.resetPasswordForm.invalid || this.passwordMatchError();
+    if (this.resetPasswordForm.invalid || this.passwordMatchError()) {
+      return this.resetPasswordForm.invalid || this.passwordMatchError();
+    } else {
+      return false;
+    }
   }
 
   passwordMatchError(): boolean {
