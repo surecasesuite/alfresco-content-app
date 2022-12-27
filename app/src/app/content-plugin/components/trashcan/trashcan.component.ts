@@ -69,6 +69,4 @@ export class TrashcanComponent extends PageComponent implements OnInit {
   onSearchVisibilityChange() {
     this.searchVisibility = !this.searchVisibility;
   }
-
-  deleteAll() {}
 }

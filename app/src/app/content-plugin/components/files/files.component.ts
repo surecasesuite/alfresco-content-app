@@ -85,9 +85,6 @@ export class FilesComponent extends PageComponent implements OnInit, OnDestroy {
       .subscribe((actions) => {
         this.createActions = actions.filter((action) => !(action.id.includes('upload') || action.id.includes('separator')));
         this.uploadActions = actions.filter((action) => action.id.includes('upload'));
-
-        console.log('CREATE', this.createActions);
-        console.log('UPLOAD', this.uploadActions);
       });
 
     const { route, nodeActionsService, uploadService } = this;

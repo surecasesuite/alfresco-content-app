@@ -74,8 +74,9 @@ export class FavoriteLibrariesComponent extends PageComponent implements OnInit 
       .getCreateActions()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((actions) => {
-        this.createActions = actions.filter((action) => !(action.id.includes('upload') || action.id.includes('separator')));
-        console.log('CREATE', this.createActions);
+        this.createActions = actions.filter(
+          (action) => !(action.id.includes('upload') || action.id.includes('separator') || action.disabled === true)
+        );
       });
 
     this.getList({ maxItems: this.preferences.paginationSize });
