@@ -39,7 +39,6 @@ import { AppExtensionService } from '@alfresco/aca-shared';
 export class TrashcanComponent extends PageComponent implements OnInit {
   isSmallScreen = false;
   user$: Observable<ProfileState>;
-
   columns: DocumentListPresetRef[] = [];
 
   constructor(

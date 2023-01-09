@@ -31,15 +31,17 @@ import { Store } from '@ngrx/store';
 import { ContentManagementService } from '../../services/content-management.service';
 import { PageComponent } from '../page.component';
 import { AppExtensionService, AppHookService } from '@alfresco/aca-shared';
-import { DocumentListPresetRef } from '@alfresco/adf-extensions';
+import { ContentActionRef, DocumentListPresetRef } from '@alfresco/adf-extensions';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   templateUrl: './libraries.component.html'
 })
 export class LibrariesComponent extends PageComponent implements OnInit {
   isSmallScreen = false;
-
   columns: DocumentListPresetRef[] = [];
+  actions: Array<ContentActionRef> = [];
+  createActions: Array<ContentActionRef> = [];
 
   constructor(
     content: ContentManagementService,
@@ -53,6 +55,13 @@ export class LibrariesComponent extends PageComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.extensions
+      .getCreateActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((actions) => {
+        this.createActions = actions;
+      });
 
     this.subscriptions.push(
       this.appHookService.libraryDeleted.subscribe(() => this.reload()),
