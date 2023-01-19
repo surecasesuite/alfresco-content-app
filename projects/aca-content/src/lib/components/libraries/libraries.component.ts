@@ -38,7 +38,6 @@ import { DocumentListPresetRef } from '@alfresco/adf-extensions';
 })
 export class LibrariesComponent extends PageComponent implements OnInit {
   isSmallScreen = false;
-
   columns: DocumentListPresetRef[] = [];
 
   constructor(

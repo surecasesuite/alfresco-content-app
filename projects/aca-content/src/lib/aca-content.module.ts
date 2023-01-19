@@ -117,6 +117,7 @@ import { UploadFilesDialogComponent } from './components/upload-files-dialog/upl
 import { SidenavWrapperComponent } from './components/sidenav/sidenav-wrapper/sidenav-wrapper.component';
 import { AppLayoutComponent } from './components/layout/app-layout/app-layout.component';
 import { CustomIconsModule } from './extensions/custom-icons.module';
+import { HeaderActionsComponent } from './components/header-actions/header-actions.component';
 
 registerLocaleData(localeFr);
 registerLocaleData(localeDe);
@@ -173,6 +174,7 @@ registerLocaleData(localeSv);
     FavoritesComponent,
     RecentFilesComponent,
     SharedFilesComponent,
+    HeaderActionsComponent,
     CreateFromTemplateDialogComponent,
     HomeComponent,
     UploadFilesDialogComponent

@@ -91,20 +91,30 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.showInputValue();
+    if (this.isSearchRoute()) {
+      this.showInputValue();
 
-    this.router.events
-      .pipe(takeUntil(this.onDestroy$))
-      .pipe(filter((e) => e instanceof RouterEvent))
-      .subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          this.showInputValue();
-        }
+      this.router.events
+        .pipe(takeUntil(this.onDestroy$))
+        .pipe(filter((e) => e instanceof RouterEvent))
+        .subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            this.showInputValue();
+          }
+        });
+
+      this.appHookService.library400Error.pipe(takeUntil(this.onDestroy$)).subscribe(() => {
+        this.has400LibraryError = true;
       });
+    }
+  }
 
-    this.appHookService.library400Error.pipe(takeUntil(this.onDestroy$)).subscribe(() => {
-      this.has400LibraryError = true;
-    });
+  isSearchRoute(): boolean {
+    return this.router.url.includes('/search');
+  }
+
+  navigateToSearch() {
+    this.router.navigate(['/search'], { skipLocationChange: true, replaceUrl: false });
   }
 
   showInputValue() {
@@ -140,7 +150,6 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(new SnackbarErrorAction('APP.BROWSE.SEARCH.EMPTY_SEARCH'));
     }
-    this.trigger.closeMenu();
   }
 
   onSearchChange(searchTerm: string) {

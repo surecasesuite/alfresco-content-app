@@ -67,12 +67,29 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
   nodeResult: NodePaging;
   showHeader = ShowHeaderMode.Data;
   filterSorting = 'name-asc';
+  searchVisibility = false;
+  createActions: Array<ContentActionRef> = [];
+  uploadActions: Array<ContentActionRef> = [];
 
   protected subscriptions: Subscription[] = [];
 
   protected constructor(protected store: Store<AppStore>, protected extensions: AppExtensionService, protected content: ContentManagementService) {}
 
   ngOnInit() {
+    this.extensions
+      .getCreateActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((actions) => {
+        this.createActions = actions;
+      });
+
+    this.extensions
+      .getUploadActions()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((actions) => {
+        this.uploadActions = actions;
+      });
+
     this.sharedPreviewUrl$ = this.store.select(getSharedUrl);
     this.infoDrawerOpened$ = this.store.select(isInfoDrawerOpened).pipe(map((infoDrawerState) => !this.isOutletPreviewUrl() && infoDrawerState));
 
@@ -121,6 +138,10 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
     this.onDestroy$.next(true);
     this.onDestroy$.complete();
     this.store.dispatch(new SetSelectedNodesAction([]));
+  }
+
+  onSearchVisibilityChange() {
+    this.searchVisibility = !this.searchVisibility;
   }
 
   showPreview(node: MinimalNodeEntity, extras?: ViewNodeExtras) {

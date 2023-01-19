@@ -8,7 +8,12 @@
     [expandedSidenav]="expandedSidenav"
     (expanded)="onExpanded($event)"
   >
-  <adf-sidenav-layout-navigation>
+    <adf-sidenav-layout-header>
+      <ng-template let-isMenuMinimized="isMenuMinimized">
+      </ng-template>
+    </adf-sidenav-layout-header>
+
+    <adf-sidenav-layout-navigation>
       <ng-template let-isMenuMinimized="isMenuMinimized">
         <app-sidenav
           [mode]="isMenuMinimized() ? 'collapsed' : 'expanded'"
