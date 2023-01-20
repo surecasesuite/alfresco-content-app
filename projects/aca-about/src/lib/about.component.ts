@@ -23,12 +23,13 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { DEV_MODE_TOKEN } from './dev-mode.tokens';
 import pkg from 'package.json';
 import { Observable } from 'rxjs';
 import { AppExtensionService, ExtensionRef } from '@alfresco/adf-extensions';
 import { AuthenticationService, DiscoveryApiService, RepositoryInfo } from '@alfresco/adf-core';
+import { ContentServiceExtensionService } from '../../../aca-content/src/lib/services/content-service-extension.service';
 
 @Component({
   selector: 'app-about-page',
@@ -40,22 +41,30 @@ export class AboutComponent implements OnInit {
   dev = false;
   extensions$: Observable<ExtensionRef[]>;
   repository: RepositoryInfo = null;
+  hideSidenav: boolean;
 
   constructor(
     @Inject(DEV_MODE_TOKEN) devMode,
     private authService: AuthenticationService,
     private appExtensions: AppExtensionService,
-    private discovery: DiscoveryApiService
+    private discovery: DiscoveryApiService,
+    private contentServices: ContentServiceExtensionService,
+    private ref: ChangeDetectorRef
   ) {
     this.dev = !devMode;
     this.pkg = pkg;
     this.extensions$ = this.appExtensions.references$;
+
+    setInterval(() => {
+      this.ref.detectChanges();
+    });
   }
 
   ngOnInit(): void {
     if (this.authService.isEcmLoggedIn()) {
       this.setECMInfo();
     }
+    this.contentServices.cast.subscribe((data) => (this.hideSidenav = data));
   }
 
   setECMInfo() {
