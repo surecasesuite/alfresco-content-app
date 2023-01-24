@@ -101,6 +101,18 @@
         padding: 0;
         margin-left: 12px;
       }
+
+      .aca-process-button {
+        width: 130px !important;
+        min-width: 130px;
+        height: 32px;
+        background-color: var(--theme-upload-button-background-color);
+        color: var(--theme-upload-button-text-color);
+        text-overflow: ellipsis;
+        display: flex;
+        padding: 0;
+        margin-left: 12px;
+      }
     
       .action-bar>adf-toolbar-divider {
         width: 24px !important;

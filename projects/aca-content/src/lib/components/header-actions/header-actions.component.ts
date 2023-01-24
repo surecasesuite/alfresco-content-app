@@ -60,4 +60,12 @@ export class HeaderActionsComponent extends PageComponent implements OnInit, OnD
   isLibrariesrRoute(): boolean {
     return this.router.url.includes('/libraries');
   }
+
+  isTasksRoute(): boolean {
+    return this.router.url.includes('/tasks');
+  }
+
+  isProcessesRoute(): boolean {
+    return this.router.url.includes('/processes');
+  }
 }
