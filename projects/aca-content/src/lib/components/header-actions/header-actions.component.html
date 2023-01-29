@@ -24,22 +24,15 @@
       </div>
     </mat-menu>
 
-    <app-main-action></app-main-action>
-
-    <button class="aca-mat-button aca-process-button" mat-stroked-button data-automation-id="process-button"
-    *ngIf="isTasksRoute() || isProcessesRoute()">
-    <app-main-action></app-main-action>
-    </button>
-
     <ng-container *ngIf="(mainAction$ | async) as action">
       <ng-container [ngSwitch]="action.type">
           <ng-container *ngSwitchCase="actionTypes.button">
-              <button
+              <button *ngIf="isTasksRoute() || isProcessesRoute()"
                   mat-stroked-button
                   [id]="action.id"
                   (click)="runAction(action.actions.click)"
                   [disabled]="action.disabled"
-                  class="app-main-action-button"
+                  class="app-main-action-button aca-mat-button aca-process-button"
                   data-automation-id="app-main-action-button"
               >
                   {{action.title | translate}}

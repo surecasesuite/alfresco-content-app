@@ -41,6 +41,7 @@ describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
   let actions$: Actions;
   let appHookService: AppHookService;
+  let searchInputService : SearchInputService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -53,12 +54,13 @@ describe('SearchInputComponent', () => {
     actions$ = TestBed.inject(Actions);
     fixture = TestBed.createComponent(SearchInputComponent);
     appHookService = TestBed.inject(AppHookService);
+    searchInputService = TestBed.inject(SearchInputService);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should change flag on library400Error event', () => {
-    spyOn(component, 'isSearchRoute').and.returnValue(true);
+    spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -74,7 +76,7 @@ describe('SearchInputComponent', () => {
   });
 
   it('should have library constraint on 400 error received', () => {
-    spyOn(component, 'isSearchRoute').and.returnValue(true);
+    spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
     component.ngOnInit();
     fixture.detectChanges();
 
@@ -266,7 +268,7 @@ describe('exitSearch()', () => {
   });
 
   it('should exit search on click of close icon', async () => {
-    spyOn(component, 'isSearchRoute').and.returnValue(true);
+    spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
     spyOn(component, 'exitSearch').and.callThrough();
     spyOn(searchInputService, 'exitSearch').and.callThrough();
 
