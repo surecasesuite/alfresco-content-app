@@ -25,7 +25,7 @@
 
 import { DocumentListComponent, ShareDataRow } from '@alfresco/adf-content-services';
 import { ShowHeaderMode } from '@alfresco/adf-core';
-import { ContentActionRef, DocumentListPresetRef, SelectionState } from '@alfresco/adf-extensions';
+import { ContentActionRef, ContentActionType, DocumentListPresetRef, SelectionState } from '@alfresco/adf-extensions';
 import { OnDestroy, OnInit, OnChanges, ViewChild, SimpleChanges, Directive } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MinimalNodeEntity, MinimalNodeEntryEntity, NodePaging } from '@alfresco/js-api';
@@ -49,6 +49,11 @@ import { isLocked, isLibrary, AppExtensionService } from '@alfresco/aca-shared';
 /* eslint-disable @angular-eslint/directive-class-suffix */
 @Directive()
 export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
+
+  mainAction$: Observable<ContentActionRef>;
+
+  actionTypes = ContentActionType
+
   onDestroy$: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(DocumentListComponent)
@@ -75,6 +80,10 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
   protected constructor(protected store: Store<AppStore>, protected extensions: AppExtensionService, protected content: ContentManagementService) {}
 
   ngOnInit() {
+
+    this.mainAction$ = this.extensions.getMainAction().pipe(takeUntil(this.onDestroy$));
+    console.log("Here", this.mainAction$);
+
     this.extensions
       .getCreateActions()
       .pipe(takeUntil(this.onDestroy$))
@@ -123,6 +132,10 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe((node) => {
         this.canUpload = node && this.content.canUploadContent(node);
       });
+  }
+
+  runAction(action: string): void {
+    this.extensions.runActionById(action);
   }
 
   ngOnChanges(changes: SimpleChanges) {

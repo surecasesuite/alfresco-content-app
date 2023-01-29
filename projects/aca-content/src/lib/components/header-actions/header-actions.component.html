@@ -1,7 +1,7 @@
 <div>
   <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
   <span class="action-bar">
-    <button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button"
+    <button id="btnCreate" mat-button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button-new"
       *ngIf=" isPersonalFilesRoute() || isFavoriteLibrariesRoute() || isLibrariesrRoute() "
       [matMenuTriggerFor]="createMenu">
       {{ 'APP.HEADER.BUTTONS.CREATE' | translate }}
@@ -13,7 +13,7 @@
       </div>
     </mat-menu>
 
-    <button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
+    <button mat-button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
       *ngIf="isPersonalFilesRoute()" [matMenuTriggerFor]="uploadMenu">
       {{ 'APP.HEADER.BUTTONS.UPLOAD' | translate }}
     </button>
@@ -24,10 +24,30 @@
       </div>
     </mat-menu>
 
-    <button class="aca-mat-button aca-process-button" mat-stroked-button data-automation-id="upload-button"
+    <app-main-action></app-main-action>
+
+    <button class="aca-mat-button aca-process-button" mat-stroked-button data-automation-id="process-button"
     *ngIf="isTasksRoute() || isProcessesRoute()">
-    Start a process
+    <app-main-action></app-main-action>
     </button>
+
+    <ng-container *ngIf="(mainAction$ | async) as action">
+      <ng-container [ngSwitch]="action.type">
+          <ng-container *ngSwitchCase="actionTypes.button">
+              <button
+                  mat-stroked-button
+                  [id]="action.id"
+                  (click)="runAction(action.actions.click)"
+                  [disabled]="action.disabled"
+                  class="app-main-action-button"
+                  data-automation-id="app-main-action-button"
+              >
+                  {{action.title | translate}}
+              </button>
+          </ng-container>
+      </ng-container>
+    </ng-container>
+
 
     <adf-toolbar-divider *ngIf=" isPersonalFilesRoute() || isFavoriteLibrariesRoute() || isLibrariesrRoute() || isTasksRoute() || isProcessesRoute() ">
     </adf-toolbar-divider>
