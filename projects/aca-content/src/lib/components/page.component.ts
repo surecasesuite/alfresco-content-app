@@ -87,12 +87,7 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
       .getCreateActions()
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((actions) => {
-        //this.createActions = actions;
-        console.log('Before',this.createActions);
-        this.createActions = actions.filter(
-          (action) => !(action.id.includes('upload') || action.id.includes('separator'))
-        );
-        console.log('After', this.createActions);
+        this.createActions = actions;
       });
 
     this.extensions
