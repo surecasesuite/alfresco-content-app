@@ -1,7 +1,7 @@
 <div>
   <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
   <span class="action-bar">
-    <button id="btnCreate" mat-button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button-new"
+    <button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button"
       *ngIf=" isPersonalFilesRoute() || isFavoriteLibrariesRoute() || isLibrariesrRoute() "
       [matMenuTriggerFor]="createMenu">
       {{ 'APP.HEADER.BUTTONS.CREATE' | translate }}
@@ -13,7 +13,7 @@
       </div>
     </mat-menu>
 
-    <button mat-button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
+    <button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
       *ngIf="isPersonalFilesRoute()" [matMenuTriggerFor]="uploadMenu">
       {{ 'APP.HEADER.BUTTONS.UPLOAD' | translate }}
     </button>

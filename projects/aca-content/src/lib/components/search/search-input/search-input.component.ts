@@ -112,9 +112,6 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   navigateToSearch() {
-    // this.searchInputService.saveRoute(this.router.url);
-    // this.router.navigate(['/search']);
-    console.log("Navi");
     this.searchInputService.navigateToSearch();
   }
 

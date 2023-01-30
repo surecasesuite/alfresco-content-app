@@ -56,4 +56,11 @@ describe('SearchInputService', () => {
 
     expect(routerNavigate).toHaveBeenCalledWith([service.savedRoute]);
   });
+
+  it('should navigate to Search when navigateToSearch function is called', () => {
+    const routerNavigate = spyOn(router, 'navigate');
+    service.navigateToSearch();
+
+    expect(routerNavigate).toHaveBeenCalledWith(['/search']);
+  });
 });
