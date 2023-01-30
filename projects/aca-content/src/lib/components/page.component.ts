@@ -82,7 +82,6 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
 
     this.mainAction$ = this.extensions.getMainAction().pipe(takeUntil(this.onDestroy$));
-    console.log("Here", this.mainAction$);
 
     this.extensions
       .getCreateActions()
@@ -90,7 +89,9 @@ export abstract class PageComponent implements OnInit, OnDestroy, OnChanges {
       .subscribe((actions) => {
         //this.createActions = actions;
         console.log('Before',this.createActions);
-        this.createActions = actions.filter((action) => !action.id.includes('upload'));
+        this.createActions = actions.filter(
+          (action) => !(action.id.includes('upload') || action.id.includes('separator'))
+        );
         console.log('After', this.createActions);
       });
 
