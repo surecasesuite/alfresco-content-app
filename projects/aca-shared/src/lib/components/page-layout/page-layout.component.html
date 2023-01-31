@@ -1,7 +1,7 @@
 <div class="aca-content-container" [ngClass]="{'aca-page-layout-container' : hideSidenav}">
     <div class="aca-content-header">
         <div class="aca-menu-icon" [ngClass]="{'aca-display-menu' : !hideSidenav}" (click)="toggleClick()">
-            <mat-icon matTooltip="{{'ACA_FOLDER_RULES.TOOLTIPS.EXPAND_NAVIGATION' | translate}}" matTooltipClass="navigation-tooltip">menu</mat-icon>
+            <mat-icon matTooltip="{{'ACA_FOLDER_RULES.TOOLTIPS.EXPAND_NAVIGATION' | translate}}" matTooltipClass="app-expand-tooltip">menu</mat-icon>
         </div>
         <ng-content select="aca-page-layout-header">
         </ng-content>
