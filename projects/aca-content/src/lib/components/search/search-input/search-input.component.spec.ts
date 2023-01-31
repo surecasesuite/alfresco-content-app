@@ -211,26 +211,6 @@ describe('SearchInputComponent', () => {
     });
   });
 
-  describe('exitSearch()', () => {
-    it('should exit search on click of close icon', async () => {
-      spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
-      spyOn(component, 'exitSearch').and.callThrough();
-      spyOn(searchInputService, 'exitSearch').and.callThrough();
-  
-      fixture.detectChanges();
-      await fixture.whenStable();
-  
-      const closeIcon = fixture.debugElement.nativeElement.querySelector('.app-close-icon');
-      closeIcon.click();
-  
-      fixture.detectChanges();
-      await fixture.whenStable();
-  
-      expect(component.exitSearch).toHaveBeenCalled();
-      expect(searchInputService.exitSearch).toHaveBeenCalledWith();
-    });
-  });
-
   describe('navigateToSearch()', () => {
     it('should navigate to search on click of search icon', async () => {
       spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
@@ -248,6 +228,26 @@ describe('SearchInputComponent', () => {
   
       expect(component.navigateToSearch).toHaveBeenCalled();
       expect(searchInputService.navigateToSearch).toHaveBeenCalledWith();
+    });
+  });
+
+  describe('exitSearch()', () => {
+    it('should exit search on click of close icon', async () => {
+      spyOn(searchInputService, 'isSearchRoute').and.returnValue(true);
+      spyOn(component, 'exitSearch').and.callThrough();
+      spyOn(searchInputService, 'exitSearch').and.callThrough();
+  
+      fixture.detectChanges();
+      await fixture.whenStable();
+  
+      const closeIcon = fixture.debugElement.nativeElement.querySelector('.app-close-icon');
+      closeIcon.click();
+  
+      fixture.detectChanges();
+      await fixture.whenStable();
+  
+      expect(component.exitSearch).toHaveBeenCalled();
+      expect(searchInputService.exitSearch).toHaveBeenCalledWith();
     });
   });
 });
