@@ -25,7 +25,6 @@
 
 import { Component, OnInit, Input, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { NavBarLinkRef } from '@alfresco/adf-extensions';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-expand-menu',
@@ -33,11 +32,12 @@ import { Router } from '@angular/router';
   templateUrl: './expand-menu.component.html',
   host: { class: 'app-expand-menu' }
 })
+
 export class ExpandMenuComponent implements OnInit {
   @Input()
   item: NavBarLinkRef;
 
-  constructor(private cd: ChangeDetectorRef, private router: Router) {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.cd.detectChanges();
@@ -45,17 +45,5 @@ export class ExpandMenuComponent implements OnInit {
 
   trackById(_index: number, obj: NavBarLinkRef) {
     return obj.id;
-  }
-
-  isRouteAbout(): boolean {
-    return this.router.url.includes('/about');
-  }
-
-  isRouteProfile(): boolean {
-    return this.router.url.includes('/profile');
-  }
-
-  isRouteSearch(): boolean {
-    return this.router.url.includes('/search');
   }
 }
