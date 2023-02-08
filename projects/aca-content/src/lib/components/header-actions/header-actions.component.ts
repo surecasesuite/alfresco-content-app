@@ -34,6 +34,7 @@ import { SetCurrentFolderAction, AppStore } from '@alfresco/aca-shared/store';
 @Component({
   selector: 'aca-header-actions',
   templateUrl: './header-actions.component.html',
+  styleUrls: ['./header-actions.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderActionsComponent extends PageComponent implements OnInit, OnDestroy {
@@ -58,8 +59,32 @@ export class HeaderActionsComponent extends PageComponent implements OnInit, OnD
     return this.router.url.includes('/favorite/libraries');
   }
 
-  isLibrariesrRoute(): boolean {
+  isLibrariesRoute(): boolean {
     return this.router.url.includes('/libraries');
+  }
+
+  canShowCreateButton(): boolean {
+    if (this.isPersonalFilesRoute() || this.isFavoriteLibrariesRoute() || this.isLibrariesRoute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  canShowUploadButton(): boolean {
+    if (this.isPersonalFilesRoute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  canShowSearchSeparator(): boolean {
+    if (this.isPersonalFilesRoute() || this.isFavoriteLibrariesRoute() || this.isLibrariesRoute()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   isTasksRoute(): boolean {

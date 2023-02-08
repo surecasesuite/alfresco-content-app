@@ -21,8 +21,10 @@ import { HeaderActionsComponent } from './header-actions.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatMenuHarness } from '@angular/material/menu/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { By } from '@angular/platform-browser';
 
 describe('HeaderActionsComponent', () => {
@@ -32,8 +34,8 @@ describe('HeaderActionsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AppTestingModule, NoopAnimationsModule, MatButtonModule],
-      declarations: [HeaderActionsComponent],
+      imports: [AppTestingModule, NoopAnimationsModule, MatButtonModule, MatMenuModule],
+      declarations: [HeaderActionsComponent]
     });
 
     fixture = TestBed.createComponent(HeaderActionsComponent);
@@ -41,41 +43,65 @@ describe('HeaderActionsComponent', () => {
     loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
-  it('total number of buttonss in header should be 3', async () => {
+  it('total number of buttons in header should be 2 if route is personal-files', async () => {
     spyOn(component, 'isPersonalFilesRoute').and.returnValue(true);
     const buttons = await loader.getAllHarnesses(MatButtonHarness);
-
-    fixture.detectChanges();
-    await fixture.whenStable();
+    const createButton = await loader.getAllHarnesses(MatButtonHarness.with({text: 'APP.HEADER.BUTTONS.CREATE'}));
+    const uploadButton = await loader.getAllHarnesses(MatButtonHarness.with({text: 'APP.HEADER.BUTTONS.UPLOAD'}));
 
     expect(buttons.length).toBe(2);
+    expect(createButton.length).toBe(1);
+    expect(uploadButton.length).toBe(1);
+  });
+
+  it('total number of buttons in header should be 1 if route is libraries', async () => {
+    spyOn(component, 'isLibrariesRoute').and.returnValue(true);
+    const buttons = await loader.getAllHarnesses(MatButtonHarness);
+    const createButton = await loader.getAllHarnesses(MatButtonHarness.with({text: 'APP.HEADER.BUTTONS.CREATE'}));
+
+    expect(buttons.length).toBe(1);
+    expect(createButton.length).toBe(1);
+  });
+
+  it('should open and close the create menu', async () => {
+    spyOn(component, 'isPersonalFilesRoute').and.returnValue(true);
+    const createMenu = await loader.getHarness(MatMenuHarness.with({ triggerText: 'APP.HEADER.BUTTONS.CREATE' }));
+
+    expect(await createMenu.isOpen()).toBe(false);
+    await createMenu.open();
+    expect(await createMenu.isOpen()).toBe(true);
+
+    await createMenu.close();
+    expect(await createMenu.isOpen()).toBe(false);
+  });
+
+  it('should open and close the upload menu', async () => {
+    spyOn(component, 'isPersonalFilesRoute').and.returnValue(true);
+    const uploadMenu = await loader.getHarness(MatMenuHarness.with({ triggerText: 'APP.HEADER.BUTTONS.UPLOAD' }));
+
+    expect(await uploadMenu.isOpen()).toBe(false);
+    await uploadMenu.open();
+    expect(await uploadMenu.isOpen()).toBe(true);
+
+    await uploadMenu.close();
+    expect(await uploadMenu.isOpen()).toBe(false);
   });
 
   it('should load create menu on click of create button', async () => {
     spyOn(component, 'isPersonalFilesRoute').and.returnValue(true);
-    fixture.detectChanges();
-    await fixture.whenStable();
 
-    const buttons = await loader.getHarness(MatButtonHarness.with({selector: '.aca-create-button'}));
+    const buttons = await loader.getHarness(MatButtonHarness.with({ selector: '.aca-create-button' }));
     buttons.click();
-
-    fixture.detectChanges();
-    await fixture.whenStable();
 
     const createMenu = fixture.debugElement.queryAll(By.css('.app-create-menu__root-menu app-create-menu__sub-menu'));
     expect(createMenu).toBeTruthy();
   });
-  
+
   it('should load upload menu on click of upload button', async () => {
     spyOn(component, 'isPersonalFilesRoute').and.returnValue(true);
-    fixture.detectChanges();
-    await fixture.whenStable();
 
-    const buttons = await loader.getHarness(MatButtonHarness.with({selector: '.aca-upload-button'}));
+    const buttons = await loader.getHarness(MatButtonHarness.with({ selector: '.aca-upload-button' }));
     buttons.click();
-
-    fixture.detectChanges();
-    await fixture.whenStable();
 
     const uploadMenu = fixture.debugElement.queryAll(By.css('.app-upload-menu__root-menu app-upload-menu__sub-menu'));
     expect(uploadMenu).toBeTruthy();
