@@ -24,6 +24,8 @@
       </div>
     </mat-menu>
 
+    <app-main-action *ngIf="isTasksRoute() || isProcessesRoute()"></app-main-action>
+
     <!-- <ng-container *ngIf="(mainAction$ | async) as action">
       <ng-container [ngSwitch]="action.type">
           <ng-container *ngSwitchCase="actionTypes.button">

@@ -51,6 +51,7 @@ export class MainActionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.mainAction$ = this.extensions.getMainAction().pipe(takeUntil(this.onDestroy$));
+    console.log("MAIN", this.mainAction$);
   }
 
   runAction(action: string): void {
