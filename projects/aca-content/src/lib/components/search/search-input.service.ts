@@ -38,7 +38,7 @@ export class SearchInputService {
     return this.router.url.includes('/search');
   }
 
-  saveRoute(route) {
+  saveRoute(route: string) {
     this.savedRoute = route;
   }
 

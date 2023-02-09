@@ -1,8 +1,8 @@
 <div>
   <div class="adf-toolbar--spacer adf-toolbar-divider"></div>
   <span class="action-bar">
-    <button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button"
-      *ngIf=" isPersonalFilesRoute() || isFavoriteLibrariesRoute() || isLibrariesrRoute() "
+    <button mat-button class="aca-mat-button aca-create-button" mat-stroked-button data-automation-id="create-button"
+      *ngIf="canShowCreateButton()"
       [matMenuTriggerFor]="createMenu">
       {{ 'APP.HEADER.BUTTONS.CREATE' | translate }}
     </button>
@@ -13,8 +13,8 @@
       </div>
     </mat-menu>
 
-    <button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
-      *ngIf="isPersonalFilesRoute()" [matMenuTriggerFor]="uploadMenu">
+    <button mat-button class="aca-mat-button aca-upload-button" mat-stroked-button data-automation-id="upload-button"
+      *ngIf="canShowUploadButton()" [matMenuTriggerFor]="uploadMenu">
       {{ 'APP.HEADER.BUTTONS.UPLOAD' | translate }}
     </button>
     <mat-menu #uploadMenu="matMenu" role="menu" class="app-upload-menu__root-menu app-upload-menu__sub-menu"
@@ -27,7 +27,7 @@
     <ng-container *ngIf="(mainAction$ | async) as action">
       <ng-container [ngSwitch]="action.type">
           <ng-container *ngSwitchCase="actionTypes.button">
-              <button *ngIf="isTasksRoute() || isProcessesRoute()"
+              <button *ngIf="canShowButton()"
                   mat-stroked-button
                   [id]="action.id"
                   (click)="runAction(action.actions.click)"
@@ -41,7 +41,7 @@
       </ng-container>
     </ng-container>
 
-    <adf-toolbar-divider *ngIf=" isPersonalFilesRoute() || isFavoriteLibrariesRoute() || isLibrariesrRoute() || isTasksRoute() || isProcessesRoute() ">
+    <adf-toolbar-divider *ngIf="canShowSearchSeparator()">
     </adf-toolbar-divider>
     <aca-search-input class="app-search-input"></aca-search-input>
   </span>
